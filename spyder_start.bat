@@ -1,0 +1,1 @@
+python -c "from spyder.app.start import main;main()"
