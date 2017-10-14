@@ -259,7 +259,7 @@ label:
 
 	curl_multi_cleanup(curl_handle);
 
-        //如果没有下完,回到开头继续下载
+	//如果没有下完,回到开头继续下载
 	if(offset < vec.size()) goto label;
 
 	return 0;
