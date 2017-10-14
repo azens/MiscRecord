@@ -1,4 +1,5 @@
-
+//uv和curl的下载器修改版
+//参考来源：https://curl.haxx.se/libcurl/c/multi-uv.html
 #include <stdio.h>
 #include <stdlib.h>
 #include <uv.h>
@@ -9,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#define MAX_HANDLE 32
+int MAX_HANDLE = 32;
 int offset = 0;
 int active = 0;
 
@@ -61,7 +62,7 @@ static void add_download(const char *url, int num)
 	CURL *handle;
 
 	char filename[BUFSIZ];
-	snprintf(filename, BUFSIZ, "%d.jpg", num);
+	snprintf(filename, BUFSIZ, "%d.data", num);
 
 	file = fopen(filename, "wb");
 	if (!file) {
@@ -71,6 +72,7 @@ static void add_download(const char *url, int num)
 
 	handle = curl_easy_init();
 
+	//curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1);
 	curl_easy_setopt(handle, CURLOPT_WRITEDATA, file);
 	curl_easy_setopt(handle, CURLOPT_PRIVATE, file);
 	curl_easy_setopt(handle, CURLOPT_URL, url);
@@ -232,6 +234,11 @@ int main(int argc, char **argv)
 	}
 	ifs.close();
 
+
+	if (vec.size() < MAX_HANDLE)
+	{
+		MAX_HANDLE = vec.size();
+	}
 	for (int i = 0; i<MAX_HANDLE; i++)
 	{
 		add_download(vec[i].c_str(), i);
