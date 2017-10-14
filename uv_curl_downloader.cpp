@@ -1,4 +1,4 @@
-//uv和curl的下载器修改版
+//uv和curl的下载器�?改版
 //参考来源：https://curl.haxx.se/libcurl/c/multi-uv.html
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,8 +19,6 @@ using namespace std;
 
 vector<string> vec;
 
-
-
 uv_loop_t *loop;
 CURLM *curl_handle;
 uv_timer_t timeout;
@@ -29,6 +27,13 @@ typedef struct curl_context_s {
 	uv_poll_t poll_handle;
 	curl_socket_t sockfd;
 } curl_context_t;
+
+#include <sys/stat.h>
+int exist(const char *name)
+{
+  struct stat   buffer;
+  return (stat (name, &buffer) == 0);
+}
 
 static curl_context_t* create_curl_context(curl_socket_t sockfd)
 {
@@ -64,6 +69,8 @@ static void add_download(const char *url, int num)
 	char filename[BUFSIZ];
 	snprintf(filename, BUFSIZ, "%d.data", num);
 
+	if(exist(filename)) return;
+    
 	file = fopen(filename, "wb");
 	if (!file) {
 		fprintf(stderr, "Error opening %s\n", filename);
@@ -153,7 +160,7 @@ static void on_timeout(uv_timer_t *req)
 
 static int start_timeout(CURLM *multi, long timeout_ms, void *userp)
 {
-	if (timeout_ms < 0) {
+	if (timeout_ms < 0 && offset == vec.size()) {
 		uv_timer_stop(&timeout);
 	}
 	else {
@@ -204,13 +211,25 @@ static int handle_socket(CURL *easy, curl_socket_t s, int action, void *userp,
 
 int main(int argc, char **argv)
 {
-	loop = uv_default_loop();
-
 	if (argc <= 1)
 	{
 		printf("%Usage:%s <urls_files>.\n", argv[0]);
 		return 0;
 	}
+	ifstream ifs(argv[1]);
+	string s;
+
+	while (getline(ifs, s))
+	{
+		// s.pop_back();
+		vec.push_back(s);
+	}
+	ifs.close();
+
+	int base = 0;
+
+label:
+	loop = uv_default_loop();
 
 	if (curl_global_init(CURL_GLOBAL_ALL)) {
 		fprintf(stderr, "Could not init curl\n");
@@ -223,31 +242,25 @@ int main(int argc, char **argv)
 	curl_multi_setopt(curl_handle, CURLMOPT_SOCKETFUNCTION, handle_socket);
 	curl_multi_setopt(curl_handle, CURLMOPT_TIMERFUNCTION, start_timeout);
 
-
-	ifstream ifs(argv[1]);
-	string s;
-
-	while (getline(ifs, s))
-	{
-		s.pop_back();
-		vec.push_back(s);
-	}
-	ifs.close();
-
-
 	if (vec.size() < MAX_HANDLE)
 	{
 		MAX_HANDLE = vec.size();
 	}
 	for (int i = 0; i<MAX_HANDLE; i++)
 	{
-		add_download(vec[i].c_str(), i);
+		add_download(vec[base + i].c_str(), base + i);
 		offset++;
 		active++;
 	}
 
+	base = offset;
+
 	uv_run(loop, UV_RUN_DEFAULT);
+
 	curl_multi_cleanup(curl_handle);
+
+    //如果没有下完,回到开头继续下载
+	if(offset < vec.size()) goto label;
 
 	return 0;
 }
