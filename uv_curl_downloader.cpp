@@ -1,4 +1,4 @@
-//uv和curl的下载器�?改版
+//uv和curl的下载器修改版
 //参考来源：https://curl.haxx.se/libcurl/c/multi-uv.html
 #include <stdio.h>
 #include <stdlib.h>
@@ -259,7 +259,7 @@ label:
 
 	curl_multi_cleanup(curl_handle);
 
-    //如果没有下完,回到开头继续下载
+        //如果没有下完,回到开头继续下载
 	if(offset < vec.size()) goto label;
 
 	return 0;
