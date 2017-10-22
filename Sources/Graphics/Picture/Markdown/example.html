@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <script type="text/javascript">/*<![CDATA[*/
+  /*
+  March 19, 2004 MathHTML (c) Peter Jipsen http://www.chapman.edu/~jipsen
+  Released under the GNU General Public License version 2 or later.
+  See the GNU General Public License (at http://www.gnu.org/copyleft/gpl.html)
+  for more details.
+  */
+  
+  function convertMath(node) {// for Gecko
+    if (node.nodeType==1) {
+      var newnode =
+        document.createElementNS("http://www.w3.org/1998/Math/MathML",
+          node.nodeName.toLowerCase());
+      for(var i=0; i < node.attributes.length; i++)
+        newnode.setAttribute(node.attributes[i].nodeName,
+          node.attributes[i].value);
+      for (var i=0; i<node.childNodes.length; i++) {
+        var st = node.childNodes[i].nodeValue;
+        if (st==null || st.slice(0,1)!=" " && st.slice(0,1)!="\n")
+          newnode.appendChild(convertMath(node.childNodes[i]));
+      }
+      return newnode;
+    }
+    else return node;
+  }
+  
+  function convert() {
+    var mmlnode = document.getElementsByTagName("math");
+    var st,str,node,newnode;
+    for (var i=0; i<mmlnode.length; i++)
+      if (document.createElementNS!=null)
+        mmlnode[i].parentNode.replaceChild(convertMath(mmlnode[i]),mmlnode[i]);
+      else { // convert for IE
+        str = "";
+        node = mmlnode[i];
+        while (node.nodeName!="/MATH") {
+          st = node.nodeName.toLowerCase();
+          if (st=="#text") str += node.nodeValue;
+          else {
+            str += (st.slice(0,1)=="/" ? "</m:"+st.slice(1) : "<m:"+st);
+            if (st.slice(0,1)!="/")
+               for(var j=0; j < node.attributes.length; j++)
+                 if (node.attributes[j].value!="italic" &&
+                   node.attributes[j].value!="" &&
+                   node.attributes[j].value!="inherit" &&
+                   node.attributes[j].value!=undefined)
+                   str += " "+node.attributes[j].nodeName+"="+
+                       "\""+node.attributes[j].value+"\"";
+            str += ">";
+          }
+          node = node.nextSibling;
+          node.parentNode.removeChild(node.previousSibling);
+        }
+        str += "</m:math>";
+        newnode = document.createElement("span");
+        node.parentNode.replaceChild(newnode,node);
+        newnode.innerHTML = str;
+      }
+  }
+  
+  if (document.createElementNS==null) {
+    document.write("<object id=\"mathplayer\"\
+    classid=\"clsid:32F66A20-7614-11D4-BD11-00104BD3F987\"></object>");
+    document.write("<?import namespace=\"m\" implementation=\"#mathplayer\"?>");
+  }
+  if(typeof window.addEventListener != 'undefined'){
+    window.addEventListener('load', convert, false);
+  }
+  if(typeof window.attachEvent != 'undefined') {
+    window.attachEvent('onload', convert);
+  }
+  /*]]>*/
+  </script>
+</head>
+<body>
+<h3 id="part1.this-is-a-equation-and-some-websites.">Part1.This is a equation and some websites.</h3>
+<blockquote>
+<center>
+<strong>Hello</strong> World
+</center>
+</blockquote>
+<p><font size=75><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mi>m</mi><msup><mi>c</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">E=mc^2</annotation></semantics></math></font><br> I get 10 times more traffic from <a href="http://google.com/" title="Google">Google</a> than from <a href="http://search.yahoo.com/" title="Yahoo Search">Yahoo</a> or <a href="http://search.msn.com/" title="MSN Search">MSN</a>.<strong>How about you.</strong></p>
+<h3 id="part2.there-are-the-examples-of-some-programming-language.">Part2.There are the examples of some programming language.</h3>
+<blockquote>
+<p>给出一些例子代码：</p>
+<h4 id="this-is-the-c.">This is the C.</h4>
+</blockquote>
+<blockquote>
+<blockquote>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="ot">#include &lt;stdio.h&gt;</span>
+<span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span> <span class="dt">const</span> *argv[])
+{
+    puts(<span class="st">&quot;hello&quot;</span>);
+    <span class="kw">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+</blockquote>
+</blockquote>
+<blockquote>
+<h4 id="this-is-the-java.">This is the Java.</h4>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="co">//package console;</span>
+<span class="kw">public</span> <span class="kw">class</span> Print {
+    <span class="dt">static</span> <span class="dt">void</span> <span class="fu">print</span>(Object obj){
+        System.<span class="fu">out</span>.<span class="fu">println</span>(obj);
+    }
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args){
+        <span class="fu">print</span>(<span class="st">&quot;Hello World&quot;</span>);
+    }
+}</code></pre></div>
+</blockquote>
+<blockquote>
+<h4 id="this-is-the-matlab">This is the MATLAB</h4>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">set(<span class="fl">0</span>,<span class="st">&#39;DefaultFigureVisible&#39;</span>,<span class="st">&#39;off&#39;</span>)
+ezplot(<span class="st">&#39;cos(x)&#39;</span>);grid minor
+print -dps main.ps
+<span class="bn">!main.ps</span></code></pre></div>
+</blockquote>
+<blockquote>
+<h4 id="this-is-the-python">This is the Python</h4>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> turtle <span class="im">import</span> <span class="op">*</span>
+<span class="im">from</span> math <span class="im">import</span><span class="op">*</span>
+speed(<span class="st">&#39;fastest&#39;</span>)
+x<span class="op">=</span><span class="bu">list</span>(<span class="bu">range</span>(<span class="op">-</span><span class="dv">50</span>,<span class="dv">50</span>))<span class="op">;</span>
+y<span class="op">=</span>[]
+<span class="cf">for</span> i <span class="op">in</span> <span class="bu">range</span>(<span class="dv">100</span>):
+    x[i]<span class="op">=</span>x[i]<span class="op">/</span><span class="dv">10</span>
+    y.append(sin(x[i]))
+    x[i]<span class="op">=</span><span class="dv">50</span><span class="op">*</span>x[i]
+    y[i]<span class="op">=</span><span class="dv">100</span><span class="op">*</span>y[i]
+color(<span class="st">&#39;white&#39;</span>)
+setpos(x[<span class="dv">0</span>],y[<span class="dv">0</span>])
+color(<span class="st">&#39;blue&#39;</span>)
+<span class="cf">for</span> i <span class="op">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">100</span>):
+    setpos(x[i],y[i])
+<span class="op">!</span>main.ps</code></pre></div>
+</blockquote>
+<blockquote>
+<h4 id="this-is-the-short-code-in-a-sentence.">This is the short code in a sentence.</h4>
+<p>Use the <code>printf()</code> function.</p>
+</blockquote>
+<h3 id="part3.these-are-the-origin-three-colors.">Part3.These are the origin three colors.</h3>
+<p><font face="Cambria"></p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>Red.<strong>波长大约为630到750纳米，类似于新鲜血液的颜色</strong></li>
+<li>Green.<strong>大自然界中常见的颜色。植物的绿色来自于叶绿素</strong></li>
+<li>Blue.<strong>是天空的颜色，象征虚空、无穷以及神圣的</strong></li>
+</ol>
+</blockquote>
+<p></font></p>
+<p><img src="test.jpg" width="640" height="480" /></p>
+<h3 id="part4.theres-are-some-sentences.">Part4.Theres are some sentences.</h3>
+<p><font face="Consolas"></p>
+<ul>
+<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,viverra nec, fringilla in, laoreet vitae, risus.</li>
+<li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.</li>
+</ul>
+<p></font> This is <a href="http://example.com/" title="Title">an example</a> inline link. <a href="http://example.net/">This link</a> has no title attribute.</p>
+<h3 id="part4.this-is-example-for-the-picture">Part4.This is example for the picture</h3>
+<blockquote>
+<center>
+<img src="test.jpg" width="640" height="480" />
+</center>
+</blockquote>
+</body>
+</html>

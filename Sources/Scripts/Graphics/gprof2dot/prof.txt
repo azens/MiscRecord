@@ -1,0 +1,597 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ns/call  ns/call  name    
+ 37.84      0.14     0.14  1000000   140.00   140.00  f3
+ 21.62      0.22     0.08  1000000    80.00    80.00  f2
+ 16.22      0.28     0.06                             _mcount_private
+ 13.51      0.33     0.05  1000000    50.00    50.00  f1
+  8.11      0.36     0.03                             malloc
+  2.70      0.37     0.01                             main
+  0.00      0.37     0.00                             WinMainCRTStartup
+  0.00      0.37     0.00                             _CTOR_LIST__
+  0.00      0.37     0.00                             _FindPESection
+  0.00      0.37     0.00                             _FindPESectionByName
+  0.00      0.37     0.00                             _FindPESectionExec
+  0.00      0.37     0.00                             _GetPEImageBase
+  0.00      0.37     0.00                             _IsNonwritableInCurrentImage
+  0.00      0.37     0.00                             _ValidateImageBase
+  0.00      0.37     0.00                             __DTOR_LIST__
+  0.00      0.37     0.00                             ___w64_mingwthr_add_key_dtor
+  0.00      0.37     0.00                             ___w64_mingwthr_remove_key_dtor
+  0.00      0.37     0.00                             __chkstk_ms
+  0.00      0.37     0.00                             __dllonexit
+  0.00      0.37     0.00                             __do_global_ctors
+  0.00      0.37     0.00                             __do_global_dtors
+  0.00      0.37     0.00                             __dyn_tls_dtor@12
+  0.00      0.37     0.00                             __dyn_tls_init@12
+  0.00      0.37     0.00                             __gcc_deregister_frame
+  0.00      0.37     0.00                             __gcc_register_frame
+  0.00      0.37     0.00                             __getmainargs
+  0.00      0.37     0.00                             __main
+  0.00      0.37     0.00                             __mingw_GetSectionCount
+  0.00      0.37     0.00                             __mingw_GetSectionForAddress
+  0.00      0.37     0.00                             __mingw_TLScallback
+  0.00      0.37     0.00                             __mingw_enum_import_library_names
+  0.00      0.37     0.00                             __mingw_invalidParameterHandler
+  0.00      0.37     0.00                             __mingw_raise_matherr
+  0.00      0.37     0.00                             __mingw_setusermatherr
+  0.00      0.37     0.00                             __report_error
+  0.00      0.37     0.00                             __report_gsfailure
+  0.00      0.37     0.00                             __security_init_cookie
+  0.00      0.37     0.00                             __set_app_type
+  0.00      0.37     0.00                             __setusermatherr
+  0.00      0.37     0.00                             __tlregdtor
+  0.00      0.37     0.00                             __tmainCRTStartup
+  0.00      0.37     0.00                             __udivdi3
+  0.00      0.37     0.00                             _amsg_exit
+  0.00      0.37     0.00                             _cexit
+  0.00      0.37     0.00                             _decode_pointer
+  0.00      0.37     0.00                             _encode_pointer
+  0.00      0.37     0.00                             _fentry__
+  0.00      0.37     0.00                             _get_invalid_parameter_handler
+  0.00      0.37     0.00                             _gnu_exception_handler@4
+  0.00      0.37     0.00                             _initterm
+  0.00      0.37     0.00                             _lock
+  0.00      0.37     0.00                             _matherr
+  0.00      0.37     0.00                             _mcleanup
+  0.00      0.37     0.00                             _monstartup
+  0.00      0.37     0.00                             _pei386_runtime_relocator
+  0.00      0.37     0.00                             _set_invalid_parameter_handler
+  0.00      0.37     0.00                             _setargv
+  0.00      0.37     0.00                             _unlock
+  0.00      0.37     0.00                             abort
+  0.00      0.37     0.00                             atexit
+  0.00      0.37     0.00                             calloc
+  0.00      0.37     0.00                             close
+  0.00      0.37     0.00                             exit
+  0.00      0.37     0.00                             fpreset
+  0.00      0.37     0.00                             fprintf
+  0.00      0.37     0.00                             free
+  0.00      0.37     0.00                             fwrite
+  0.00      0.37     0.00                             get_thrpc
+  0.00      0.37     0.00                             mainCRTStartup
+  0.00      0.37     0.00                             mark_section_writable
+  0.00      0.37     0.00                             memcpy
+  0.00      0.37     0.00                             memset
+  0.00      0.37     0.00                             mingw_onexit
+  0.00      0.37     0.00                             moncontrol
+  0.00      0.37     0.00                             monstartup
+  0.00      0.37     0.00                             my_lconv_init
+  0.00      0.37     0.00                             open
+  0.00      0.37     0.00                             perror
+  0.00      0.37     0.00                             pre_c_init
+  0.00      0.37     0.00                             pre_cpp_init
+  0.00      0.37     0.00                             profil
+  0.00      0.37     0.00                             profile_ctl
+  0.00      0.37     0.00                             profthr_func@4
+  0.00      0.37     0.00                             register_frame_ctor
+  0.00      0.37     0.00                             signal
+  0.00      0.37     0.00                             strlen
+  0.00      0.37     0.00                             strncmp
+  0.00      0.37     0.00                             vfprintf
+  0.00      0.37     0.00                             write
+  0.00      0.37     0.00                             etext
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2015 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 2.70% of 0.37 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     75.7    0.01    0.27                 main [1]
+                0.14    0.00 1000000/1000000     f3 [2]
+                0.08    0.00 1000000/1000000     f2 [3]
+                0.05    0.00 1000000/1000000     f1 [5]
+-----------------------------------------------
+                0.14    0.00 1000000/1000000     main [1]
+[2]     37.8    0.14    0.00 1000000         f3 [2]
+-----------------------------------------------
+                0.08    0.00 1000000/1000000     main [1]
+[3]     21.6    0.08    0.00 1000000         f2 [3]
+-----------------------------------------------
+                                                 <spontaneous>
+[4]     16.2    0.06    0.00                 _mcount_private [4]
+-----------------------------------------------
+                0.05    0.00 1000000/1000000     main [1]
+[5]     13.5    0.05    0.00 1000000         f1 [5]
+-----------------------------------------------
+                                                 <spontaneous>
+[6]      8.1    0.03    0.00                 malloc [6]
+-----------------------------------------------
+                                                 <spontaneous>
+[7]      0.0    0.00    0.00                 etext [7]
+-----------------------------------------------
+                                                 <spontaneous>
+[8]      0.0    0.00    0.00                 WinMainCRTStartup [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[9]      0.0    0.00    0.00                 _CTOR_LIST__ [9]
+-----------------------------------------------
+                                                 <spontaneous>
+[10]     0.0    0.00    0.00                 _FindPESection [10]
+-----------------------------------------------
+                                                 <spontaneous>
+[11]     0.0    0.00    0.00                 _FindPESectionByName [11]
+-----------------------------------------------
+                                                 <spontaneous>
+[12]     0.0    0.00    0.00                 _FindPESectionExec [12]
+-----------------------------------------------
+                                                 <spontaneous>
+[13]     0.0    0.00    0.00                 _GetPEImageBase [13]
+-----------------------------------------------
+                                                 <spontaneous>
+[14]     0.0    0.00    0.00                 _IsNonwritableInCurrentImage [14]
+-----------------------------------------------
+                                                 <spontaneous>
+[15]     0.0    0.00    0.00                 _ValidateImageBase [15]
+-----------------------------------------------
+                                                 <spontaneous>
+[16]     0.0    0.00    0.00                 __DTOR_LIST__ [16]
+-----------------------------------------------
+                                                 <spontaneous>
+[17]     0.0    0.00    0.00                 ___w64_mingwthr_add_key_dtor [17]
+-----------------------------------------------
+                                                 <spontaneous>
+[18]     0.0    0.00    0.00                 ___w64_mingwthr_remove_key_dtor [18]
+-----------------------------------------------
+                                                 <spontaneous>
+[19]     0.0    0.00    0.00                 __chkstk_ms [19]
+-----------------------------------------------
+                                                 <spontaneous>
+[20]     0.0    0.00    0.00                 __dllonexit [20]
+-----------------------------------------------
+                                                 <spontaneous>
+[21]     0.0    0.00    0.00                 __do_global_ctors [21]
+-----------------------------------------------
+                                                 <spontaneous>
+[22]     0.0    0.00    0.00                 __do_global_dtors [22]
+-----------------------------------------------
+                                                 <spontaneous>
+[23]     0.0    0.00    0.00                 __dyn_tls_dtor@12 [23]
+-----------------------------------------------
+                                                 <spontaneous>
+[24]     0.0    0.00    0.00                 __dyn_tls_init@12 [24]
+-----------------------------------------------
+                                                 <spontaneous>
+[25]     0.0    0.00    0.00                 __gcc_deregister_frame [25]
+-----------------------------------------------
+                                                 <spontaneous>
+[26]     0.0    0.00    0.00                 __gcc_register_frame [26]
+-----------------------------------------------
+                                                 <spontaneous>
+[27]     0.0    0.00    0.00                 __getmainargs [27]
+-----------------------------------------------
+                                                 <spontaneous>
+[28]     0.0    0.00    0.00                 __main [28]
+-----------------------------------------------
+                                                 <spontaneous>
+[29]     0.0    0.00    0.00                 __mingw_GetSectionCount [29]
+-----------------------------------------------
+                                                 <spontaneous>
+[30]     0.0    0.00    0.00                 __mingw_GetSectionForAddress [30]
+-----------------------------------------------
+                                                 <spontaneous>
+[31]     0.0    0.00    0.00                 __mingw_TLScallback [31]
+-----------------------------------------------
+                                                 <spontaneous>
+[32]     0.0    0.00    0.00                 __mingw_enum_import_library_names [32]
+-----------------------------------------------
+                                                 <spontaneous>
+[33]     0.0    0.00    0.00                 __mingw_invalidParameterHandler [33]
+-----------------------------------------------
+                                                 <spontaneous>
+[34]     0.0    0.00    0.00                 __mingw_raise_matherr [34]
+-----------------------------------------------
+                                                 <spontaneous>
+[35]     0.0    0.00    0.00                 __mingw_setusermatherr [35]
+-----------------------------------------------
+                                                 <spontaneous>
+[36]     0.0    0.00    0.00                 __report_error [36]
+-----------------------------------------------
+                                                 <spontaneous>
+[37]     0.0    0.00    0.00                 __report_gsfailure [37]
+-----------------------------------------------
+                                                 <spontaneous>
+[38]     0.0    0.00    0.00                 __security_init_cookie [38]
+-----------------------------------------------
+                                                 <spontaneous>
+[39]     0.0    0.00    0.00                 __set_app_type [39]
+-----------------------------------------------
+                                                 <spontaneous>
+[40]     0.0    0.00    0.00                 __setusermatherr [40]
+-----------------------------------------------
+                                                 <spontaneous>
+[41]     0.0    0.00    0.00                 __tlregdtor [41]
+-----------------------------------------------
+                                                 <spontaneous>
+[42]     0.0    0.00    0.00                 __tmainCRTStartup [42]
+-----------------------------------------------
+                                                 <spontaneous>
+[43]     0.0    0.00    0.00                 __udivdi3 [43]
+-----------------------------------------------
+                                                 <spontaneous>
+[44]     0.0    0.00    0.00                 _amsg_exit [44]
+-----------------------------------------------
+                                                 <spontaneous>
+[45]     0.0    0.00    0.00                 _cexit [45]
+-----------------------------------------------
+                                                 <spontaneous>
+[46]     0.0    0.00    0.00                 _decode_pointer [46]
+-----------------------------------------------
+                                                 <spontaneous>
+[47]     0.0    0.00    0.00                 _encode_pointer [47]
+-----------------------------------------------
+                                                 <spontaneous>
+[48]     0.0    0.00    0.00                 _fentry__ [48]
+-----------------------------------------------
+                                                 <spontaneous>
+[49]     0.0    0.00    0.00                 _get_invalid_parameter_handler [49]
+-----------------------------------------------
+                                                 <spontaneous>
+[50]     0.0    0.00    0.00                 _gnu_exception_handler@4 [50]
+-----------------------------------------------
+                                                 <spontaneous>
+[51]     0.0    0.00    0.00                 _initterm [51]
+-----------------------------------------------
+                                                 <spontaneous>
+[52]     0.0    0.00    0.00                 _lock [52]
+-----------------------------------------------
+                                                 <spontaneous>
+[53]     0.0    0.00    0.00                 _matherr [53]
+-----------------------------------------------
+                                                 <spontaneous>
+[54]     0.0    0.00    0.00                 _mcleanup [54]
+-----------------------------------------------
+                                                 <spontaneous>
+[55]     0.0    0.00    0.00                 _monstartup [55]
+-----------------------------------------------
+                                                 <spontaneous>
+[56]     0.0    0.00    0.00                 _pei386_runtime_relocator [56]
+-----------------------------------------------
+                                                 <spontaneous>
+[57]     0.0    0.00    0.00                 _set_invalid_parameter_handler [57]
+-----------------------------------------------
+                                                 <spontaneous>
+[58]     0.0    0.00    0.00                 _setargv [58]
+-----------------------------------------------
+                                                 <spontaneous>
+[59]     0.0    0.00    0.00                 _unlock [59]
+-----------------------------------------------
+                                                 <spontaneous>
+[60]     0.0    0.00    0.00                 abort [60]
+-----------------------------------------------
+                                                 <spontaneous>
+[61]     0.0    0.00    0.00                 atexit [61]
+-----------------------------------------------
+                                                 <spontaneous>
+[62]     0.0    0.00    0.00                 calloc [62]
+-----------------------------------------------
+                                                 <spontaneous>
+[63]     0.0    0.00    0.00                 close [63]
+-----------------------------------------------
+                                                 <spontaneous>
+[64]     0.0    0.00    0.00                 exit [64]
+-----------------------------------------------
+                                                 <spontaneous>
+[65]     0.0    0.00    0.00                 fpreset [65]
+-----------------------------------------------
+                                                 <spontaneous>
+[66]     0.0    0.00    0.00                 fprintf [66]
+-----------------------------------------------
+                                                 <spontaneous>
+[67]     0.0    0.00    0.00                 free [67]
+-----------------------------------------------
+                                                 <spontaneous>
+[68]     0.0    0.00    0.00                 fwrite [68]
+-----------------------------------------------
+                                                 <spontaneous>
+[69]     0.0    0.00    0.00                 get_thrpc [69]
+-----------------------------------------------
+                                                 <spontaneous>
+[70]     0.0    0.00    0.00                 mainCRTStartup [70]
+-----------------------------------------------
+                                                 <spontaneous>
+[71]     0.0    0.00    0.00                 mark_section_writable [71]
+-----------------------------------------------
+                                                 <spontaneous>
+[73]     0.0    0.00    0.00                 memcpy [73]
+-----------------------------------------------
+                                                 <spontaneous>
+[74]     0.0    0.00    0.00                 memset [74]
+-----------------------------------------------
+                                                 <spontaneous>
+[75]     0.0    0.00    0.00                 mingw_onexit [75]
+-----------------------------------------------
+                                                 <spontaneous>
+[76]     0.0    0.00    0.00                 moncontrol [76]
+-----------------------------------------------
+                                                 <spontaneous>
+[77]     0.0    0.00    0.00                 monstartup [77]
+-----------------------------------------------
+                                                 <spontaneous>
+[78]     0.0    0.00    0.00                 my_lconv_init [78]
+-----------------------------------------------
+                                                 <spontaneous>
+[79]     0.0    0.00    0.00                 open [79]
+-----------------------------------------------
+                                                 <spontaneous>
+[80]     0.0    0.00    0.00                 perror [80]
+-----------------------------------------------
+                                                 <spontaneous>
+[81]     0.0    0.00    0.00                 pre_c_init [81]
+-----------------------------------------------
+                                                 <spontaneous>
+[82]     0.0    0.00    0.00                 pre_cpp_init [82]
+-----------------------------------------------
+                                                 <spontaneous>
+[83]     0.0    0.00    0.00                 profil [83]
+-----------------------------------------------
+                                                 <spontaneous>
+[84]     0.0    0.00    0.00                 profile_ctl [84]
+-----------------------------------------------
+                                                 <spontaneous>
+[85]     0.0    0.00    0.00                 profthr_func@4 [85]
+-----------------------------------------------
+                                                 <spontaneous>
+[86]     0.0    0.00    0.00                 register_frame_ctor [86]
+-----------------------------------------------
+                                                 <spontaneous>
+[87]     0.0    0.00    0.00                 signal [87]
+-----------------------------------------------
+                                                 <spontaneous>
+[88]     0.0    0.00    0.00                 strlen [88]
+-----------------------------------------------
+                                                 <spontaneous>
+[89]     0.0    0.00    0.00                 strncmp [89]
+-----------------------------------------------
+                                                 <spontaneous>
+[90]     0.0    0.00    0.00                 vfprintf [90]
+-----------------------------------------------
+                                                 <spontaneous>
+[91]     0.0    0.00    0.00                 write [91]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2015 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+   [8] WinMainCRTStartup      [39] __set_app_type         [66] fprintf
+   [9] _CTOR_LIST__           [40] __setusermatherr       [67] free
+  [10] _FindPESection         [41] __tlregdtor            [68] fwrite
+  [11] _FindPESectionByName   [42] __tmainCRTStartup (crtexe.c) [69] get_thrpc (profil.c)
+  [12] _FindPESectionExec     [43] __udivdi3               [1] main
+  [13] _GetPEImageBase        [44] _amsg_exit             [70] mainCRTStartup
+  [14] _IsNonwritableInCurrentImage [45] _cexit            [6] malloc
+  [15] _ValidateImageBase     [46] _decode_pointer        [71] mark_section_writable (pseudo-reloc.c)
+  [16] __DTOR_LIST__          [47] _encode_pointer        (72) mcount
+  [17] ___w64_mingwthr_add_key_dtor [48] _fentry__        [73] memcpy
+  [18] ___w64_mingwthr_remove_key_dtor [49] _get_invalid_parameter_handler [74] memset
+  [19] __chkstk_ms            [50] _gnu_exception_handler@4 [75] mingw_onexit
+  [20] __dllonexit            [51] _initterm              [76] moncontrol
+  [21] __do_global_ctors      [52] _lock                  [77] monstartup
+  [22] __do_global_dtors      [53] _matherr               [78] my_lconv_init (charmax.c)
+  [23] __dyn_tls_dtor@12 (tlssup.c) [54] _mcleanup        [79] open
+  [24] __dyn_tls_init@12       [4] _mcount_private        [80] perror
+  [25] __gcc_deregister_frame [55] _monstartup            [81] pre_c_init (crtexe.c)
+  [26] __gcc_register_frame   [56] _pei386_runtime_relocator [82] pre_cpp_init (crtexe.c)
+  [27] __getmainargs          [57] _set_invalid_parameter_handler [83] profil
+  [28] __main                 [58] _setargv               [84] profile_ctl
+  [29] __mingw_GetSectionCount [59] _unlock               [85] profthr_func@4 (profil.c)
+  [30] __mingw_GetSectionForAddress [60] abort            [86] register_frame_ctor
+  [31] __mingw_TLScallback    [61] atexit                 [87] signal
+  [32] __mingw_enum_import_library_names [62] calloc      [88] strlen
+  [33] __mingw_invalidParameterHandler (crtexe.c) [63] close [89] strncmp
+  [34] __mingw_raise_matherr  [64] exit                   [90] vfprintf
+  [35] __mingw_setusermatherr  [5] f1                     [91] write
+  [36] __report_error (pseudo-reloc.c) [3] f2              [7] etext
+  [37] __report_gsfailure      [2] f3
+  [38] __security_init_cookie [65] fpreset
+
+*** File D:\Software\MSYS2\home\user\gprof2dottest/main.c:
+                #include <stdio.h>
+                #include <stdlib.h>
+                
+                void f1()
+     1000000 -> {
+                	int i;
+                	int *p;
+                	for (i = 0; i < 10; i++) {
+                		p = malloc(sizeof(int));
+                		*p = 10;
+                		free(p);
+                	}
+                }
+                
+                void f2()
+     1000000 -> {
+                	int i;
+                	int *p;
+                	for (i = 0; i < 20; i++) {
+                		p = malloc(sizeof(int));
+                		*p = 10;
+                		free(p);
+                	}
+                }
+                
+                void f3()
+     1000000 -> {
+                	int i;
+                	int *p;
+                	for (i = 0; i < 30; i++) {
+                		p = malloc(sizeof(int));
+                		*p = 10;
+                		free(p);
+                	}
+                }
+                
+                int main()
+       ##### -> {
+                	int i;
+                
+                	for (i = 0; i < 1000000; i++) {
+                		f1();
+                		f2();
+                		f3();
+                	}
+                
+                	return 0;
+                }
+
+Top 10 Lines:
+
+     Line      Count
+
+        5    1000000
+       16    1000000
+       27    1000000
+
+Execution Summary:
+
+        4   Executable lines in this file
+        4   Lines executed
+   100.00   Percent of the file executed
+
+  3000000   Total number of line executions
+750000.00   Average executions per line

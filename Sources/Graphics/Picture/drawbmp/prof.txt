@@ -1,0 +1,725 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 26.67      0.32     0.32                             __sinl_internal
+ 21.67      0.58     0.26                             __cosl_internal
+ 17.50      0.79     0.21  6676975     0.00     0.00  SetPixel(tagImage*, int, int)
+ 10.83      0.92     0.13                             cos
+  9.17      1.03     0.11       97     1.13     3.71  DrawArray3(tagImage*, float*, int, int)
+  5.00      1.09     0.06                             _mcount_private
+  3.33      1.13     0.04  1396800     0.00     0.00  Line(tagImage*, int, int, int, int)
+  2.50      1.16     0.03                             sin
+  1.67      1.18     0.02       97     0.21     0.21  RotateY(float*, int, float)
+  0.83      1.19     0.01       97     0.10     0.10  RotateX(float*, int, float)
+  0.83      1.20     0.01                             exp
+  0.00      1.20     0.00  2057238     0.00     0.00  swap(int&, int&)
+  0.00      1.20     0.00    14400     0.00     0.00  fun(float, float)
+  0.00      1.20     0.00      100     0.00     3.90  render(tagImage)
+  0.00      1.20     0.00       97     0.00     0.00  ClearGraph(tagImage*)
+  0.00      1.20     0.00       97     0.00     4.02  display(tagImage*)
+  0.00      1.20     0.00        1     0.00     0.00  initwindow()
+  0.00      1.20     0.00        1     0.00   390.00  fps(tagImage, int)
+  0.00      1.20     0.00        1     0.00     0.00  SetColor(tagImage*, int, int, int)
+  0.00      1.20     0.00        1     0.00     0.00  initiate(int, int)
+  0.00      1.20     0.00        1     0.00     0.00  SetOrigin(tagImage*, int, int)
+  0.00      1.20     0.00        1     0.00     0.00  initgraph(tagImage*)
+  0.00      1.20     0.00        1     0.00     0.00  initimage(tagImage*, int, int)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2015 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.83% of 1.20 seconds
+
+index % time    self  children    called     name
+                0.00    0.39     100/100         fps(tagImage, int) [3]
+[1]     32.5    0.00    0.39     100         render(tagImage) [1]
+                0.00    0.39      97/97          display(tagImage*) [2]
+                0.00    0.00      97/97          ClearGraph(tagImage*) [19]
+-----------------------------------------------
+                0.00    0.39      97/97          render(tagImage) [1]
+[2]     32.5    0.00    0.39      97         display(tagImage*) [2]
+                0.11    0.25      97/97          DrawArray3(tagImage*, float*, int, int) [5]
+                0.02    0.00      97/97          RotateY(float*, int, float) [13]
+                0.01    0.00      97/97          RotateX(float*, int, float) [14]
+-----------------------------------------------
+                0.00    0.39       1/1           main [4]
+[3]     32.5    0.00    0.39       1         fps(tagImage, int) [3]
+                0.00    0.39     100/100         render(tagImage) [1]
+-----------------------------------------------
+                                                 <spontaneous>
+[4]     32.5    0.00    0.39                 main [4]
+                0.00    0.39       1/1           fps(tagImage, int) [3]
+                0.00    0.00       1/1           initwindow() [20]
+                0.00    0.00       1/1           initiate(int, int) [22]
+                0.00    0.00       1/1           initimage(tagImage*, int, int) [25]
+                0.00    0.00       1/1           SetOrigin(tagImage*, int, int) [23]
+                0.00    0.00       1/1           SetColor(tagImage*, int, int, int) [21]
+                0.00    0.00       1/1           initgraph(tagImage*) [24]
+-----------------------------------------------
+                0.11    0.25      97/97          display(tagImage*) [2]
+[5]     30.0    0.11    0.25      97         DrawArray3(tagImage*, float*, int, int) [5]
+                0.04    0.21 1396800/1396800     Line(tagImage*, int, int, int, int) [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[6]     26.7    0.32    0.00                 __sinl_internal [6]
+-----------------------------------------------
+                                                 <spontaneous>
+[7]     21.7    0.26    0.00                 __cosl_internal [7]
+-----------------------------------------------
+                0.04    0.21 1396800/1396800     DrawArray3(tagImage*, float*, int, int) [5]
+[8]     20.8    0.04    0.21 1396800         Line(tagImage*, int, int, int, int) [8]
+                0.21    0.00 6676975/6676975     SetPixel(tagImage*, int, int) [9]
+                0.00    0.00 2057238/2057238     swap(int&, int&) [17]
+-----------------------------------------------
+                0.21    0.00 6676975/6676975     Line(tagImage*, int, int, int, int) [8]
+[9]     17.5    0.21    0.00 6676975         SetPixel(tagImage*, int, int) [9]
+-----------------------------------------------
+                                                 <spontaneous>
+[10]    10.8    0.13    0.00                 cos [10]
+-----------------------------------------------
+                                                 <spontaneous>
+[11]     5.0    0.06    0.00                 _mcount_private [11]
+-----------------------------------------------
+                                                 <spontaneous>
+[12]     2.5    0.03    0.00                 sin [12]
+-----------------------------------------------
+                0.02    0.00      97/97          display(tagImage*) [2]
+[13]     1.7    0.02    0.00      97         RotateY(float*, int, float) [13]
+-----------------------------------------------
+                0.01    0.00      97/97          display(tagImage*) [2]
+[14]     0.8    0.01    0.00      97         RotateX(float*, int, float) [14]
+-----------------------------------------------
+                                                 <spontaneous>
+[15]     0.8    0.01    0.00                 exp [15]
+-----------------------------------------------
+                0.00    0.00 2057238/2057238     Line(tagImage*, int, int, int, int) [8]
+[17]     0.0    0.00    0.00 2057238         swap(int&, int&) [17]
+-----------------------------------------------
+                0.00    0.00   14400/14400       initiate(int, int) [22]
+[18]     0.0    0.00    0.00   14400         fun(float, float) [18]
+-----------------------------------------------
+                0.00    0.00      97/97          render(tagImage) [1]
+[19]     0.0    0.00    0.00      97         ClearGraph(tagImage*) [19]
+-----------------------------------------------
+                0.00    0.00       1/1           main [4]
+[20]     0.0    0.00    0.00       1         initwindow() [20]
+-----------------------------------------------
+                0.00    0.00       1/1           main [4]
+[21]     0.0    0.00    0.00       1         SetColor(tagImage*, int, int, int) [21]
+-----------------------------------------------
+                0.00    0.00       1/1           main [4]
+[22]     0.0    0.00    0.00       1         initiate(int, int) [22]
+                0.00    0.00   14400/14400       fun(float, float) [18]
+-----------------------------------------------
+                0.00    0.00       1/1           main [4]
+[23]     0.0    0.00    0.00       1         SetOrigin(tagImage*, int, int) [23]
+-----------------------------------------------
+                0.00    0.00       1/1           main [4]
+[24]     0.0    0.00    0.00       1         initgraph(tagImage*) [24]
+-----------------------------------------------
+                0.00    0.00       1/1           main [4]
+[25]     0.0    0.00    0.00       1         initimage(tagImage*, int, int) [25]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2015 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [19] ClearGraph(tagImage*)  [14] RotateX(float*, int, float) [25] initimage(tagImage*, int, int)
+   [5] DrawArray3(tagImage*, float*, int, int) [13] RotateY(float*, int, float) [7] __cosl_internal
+  [20] initwindow()            [2] display(tagImage*)      [6] __sinl_internal
+   [3] fps(tagImage, int)     [21] SetColor(tagImage*, int, int, int) [11] _mcount_private
+  [18] fun(float, float)       [9] SetPixel(tagImage*, int, int) [10] cos
+   [8] Line(tagImage*, int, int, int, int) [22] initiate(int, int) [15] exp
+  [17] swap(int&, int&)       [23] SetOrigin(tagImage*, int, int) [12] sin
+   [1] render(tagImage)       [24] initgraph(tagImage*)
+
+*** File D:\Software\MSYS2\home\user\sources\drawbmp/drawbmp.cpp:
+                //改成DrawArray帧率由50-60fps提示到90-100fps。
+                #include <math.h>
+                #include <time.h>
+                #include <stdio.h>
+                #include <stdlib.h>
+                #include <windows.h>
+                #define PI  3.1415926536
+                #define Length(x) (sizeof(x)/sizeof(x[0])/3)
+                
+                HWND  hwnd;
+                HDC hdc;
+                
+                typedef unsigned char byte;
+                //
+                BITMAPINFO bmi;
+                typedef struct tagRGB {
+                	byte r, g, b;
+                } RGB;
+                //
+                
+                //三维点数组结构
+                typedef struct tagPoint3D {
+                	float x, y, z;
+                }Point3D;
+                //
+                inline void swap(int &a, int &b)
+     2057238 -> {
+                	int t = a;
+                	a = b;
+                	b = t;
+                }
+                typedef struct tagImage {
+                	int Width, Height, Size;
+                	byte *Data;
+                	int ox, oy;
+                	int red, green, blue;
+                	float xscale, yscale;
+                } Image;
+                //初始化位图矩阵bitmap
+                void initimage(Image* img, int w, int h)
+           1 -> {
+                	//
+                	img->ox = 0, img->oy = 0;
+                	img->red = 0, img->green = 255, img->blue = 0;
+                	img->xscale = 1.0, img->yscale = 1.0;
+                	//
+                	img->Width = w, img->Height = h;
+                	//
+                	img->Data = new byte[w*h * 3];
+                	for (int i = 0; i < w*h * 3; i++) {
+                		img->Data[i] = 0;
+                	}
+                }
+                //设置背景色
+                void SetBgColor(Image *img, int r, int g, int b)
+       ##### -> {
+                	for (int i = 0; i < img->Height; i++) {
+                		for (int j = 0; j < img->Width * 3;) {
+                			img->Data[i*img->Width * 3 + j++] = b;
+                			img->Data[i*img->Width * 3 + j++] = g;
+                			img->Data[i*img->Width * 3 + j++] = r;
+                		}
+                	}
+                }
+                void ClearGraph(Image *img)
+          97 -> {
+                	memset(img->Data, 0, img->Width*img->Height * 3);
+                	ValidateRect(hwnd, NULL);
+                }
+                //设置坐标原点
+                void SetOrigin(Image *img, int x, int y)
+           1 -> {
+                	img->ox = x, img->oy = y;
+                }
+                //设置缩放比例
+                void SetScale(Image *img, float x, float y)
+       ##### -> {
+                	img->xscale = x, img->yscale = y;
+                }
+                //设置像素点为指定的RGB值
+                void SetPixel(Image *img, int x, int y)
+     6676975 -> {
+                	x = img->ox + x*img->xscale;
+                	y = img->oy + y*img->yscale;
+                	if ((x<0 || x>img->Width) || (y<0 || y>img->Height))return;
+                	img->Data[y*img->Width * 3 + x * 3] = img->blue;
+                	img->Data[y*img->Width * 3 + x * 3 + 1] = img->green;
+                	img->Data[y*img->Width * 3 + x * 3 + 2] = img->red;
+                }
+                RGB GetPixel(Image *img, int x, int y)
+       ##### -> {
+                	x = img->ox + x*img->xscale;
+                	y = img->oy + y*img->yscale;
+                	RGB rgb;
+                	rgb.b = img->Data[y*img->Width * 3 + x * 3];
+                	rgb.g = img->Data[y*img->Width * 3 + x * 3 + 1];
+                	rgb.r = img->Data[y*img->Width * 3 + x * 3 + 2];
+                	return rgb;
+                }
+                //设置将要使用的RGB颜色值
+                void SetColor(Image *img, int r, int g, int b)
+           1 -> {
+                	img->red = r;
+                	img->green = g;
+                	img->blue = b;
+                }
+                
+                /*二维绘图部分：主要是基本图元的算法*/
+                //Bresenham line
+                
+                void BresenhamLine(Image *img, int x1, int y1, int x2, int y2)
+       ##### -> {
+                	int dx = x2 - x1, dy = y2 - y1, inc, pi;
+                	inc = ((dx * dy) >= 0) ? 1 : -1;
+                	if (abs(dx) > abs(dy)) {
+                		if (dx < 0) {
+                			swap(x1, x2), swap(y1, y2);
+                			dx = -dx, dy = -dy;
+                		}
+                		dy = (dy > 0) ? dy : -dy;
+                		pi = 2 * dy - dx;
+                		while (x1++ <= x2) {
+                			SetPixel(img, x1 - 1, y1);
+                			if (pi < 0) pi += 2 * dy;
+                			else {
+                				y1 += inc;
+                				pi += 2 * (dy - dx);
+                			}
+                		}
+                	}
+                	else {
+                		if (dy < 0) {
+                			swap(x1, x2), swap(y1, y2);
+                			dx = -dx, dy = -dy;
+                		}
+                		dx = (dx > 0) ? dx : -dx;
+                		pi = 2 * dx - dy;
+                		while (y1++ < y2) {
+                			SetPixel(img, x1, y1 - 1);
+                			if (pi < 0) pi += 2 * dx;
+                			else {
+                				x1 += inc;
+                				pi += 2 * (dx - dy);
+                			}
+                		}
+                	}
+                }
+                //BresenhamLine2
+                void Line(Image* img, int x1, int y1, int x2, int y2)
+     1396800 -> {
+                	int dx, dy, p, const1, const2, x, y, inc;
+                
+                	int steep = (abs(y2 - y1) > abs(x2 - x1)) ? 1 : 0;
+                	if (steep == 1) {
+                		swap(x1, y1);
+                		swap(x2, y2);
+                	}
+                	if (x1 > x2) {
+                		swap(x1, x2);
+                		swap(y1, y2);
+                	}
+                	dx = abs(x2 - x1);
+                	dy = abs(y2 - y1);
+                	p = 2 * dy - dx;
+                	const1 = 2 * dy;
+                	const2 = 2 * (dy - dx);
+                	x = x1;
+                	y = y1;
+                
+                	inc = (y1 < y2) ? 1 : -1;
+                	while (x <= x2) {
+                		if (steep == 1)
+                			SetPixel(img, y, x);
+                		else
+                			SetPixel(img, x, y);
+                		x++;
+                		if (p < 0)
+                			p += const1;
+                		else {
+                			p += const2;
+                			y += inc;
+                		}
+                	}
+                }
+                
+                //封闭多边形
+                void Rect3d(Image *img, Point3D pts[])
+       ##### -> {
+                	for (int i = 0; i < 3; i++) {
+                		Line(img, pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y);
+                	}
+                	Line(img, pts[3].x, pts[3].y, pts[0].x, pts[0].y);
+                }
+                //三维点通过数组赋值
+                void eval(Point3D r[], float a[], int n)
+       ##### -> {
+                	for (int i = 0; i < n; i++) {
+                		r[i].x = a[3 * i];
+                		r[i].y = a[3 * i + 1];
+                		r[i].z = a[3 * i + 2];
+                	}
+                	//return r;
+                }
+                void RotateX(float data[], int length, float t)
+          97 -> {
+                	//PointArray r = Array3d(pa.length);
+                	float x, y, z;
+                
+                	for (int i = 0; i < length; i++) {
+                		x = data[3*i+0], y = data[3 * i + 1], z = data[3 * i + 2];
+                		//
+                		data[3 * i + 0] = x;
+                		//
+                		data[3 * i + 1] = y*cos(t) - z*sin(t);
+                		//
+                		data[3 * i + 2] = y*sin(t) + z*cos(t);
+                	}
+                }
+                //
+                void RotateY(float data[], int length, float t)
+          97 -> {
+                	float x, y, z;
+                	for (int i = 0; i < length; i++) {
+                		x = data[3 * i + 0], y = data[3 * i + 1], z = data[3 * i + 2];
+                		//
+                		//
+                		data[3 * i + 0] = z*sin(t) + x*cos(t);
+                		data[3 * i + 1] = y;
+                		data[3 * i + 2] = z*cos(t) - x*sin(t);
+                	}
+                }
+                //
+                void RotateZ(float data[], int length, float t)
+       ##### -> {
+                	//PointArray r = Array3d(pa.length);
+                	float x, y, z;
+                
+                	for (int i = 0; i < length; i++) {
+                		x = data[3 * i + 0], y = data[3 * i + 1], z = data[3 * i + 2];
+                		//
+                		data[3 * i + 0] = x*cos(t) - y*sin(t);
+                		//
+                		data[3 * i + 1] = x*sin(t) + y*cos(t);
+                		//
+                		data[3 * i + 2] = z;
+                		//
+                	}
+                	//return r;
+                }
+                //void Project(float data3[],float data)
+       ##### -> void DrawArray(Image*img, float data[], int type, int number) {
+                	//quad
+                	int size = 8;
+                	for (int i = 0; i < number; i++) {
+                		Line(img, data[i*size + 0], data[i*size + 1], data[i*size + 2], data[i*size + 3]);
+                		Line(img, data[i*size + 2], data[i*size + 3], data[i*size + 4], data[i*size + 5]);
+                		Line(img, data[i*size + 4], data[i*size + 5], data[i*size + 6], data[i*size + 7]);
+                		Line(img, data[i*size + 6], data[i*size + 7], data[i*size + 0], data[i*size + 1]);
+                	}
+                
+                }
+          97 -> void DrawArray3(Image*img,float data[], int type, int number) {
+                	//quad
+                	int size = 12;
+                	for (int i = 0; i < number; i++) {
+                		Line(img, data[i*size + 0], data[i*size + 1], data[i*size + 3], data[i*size + 4]);
+                		Line(img, data[i*size + 3], data[i*size + 4], data[i*size + 6], data[i*size + 7]);
+                		Line(img, data[i*size + 6], data[i*size + 7], data[i*size + 9], data[i*size + 10]);
+                		Line(img, data[i*size + 9], data[i*size + 10], data[i*size + 0], data[i*size + 1]);
+                	}
+                }
+                float d = 0.1;
+                float r = 50;
+                float yrot = 45;
+                //
+                inline float fun(float x, float y)
+       14400 -> {
+                	//Matlab Peaks Function
+                	float z = 3 * (1 - x)*(1 - x)*exp(-x*x - (y + 1)*(y + 1))
+                		- 10 * (x / 5 - x*x*x - y*y*y*y*y)*exp(-x*x - y*y)
+                		- 1.0 / 3 * exp(-(x + 1)*(x + 1) - y*y);
+                	return z * 10;
+                }
+                float data[12 * 60 * 60];
+                float temp[12 * 60 * 60];
+           1 -> void initiate(int w,int h) {
+                	
+                	float x, y, z1, z2, z3, z4;
+                	int index,sx=60,sy=60;
+                	float dx =0.1;
+                	float dy =0.1;
+                	for (int i = 0; i < sx; i++) {
+                		for (int j = 0; j < sy; j++) {
+                			index = sx * j + i;
+                			x = dx * i - 6/2;
+                			y = dy * j - 6/2;
+                			//printf("%f %f\n", x, y);
+                			data[12 * index + 0] = x*r;
+                			data[12 * index + 1] = fun(x, y);
+                			data[12 * index + 2] = y*r;
+                			data[12 * index + 3] = (x + dx)*r;
+                			data[12 * index + 4] = fun(x+dx, y);
+                			data[12 * index + 5] = y*r;
+                			data[12 * index + 6] = (x + dx)*r;
+                			data[12 * index + 7] = fun(x+dx, y+dy);
+                			data[12 * index + 8] = (y + dy)*r;
+                			data[12 * index + 9] = x*r;
+                			data[12 * index + 10] = fun(x, y+dy);
+                			data[12 * index + 11] = (y + dy)*r;
+                		}
+                	}
+                	//memcpy(temp, data, sizeof(float) * 12 * 60 * 60);
+                	//RotateX(temp, 3600 * 4, 90 * 2 * PI / 360);
+                }
+                
+                //
+                void display(Image* img)
+          97 -> {
+                	memcpy(temp, data, sizeof(float) * 12 * 60 * 60);
+                	RotateY(temp, 3600 * 4, yrot);
+                	RotateX(temp, 3600 * 4, 15 * 2 * PI / 360);
+                	DrawArray3(img, temp, 1, 60 * 60);
+                	//RotateX(temp, 3600 * 4, 15 * 2 * PI / 360);
+                	//free(ptsb.x);free(ptsb.y);free(ptsb.z);
+                	yrot += 0.1;
+                	//Sleep(100);
+                }
+                
+                void initgraph(Image*img)
+           1 -> {
+                	int iWidth = img->Width;
+                	int iHeight = img->Height;
+                	int size = iWidth*iHeight * 3;
+                	img->Data = new BYTE[size];
+                	//
+                	ZeroMemory(&bmi, sizeof(BITMAPINFO));
+                	bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+                	bmi.bmiHeader.biWidth = iWidth;
+                	bmi.bmiHeader.biHeight = iHeight;
+                	bmi.bmiHeader.biPlanes = 1;
+                	bmi.bmiHeader.biBitCount = 24;
+                	bmi.bmiHeader.biCompression = BI_RGB;
+                }
+                HWND initwindow()
+           1 -> {
+                	static TCHAR szAppName[] = TEXT(" ");
+                
+                	WNDCLASS     wndclass;
+                	int iCmdShow = 1;
+                	HINSTANCE hInstance = GetModuleHandle(NULL);
+                	wndclass.style = CS_HREDRAW | CS_VREDRAW;
+                	wndclass.lpfnWndProc = DefWindowProc;
+                	wndclass.cbClsExtra = 0;
+                	wndclass.cbWndExtra = 0;
+                	wndclass.hInstance = hInstance;
+                	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+                	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
+                	wndclass.hbrBackground = 0;
+                	wndclass.lpszMenuName = NULL;
+                	wndclass.lpszClassName = szAppName;
+                	if (!RegisterClass(&wndclass)) {
+                		MessageBox(NULL, TEXT("img program requires Windows NT!"), szAppName, MB_ICONERROR);
+                		//return;
+                	}
+                	hwnd = CreateWindow(szAppName, TEXT(""), WS_OVERLAPPEDWINDOW,
+                		300, 120, 640+36+8, 480+16, NULL, NULL, hInstance, NULL);
+                	ShowWindow(hwnd, iCmdShow);
+                	UpdateWindow(hwnd);
+                	return hwnd;
+                }
+                MSG msg;
+                HDC cdc;
+                void render(Image img)
+         100 -> {
+                
+                	if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+                		//if (msg.message == WM_QUIT);
+                		TranslateMessage(&msg);
+                		DispatchMessage(&msg);
+                	}
+                	else {
+                		display(&img);
+                		//BitBlt(hdc, 0, 0, img.Width, img.Height, cdc, 0, 0, SRCCOPY);
+                		SetDIBitsToDevice(hdc, 0, 0, img.Width, img.Height,
+                			0, 0, 0, img.Height, img.Data, &bmi, DIB_RGB_COLORS);
+                		ClearGraph(&img);
+                	}
+                }
+                float fps(Image img, int n_frame)
+           1 -> {
+                	clock_t start, finish;
+                	int i;
+                	float fps;
+                	printf("Performing benchmark, please wait");
+                	start = clock();
+                	for (i = 0; i < n_frame; i++) {
+                		render(img);
+                	}
+                	printf("done\n");
+                	finish = clock();
+                	fps = float(n_frame) / (finish - start)*CLOCKS_PER_SEC;
+                	return fps;
+                }
+                
+                int main(int argc, char* argv[])
+       ##### -> {
+                	
+                	Image img;
+                	RECT rc;
+                	hwnd = initwindow();
+                	GetClientRect(hwnd, &rc);
+                	int w = rc.right - rc.left;
+                	int h = rc.bottom - rc.top;
+                	initiate(w, h);
+                	initimage(&img, w, h);
+                	SetOrigin(&img, w / 2, h / 2);
+                	SetColor(&img, 0, 255, 255);
+                	//int iWidth,iHeight;
+                	initgraph(&img);
+                	
+                	hdc = GetDC(hwnd);
+                
+                
+                	//while (TRUE) {
+                	//	Sleep(40);//降低CPU占用率
+                	//	if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+                	//		if (msg.message == WM_QUIT)break;
+                	//		TranslateMessage(&msg);
+                	//		DispatchMessage(&msg);
+                
+                	//	}
+                	//	else {
+                	//		display(&img);
+                	//		BitBlt(hdc, 0, 0, w, h, cdc, 0, 0, SRCCOPY);
+                	//		SetDIBitsToDevice(hdc, 0, 0, w, h,
+                	//			0, 0, 0, h, img.Data, &bmi, DIB_RGB_COLORS);
+                	//		ClearGraph(&img);
+                	//	}
+                	//}
+                	printf("%f\n", fps(img, 100));
+                	return 0;
+                }
+
+
+Top 10 Lines:
+
+     Line      Count
+
+       82    6676975
+       27    2057238
+      150    1396800
+      277      14400
+      374        100
+       66         97
+      205         97
+      221         97
+      262         97
+      318         97
+
+Execution Summary:
+
+       26   Executable lines in this file
+       26   Lines executed
+   100.00   Percent of the file executed
+
+ 10146005   Total number of line executions
+390230.96   Average executions per line

@@ -154,6 +154,8 @@ int Aria2Run(int argc, std::vector<std::string> argv)
     // std::cout << filename << std::endl;
     // std::cout << path << std::endl;
     aria2::KeyVals options;
+    
+    options.push_back(std::make_pair("file-allocation","none"));
     options.push_back(std::make_pair("out",filename));
     options.push_back(std::make_pair("dir",path));
 

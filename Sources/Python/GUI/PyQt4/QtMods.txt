@@ -1,0 +1,156 @@
+>>> dir(QtCore)
+['MSG', 'POINT', 'PYQT_CONFIGURATION', 'PYQT_VERSION', 'PYQT_VERSION_STR', 'QAbstractAnimation', 'QAbstractEventDispatcher', 'QAbstractFileEngine', 'QAbstractFileEngineHandler', 'QAbstractFileEngineIterator', 'QAbstractItemModel', 'QAbstractListModel', 'QAbstractState', 'QAbstractTableModel', 'QAbstractTransition', 'QAnimationGroup', 'QBasicTimer', 'QBitArray', 'QBuffer', 'QByteArray', 'QByteArrayMatcher', 'QChar', 'QChildEvent', 'QCoreApplication', 'QCryptographicHash', 'QDataStream', 'QDate', 'QDateTime', 'QDir', 'QDirIterator', 'QDynamicPropertyChangeEvent', 'QEasingCurve', 'QElapsedTimer', 'QEvent', 'QEventLoop', 'QEventTransition', 'QFSFileEngine', 'QFile', 'QFileInfo', 'QFileSystemWatcher', 'QFinalState', 'QGenericArgument', 'QGenericReturnArgument', 'QHistoryState', 'QIODevice', 'QLatin1Char', 'QLatin1String', 'QLibrary', 'QLibraryInfo', 'QLine', 'QLineF', 'QLocale', 'QMargins', 'QMetaClassInfo', 'QMetaEnum', 'QMetaMethod', 'QMetaObject','QMetaProperty', 'QMetaType', 'QMimeData', 'QModelIndex', 'QMutex', 'QMutexLocker', 'QObject', 'QObjectCleanupHandler', 'QParallelAnimationGroup', 'QPauseAnimation', 'QPersistentModelIndex', 'QPluginLoader', 'QPoint', 'QPointF', 'QProcess', 'QProcessEnvironment', 'QPropertyAnimation', 'QReadLocker', 'QReadWriteLock', 'QRect', 'QRectF', 'QRegExp', 'QResource', 'QRunnable', 'QSemaphore', 'QSequentialAnimationGroup', 'QSettings', 'QSharedMemory', 'QSignalMapper', 'QSignalTransition', 'QSize', 'QSizeF', 'QSocketNotifier', 'QState', 'QStateMachine', 'QString', 'QStringList', 'QStringMatcher', 'QStringRef', 'QSysInfo', 'QSystemLocale', 'QSystemSemaphore', 'QT_TRANSLATE_NOOP', 'QT_TR_NOOP', 'QT_TR_NOOP_UTF8', 'QT_VERSION', 'QT_VERSION_STR', 'QTemporaryFile', 'QTextBoundaryFinder', 'QTextCodec', 'QTextDecoder', 'QTextEncoder', 'QTextStream', 'QTextStreamManipulator', 'QThread', 'QThreadPool', 'QTime', 'QTimeLine', 'QTimer', 'QTimerEvent', 'QTranslator','QUrl', 'QUuid', 'QVariant', 'QVariantAnimation', 'QWaitCondition', 'QWriteLocker', 'QXmlStreamAttribute', 'QXmlStreamAttributes', 'QXmlStreamEntityDeclaration', 'QXmlStreamEntityResolver', 'QXmlStreamNamespaceDeclaration', 'QXmlStreamNotationDeclaration', 'QXmlStreamReader', 'QXmlStreamWriter', 'Q_ARG', 'Q_CLASSINFO', 'Q_ENUMS', 'Q_FLAGS', 'Q_RETURN_ARG', 'Qt', 'QtCriticalMsg', 'QtDebugMsg', 'QtFatalMsg', 'QtMsgType', 'QtSystemMsg', 'QtWarningMsg', 'SIGNAL', 'SLOT', '__doc__', '__file__', '__license__', '__name__', '__package__', 'bin', 'bom', 'center', 'dec', 'endl', 'fixed', 'flush', 'forcepoint', 'forcesign', 'hex', 'left', 'lowercasebase', 'lowercasedigits', 'noforcepoint', 'noforcesign', 'noshowbase', 'oct', 'pyqtBoundSignal', 'pyqtPickleProtocol', 'pyqtProperty', 'pyqtRemoveInputHook', 'pyqtRestoreInputHook', 'pyqtSetPickleProtocol', 'pyqtSignal', 'pyqtSignature', 'pyqtSlot', 'pyqtWrapperType', 'qAbs', 'qAddPostRoutine', 'qChecksum', 'qCompress', 'qCritical', 'qDebug', 'qErrnoWarning', 'qFatal', 'qFuzzyCompare', 'qInf', 'qInstallMsgHandler', 'qIsFinite', 'qIsInf', 'qIsNaN', 'qIsNull', 'qQNaN', 'qRegisterResourceData', 'qRemovePostRoutine', 'qRound', 'qRound64', 'qSNaN', 'qSetFieldWidth', 'qSetPadChar', 'qSetRealNumberPrecision', 'qSharedBuild', 'qSwap', 'qUncompress', 'qUnregisterResourceData', 'qVersion', 'qWarning', 'qrand', 'qsrand', 'reset', 'right', 'scientific', 'showbase', 'uppercasebase', 'uppercasedigits', 'ws']
+
+>>> dir(QtGui)
+['QAbstractButton', 'QAbstractGraphicsShapeItem', 'QAbstractItemDelegate', 'QAbs
+tractItemView', 'QAbstractPrintDialog', 'QAbstractProxyModel', 'QAbstractScrollA
+rea', 'QAbstractSlider', 'QAbstractSpinBox', 'QAbstractTextDocumentLayout', 'QAc
+tion', 'QActionEvent', 'QActionGroup', 'QApplication', 'QBitmap', 'QBoxLayout',
+'QBrush', 'QButtonGroup', 'QCalendarWidget', 'QCheckBox', 'QClipboard', 'QCloseE
+vent', 'QColor', 'QColorDialog', 'QColumnView', 'QComboBox', 'QCommandLinkButton
+', 'QCommonStyle', 'QCompleter', 'QConicalGradient', 'QContextMenuEvent', 'QCurs
+or', 'QDataWidgetMapper', 'QDateEdit', 'QDateTimeEdit', 'QDesktopServices', 'QDe
+sktopWidget', 'QDial', 'QDialog', 'QDialogButtonBox', 'QDirModel', 'QDockWidget'
+, 'QDoubleSpinBox', 'QDoubleValidator', 'QDrag', 'QDragEnterEvent', 'QDragLeaveE
+vent', 'QDragMoveEvent', 'QDropEvent', 'QErrorMessage', 'QFileDialog', 'QFileIco
+nProvider', 'QFileOpenEvent', 'QFileSystemModel', 'QFocusEvent', 'QFocusFrame',
+'QFont', 'QFontComboBox', 'QFontDatabase', 'QFontDialog', 'QFontInfo', 'QFontMet
+rics', 'QFontMetricsF', 'QFormLayout', 'QFrame', 'QGesture', 'QGestureEvent', 'Q
+GestureRecognizer', 'QGlyphRun', 'QGradient', 'QGraphicsAnchor', 'QGraphicsAncho
+rLayout', 'QGraphicsBlurEffect', 'QGraphicsColorizeEffect', 'QGraphicsDropShadow
+Effect', 'QGraphicsEffect', 'QGraphicsEllipseItem', 'QGraphicsGridLayout', 'QGra
+phicsItem', 'QGraphicsItemAnimation', 'QGraphicsItemGroup', 'QGraphicsLayout', '
+QGraphicsLayoutItem', 'QGraphicsLineItem', 'QGraphicsLinearLayout', 'QGraphicsOb
+ject', 'QGraphicsOpacityEffect', 'QGraphicsPathItem', 'QGraphicsPixmapItem', 'QG
+raphicsPolygonItem', 'QGraphicsProxyWidget', 'QGraphicsRectItem', 'QGraphicsRota
+tion', 'QGraphicsScale', 'QGraphicsScene', 'QGraphicsSceneContextMenuEvent', 'QG
+raphicsSceneDragDropEvent', 'QGraphicsSceneEvent', 'QGraphicsSceneHelpEvent', 'Q
+GraphicsSceneHoverEvent', 'QGraphicsSceneMouseEvent', 'QGraphicsSceneMoveEvent',
+ 'QGraphicsSceneResizeEvent', 'QGraphicsSceneWheelEvent', 'QGraphicsSimpleTextIt
+em', 'QGraphicsTextItem', 'QGraphicsTransform', 'QGraphicsView', 'QGraphicsWidge
+t', 'QGridLayout', 'QGroupBox', 'QHBoxLayout', 'QHeaderView', 'QHelpEvent', 'QHi
+deEvent', 'QHoverEvent', 'QIcon', 'QIconDragEvent', 'QIconEngine', 'QIconEngineV
+2', 'QIdentityProxyModel', 'QImage', 'QImageIOHandler', 'QImageReader', 'QImageW
+riter', 'QInputContext', 'QInputContextFactory', 'QInputDialog', 'QInputEvent',
+'QInputMethodEvent', 'QIntValidator', 'QItemDelegate', 'QItemEditorCreatorBase',
+ 'QItemEditorFactory', 'QItemSelection', 'QItemSelectionModel', 'QItemSelectionR
+ange', 'QKeyEvent', 'QKeyEventTransition', 'QKeySequence', 'QLCDNumber', 'QLabel
+', 'QLayout', 'QLayoutItem', 'QLineEdit', 'QLinearGradient', 'QListView', 'QList
+Widget', 'QListWidgetItem', 'QMainWindow', 'QMatrix', 'QMatrix2x2', 'QMatrix2x3'
+, 'QMatrix2x4', 'QMatrix3x2', 'QMatrix3x3', 'QMatrix3x4', 'QMatrix4x2', 'QMatrix
+4x3', 'QMatrix4x4', 'QMdiArea', 'QMdiSubWindow', 'QMenu', 'QMenuBar', 'QMessageB
+ox', 'QMimeSource', 'QMouseEvent', 'QMouseEventTransition', 'QMoveEvent', 'QMovi
+e', 'QPageSetupDialog', 'QPaintDevice', 'QPaintEngine', 'QPaintEngineState', 'QP
+aintEvent', 'QPainter', 'QPainterPath', 'QPainterPathStroker', 'QPalette', 'QPan
+Gesture', 'QPen', 'QPicture', 'QPictureIO', 'QPinchGesture', 'QPixmap', 'QPixmap
+Cache', 'QPlainTextDocumentLayout', 'QPlainTextEdit', 'QPolygon', 'QPolygonF', '
+QPrintDialog', 'QPrintEngine', 'QPrintPreviewDialog', 'QPrintPreviewWidget', 'QP
+rinter', 'QPrinterInfo', 'QProgressBar', 'QProgressDialog', 'QProxyModel', 'QPus
+hButton', 'QPyTextObject', 'QQuaternion', 'QRadialGradient', 'QRadioButton', 'QR
+awFont', 'QRegExpValidator', 'QRegion', 'QResizeEvent', 'QRubberBand', 'QScrollA
+rea', 'QScrollBar', 'QSessionManager', 'QShortcut', 'QShortcutEvent', 'QShowEven
+t', 'QSizeGrip', 'QSizePolicy', 'QSlider', 'QSortFilterProxyModel', 'QSound', 'Q
+SpacerItem', 'QSpinBox', 'QSplashScreen', 'QSplitter', 'QSplitterHandle', 'QStac
+kedLayout', 'QStackedWidget', 'QStandardItem', 'QStandardItemModel', 'QStaticTex
+t', 'QStatusBar', 'QStatusTipEvent', 'QStringListModel', 'QStyle', 'QStyleFactor
+y', 'QStyleHintReturn', 'QStyleHintReturnMask', 'QStyleHintReturnVariant', 'QSty
+leOption', 'QStyleOptionButton', 'QStyleOptionComboBox', 'QStyleOptionComplex',
+'QStyleOptionDockWidget', 'QStyleOptionDockWidgetV2', 'QStyleOptionFocusRect', '
+QStyleOptionFrame', 'QStyleOptionFrameV2', 'QStyleOptionFrameV3', 'QStyleOptionG
+raphicsItem', 'QStyleOptionGroupBox', 'QStyleOptionHeader', 'QStyleOptionMenuIte
+m', 'QStyleOptionProgressBar', 'QStyleOptionProgressBarV2', 'QStyleOptionRubberB
+and', 'QStyleOptionSizeGrip', 'QStyleOptionSlider', 'QStyleOptionSpinBox', 'QSty
+leOptionTab', 'QStyleOptionTabBarBase', 'QStyleOptionTabBarBaseV2', 'QStyleOptio
+nTabV2', 'QStyleOptionTabV3', 'QStyleOptionTabWidgetFrame', 'QStyleOptionTabWidg
+etFrameV2', 'QStyleOptionTitleBar', 'QStyleOptionToolBar', 'QStyleOptionToolBox'
+, 'QStyleOptionToolBoxV2', 'QStyleOptionToolButton', 'QStyleOptionViewItem', 'QS
+tyleOptionViewItemV2', 'QStyleOptionViewItemV3', 'QStyleOptionViewItemV4', 'QSty
+lePainter', 'QStyledItemDelegate', 'QSwipeGesture', 'QSyntaxHighlighter', 'QSyst
+emTrayIcon', 'QTabBar', 'QTabWidget', 'QTableView', 'QTableWidget', 'QTableWidge
+tItem', 'QTableWidgetSelectionRange', 'QTabletEvent', 'QTapAndHoldGesture', 'QTa
+pGesture', 'QTextBlock', 'QTextBlockFormat', 'QTextBlockGroup', 'QTextBlockUserD
+ata', 'QTextBrowser', 'QTextCharFormat', 'QTextCursor', 'QTextDocument', 'QTextD
+ocumentFragment', 'QTextDocumentWriter', 'QTextEdit', 'QTextFormat', 'QTextFragm
+ent', 'QTextFrame', 'QTextFrameFormat', 'QTextImageFormat', 'QTextInlineObject',
+ 'QTextItem', 'QTextLayout', 'QTextLength', 'QTextLine', 'QTextList', 'QTextList
+Format', 'QTextObject', 'QTextObjectInterface', 'QTextOption', 'QTextTable', 'QT
+extTableCell', 'QTextTableCellFormat', 'QTextTableFormat', 'QTimeEdit', 'QToolBa
+r', 'QToolBox', 'QToolButton', 'QToolTip', 'QTouchEvent', 'QTransform', 'QTreeVi
+ew', 'QTreeWidget', 'QTreeWidgetItem', 'QTreeWidgetItemIterator', 'QUndoCommand'
+, 'QUndoGroup', 'QUndoStack', 'QUndoView', 'QVBoxLayout', 'QValidator', 'QVector
+2D', 'QVector3D', 'QVector4D', 'QWIDGETSIZE_MAX', 'QWhatsThis', 'QWhatsThisClick
+edEvent', 'QWheelEvent', 'QWidget', 'QWidgetAction', 'QWidgetItem', 'QWindowStat
+eChangeEvent', 'QWizard', 'QWizardPage', 'QWorkspace', '__doc__', '__file__', '_
+_name__', '__package__', 'qAlpha', 'qApp', 'qBlue', 'qDrawBorderPixmap', 'qDrawP
+lainRect', 'qDrawShadeLine', 'qDrawShadePanel', 'qDrawShadeRect', 'qDrawWinButto
+n', 'qDrawWinPanel', 'qFuzzyCompare', 'qGray', 'qGreen', 'qIsGray', 'qRed', 'qRg
+b', 'qRgba', 'qSwap']
+
+>>> dir(QtGui.QWidget)
+['DrawChildren', 'DrawWindowBackground', 'IgnoreMask', 'PaintDeviceMetric', 'Pdm
+Depth', 'PdmDpiX', 'PdmDpiY', 'PdmHeight', 'PdmHeightMM', 'PdmNumColors', 'PdmPh
+ysicalDpiX', 'PdmPhysicalDpiY', 'PdmWidth', 'PdmWidthMM', 'RenderFlag', 'RenderF
+lags', '__class__', '__delattr__', '__dict__', '__doc__', '__format__', '__getat
+tr__', '__getattribute__', '__hash__', '__init__', '__module__', '__new__', '__r
+educe__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '
+__subclasshook__', '__weakref__', 'acceptDrops', 'accessibleDescription', 'acces
+sibleName', 'actionEvent', 'actions', 'activateWindow', 'addAction', 'addActions
+', 'adjustSize', 'autoFillBackground', 'backgroundRole', 'baseSize', 'blockSigna
+ls', 'changeEvent', 'childAt', 'childEvent', 'children', 'childrenRect', 'childr
+enRegion', 'clearFocus', 'clearMask', 'close', 'closeEvent', 'colorCount', 'conn
+ect', 'connectNotify', 'contentsMargins', 'contentsRect', 'contextMenuEvent', 'c
+ontextMenuPolicy', 'create', 'cursor', 'customContextMenuRequested', 'customEven
+t', 'deleteLater', 'depth', 'destroy', 'destroyed', 'devType', 'disconnect', 'di
+sconnectNotify', 'dragEnterEvent', 'dragLeaveEvent', 'dragMoveEvent', 'dropEvent
+', 'dumpObjectInfo', 'dumpObjectTree', 'dynamicPropertyNames', 'effectiveWinId',
+ 'emit', 'enabledChange', 'ensurePolished', 'enterEvent', 'event', 'eventFilter'
+, 'find', 'findChild', 'findChildren', 'focusInEvent', 'focusNextChild', 'focusN
+extPrevChild', 'focusOutEvent', 'focusPolicy', 'focusPreviousChild', 'focusProxy
+', 'focusWidget', 'font', 'fontChange', 'fontInfo', 'fontMetrics', 'foregroundRo
+le', 'frameGeometry', 'frameSize', 'geometry', 'getContentsMargins', 'grabGestur
+e', 'grabKeyboard', 'grabMouse', 'grabShortcut', 'graphicsEffect', 'graphicsProx
+yWidget', 'hasFocus', 'hasMouseTracking', 'height', 'heightForWidth', 'heightMM'
+, 'hide', 'hideEvent', 'inherits', 'inputContext', 'inputMethodEvent', 'inputMet
+hodHints', 'inputMethodQuery', 'insertAction', 'insertActions', 'installEventFil
+ter', 'isActiveWindow', 'isAncestorOf', 'isEnabled', 'isEnabledTo', 'isEnabledTo
+TLW', 'isFullScreen', 'isHidden', 'isLeftToRight', 'isMaximized', 'isMinimized',
+ 'isModal', 'isRightToLeft', 'isTopLevel', 'isVisible', 'isVisibleTo', 'isWidget
+Type', 'isWindow', 'isWindowModified', 'keyPressEvent', 'keyReleaseEvent', 'keyb
+oardGrabber', 'killTimer', 'languageChange', 'layout', 'layoutDirection', 'leave
+Event', 'locale', 'logicalDpiX', 'logicalDpiY', 'lower', 'mapFrom', 'mapFromGlob
+al', 'mapFromParent', 'mapTo', 'mapToGlobal', 'mapToParent', 'mask', 'maximumHei
+ght', 'maximumSize', 'maximumWidth', 'metaObject', 'metric', 'minimumHeight', 'm
+inimumSize', 'minimumSizeHint', 'minimumWidth', 'mouseDoubleClickEvent', 'mouseG
+rabber', 'mouseMoveEvent', 'mousePressEvent', 'mouseReleaseEvent', 'move', 'move
+Event', 'moveToThread', 'nativeParentWidget', 'nextInFocusChain', 'normalGeometr
+y', 'numColors', 'objectName', 'overrideWindowFlags', 'overrideWindowState', 'pa
+intEngine', 'paintEvent', 'paintingActive', 'palette', 'paletteChange', 'parent'
+, 'parentWidget', 'physicalDpiX', 'physicalDpiY', 'pos', 'previousInFocusChain',
+ 'property', 'pyqtConfigure', 'raise_', 'receivers', 'rect', 'releaseKeyboard',
+'releaseMouse', 'releaseShortcut', 'removeAction', 'removeEventFilter', 'render'
+, 'repaint', 'resetInputContext', 'resize', 'resizeEvent', 'restoreGeometry', 's
+aveGeometry', 'scroll', 'sender', 'senderSignalIndex', 'setAcceptDrops', 'setAcc
+essibleDescription', 'setAccessibleName', 'setAttribute', 'setAutoFillBackground
+', 'setBackgroundRole', 'setBaseSize', 'setContentsMargins', 'setContextMenuPoli
+cy', 'setCursor', 'setDisabled', 'setEnabled', 'setFixedHeight', 'setFixedSize',
+ 'setFixedWidth', 'setFocus', 'setFocusPolicy', 'setFocusProxy', 'setFont', 'set
+ForegroundRole', 'setGeometry', 'setGraphicsEffect', 'setHidden', 'setInputConte
+xt', 'setInputMethodHints', 'setLayout', 'setLayoutDirection', 'setLocale', 'set
+Mask', 'setMaximumHeight', 'setMaximumSize', 'setMaximumWidth', 'setMinimumHeigh
+t', 'setMinimumSize', 'setMinimumWidth', 'setMouseTracking', 'setObjectName', 's
+etPalette', 'setParent', 'setProperty', 'setShortcutAutoRepeat', 'setShortcutEna
+bled', 'setShown', 'setSizeIncrement', 'setSizePolicy', 'setStatusTip', 'setStyl
+e', 'setStyleSheet', 'setTabOrder', 'setToolTip', 'setUpdatesEnabled', 'setVisib
+le', 'setWhatsThis', 'setWindowFilePath', 'setWindowFlags', 'setWindowIcon', 'se
+tWindowIconText', 'setWindowModality', 'setWindowModified', 'setWindowOpacity',
+'setWindowRole', 'setWindowState', 'setWindowTitle', 'show', 'showEvent', 'showF
+ullScreen', 'showMaximized', 'showMinimized', 'showNormal', 'signalsBlocked', 's
+ize', 'sizeHint', 'sizeIncrement', 'sizePolicy', 'stackUnder', 'startTimer', 'st
+aticMetaObject', 'statusTip', 'style', 'styleSheet', 'tabletEvent', 'testAttribu
+te', 'thread', 'timerEvent', 'toolTip', 'topLevelWidget', 'tr', 'trUtf8', 'under
+Mouse', 'ungrabGesture', 'unsetCursor', 'unsetLayoutDirection', 'unsetLocale', '
+update', 'updateGeometry', 'updateMicroFocus', 'updatesEnabled', 'visibleRegion'
+, 'whatsThis', 'wheelEvent', 'width', 'widthMM', 'winEvent', 'winId', 'window',
+'windowActivationChange', 'windowFilePath', 'windowFlags', 'windowIcon', 'window
+IconText', 'windowModality', 'windowOpacity', 'windowRole', 'windowState', 'wind
+owTitle', 'windowType', 'x', 'y']

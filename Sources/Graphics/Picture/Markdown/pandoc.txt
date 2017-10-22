@@ -1,0 +1,2 @@
+pandoc -s example.md -o example.html --mathml
+pandoc -s example.html -o example.pdf --latex-engine=xelatex

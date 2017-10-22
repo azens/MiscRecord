@@ -1,0 +1,1 @@
+@touch %1 & start %1

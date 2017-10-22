@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage{xcolor}
+\begin{document}
+\begin{center}\today\end{center}
+\section{Hello}
+Hello,\LaTeX\ World.\newline
+{\bf hello}\newline
+{\cal hello}\newline
+{\it hello}\newline
+{\rm hello}\newline
+{\sc hello}\newline
+{\sf hello}\newline
+{\sl hello}\newline
+{\tt hello}\newline
+\section{Math}
+The integral $\int_a^bx^2\,dx=b^2-a^2$.\newline
+The mass-energy equation $E=mc^2$.\newline
+This is a eqnarray:
+\begin{eqnarray*}
+\lefteqn{x_1+x_2+\cdots+x_n} \\
+&\leq &y_1+y_2+\cdots+y_n \\
+&= &z+y_3+\cdots+y_n
+\end{eqnarray*}
+This is one line and two circles:\newline
+\put(10,0){
+    \textcolor[rgb]{0.00,0.00,1.00}{
+        \circle{20}\line(1,0){100}\circle*{20}
+    }
+}\newline
+This is a vector:\newline
+\textcolor[rgb]{0.00,1.00,1.00}{
+    \put(0,0){\vector(1,0){100}}\newline
+}
+This is quote:
+\begin{quote}
+quote
+\end{quote}
+This is a tabular:
+\begin{tabular}{l|l}
+\textit{Player name} &\textit{Career home runs} \\
+\hline
+Hank Aaron &755 \\
+Babe Ruth &714
+\end{tabular}
+%
+\begin{tabular}{c|cc}
+x &\vline\hfill y &\multicolumn{1}{|r}{z} \\
+abc &def &\vline\hfill ghi
+\end{tabular}
+\subsection{sub}
+\begin{displaymath}
+\int_1^2 x^2\,dx=7/3
+\end{displaymath}
+%
+No¨el Coward quipped that having to read a footnote is like having
+to go downstairs to answer the door, while in the midst of making
+love.\footnote{I wouldn’t know, I don’t read footnotes.}
+\subsubsection{sussub}
+\label{sec:test}
+This is Section~\ref{sec:test}.
+\section{Final}
+\end{document}

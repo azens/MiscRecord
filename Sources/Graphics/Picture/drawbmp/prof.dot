@@ -1,0 +1,28 @@
+digraph {
+	graph [fontname=Consolas, nodesep=0.125, ranksep=0.25];
+	node [fontcolor=white, fontname=Consolas, height=0, shape=box, style=filled, width=0];
+	edge [fontname=Consolas];
+	1 [color="#0b9e72", fontcolor="#ffffff", fontsize="10.00", label="render(tagImage)\n32.50%\n(0.00%)\n100×"];
+	1 -> 2 [arrowsize="0.57", color="#0b9e72", fontcolor="#0b9e72", fontsize="10.00", label="32.50%\n97×", labeldistance="1.30", penwidth="1.30"];
+	2 [color="#0b9e72", fontcolor="#ffffff", fontsize="10.00", label="display(tagImage*)\n32.50%\n(0.00%)\n97×"];
+	2 -> 5 [arrowsize="0.55", color="#0c9a7e", fontcolor="#0c9a7e", fontsize="10.00", label="30.00%\n97×", labeldistance="1.20", penwidth="1.20"];
+	2 -> 13 [arrowsize="0.35", color="#0d1475", fontcolor="#0d1475", fontsize="10.00", label="1.67%\n97×", labeldistance="0.50", penwidth="0.50"];
+	2 -> 14 [arrowsize="0.35", color="#0d1074", fontcolor="#0d1074", fontsize="10.00", label="0.83%\n97×", labeldistance="0.50", penwidth="0.50"];
+	3 [color="#0b9e72", fontcolor="#ffffff", fontsize="10.00", label="fps(tagImage, int)\n32.50%\n(0.00%)\n1×"];
+	3 -> 1 [arrowsize="0.57", color="#0b9e72", fontcolor="#0b9e72", fontsize="10.00", label="32.50%\n100×", labeldistance="1.30", penwidth="1.30"];
+	4 [color="#0b9e72", fontcolor="#ffffff", fontsize="10.00", label="main\n32.50%\n(0.00%)"];
+	4 -> 3 [arrowsize="0.57", color="#0b9e72", fontcolor="#0b9e72", fontsize="10.00", label="32.50%\n1×", labeldistance="1.30", penwidth="1.30"];
+	5 [color="#0c9a7e", fontcolor="#ffffff", fontsize="10.00", label="DrawArray3(tagImage*, float*, int, int)\n30.00%\n(9.17%)\n97×"];
+	5 -> 8 [arrowsize="0.46", color="#0c788e", fontcolor="#0c788e", fontsize="10.00", label="20.83%\n1396800×", labeldistance="0.83", penwidth="0.83"];
+	6 [color="#0c968c", fontcolor="#ffffff", fontsize="10.00", label="__sinl_internal\n26.67%\n(26.67%)"];
+	7 [color="#0c7e8f", fontcolor="#ffffff", fontsize="10.00", label="__cosl_internal\n21.67%\n(21.67%)"];
+	8 [color="#0c788e", fontcolor="#ffffff", fontsize="10.00", label="Line(tagImage*, int, int, int, int)\n20.83%\n(3.33%)\n1396800×"];
+	8 -> 9 [arrowsize="0.42", color="#0c6489", fontcolor="#0c6489", fontsize="10.00", label="17.50%\n6676975×", labeldistance="0.70", penwidth="0.70"];
+	9 [color="#0c6489", fontcolor="#ffffff", fontsize="10.00", label="SetPixel(tagImage*, int, int)\n17.50%\n(17.50%)\n6676975×"];
+	10 [color="#0d3f81", fontcolor="#ffffff", fontsize="10.00", label="cos\n10.83%\n(10.83%)"];
+	11 [color="#0d2279", fontcolor="#ffffff", fontsize="10.00", label="_mcount_private\n5.00%\n(5.00%)"];
+	12 [color="#0d1776", fontcolor="#ffffff", fontsize="10.00", label="sin\n2.50%\n(2.50%)"];
+	13 [color="#0d1475", fontcolor="#ffffff", fontsize="10.00", label="RotateY(float*, int, float)\n1.67%\n(1.67%)\n97×"];
+	14 [color="#0d1074", fontcolor="#ffffff", fontsize="10.00", label="RotateX(float*, int, float)\n0.83%\n(0.83%)\n97×"];
+	15 [color="#0d1074", fontcolor="#ffffff", fontsize="10.00", label="exp\n0.83%\n(0.83%)"];
+}

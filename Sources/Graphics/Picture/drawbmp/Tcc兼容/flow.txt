@@ -1,0 +1,69 @@
+    1 +-main() <int main (int argc, char *argv[]) at peaks.c:94>
+    2   +-initwindow() <HWND initwindow () at drawbmp.h:650>
+    3   | +-TEXT()
+    4   | +-GetModuleHandle()
+    5   | +-WndProc() <LRESULT CALLBACK WndProc (HWND hwnd, UINT msg, WPARAM w, LPARAM l) at drawbmp.h:637>
+    6   | | +-PostQuitMessage()
+    7   | | \-DefWindowProc()
+    8   | +-LoadIcon()
+    9   | +-LoadCursor()
+   10   | +-RegisterClass()
+   11   | +-MessageBox()
+   12   | +-CreateWindow()
+   13   | +-ShowWindow()
+   14   | \-UpdateWindow()
+   15   +-GetClientRect()
+   16   +-initiate() <void initiate (int w, int h) at peaks.c:19>
+   17   | \-fun() <float fun (float x, float y) at peaks.c:10>
+   18   |   \-exp()
+   19   +-initimage() <void initimage (Image *img, int w, int h) at drawbmp.h:61>
+   20   | \-malloc()
+   21   +-SetOrigin() <void SetOrigin (Image *img, int x, int y) at drawbmp.h:99>
+   22   +-SetColor() <void SetColor (Image *img, int r, int g, int b) at drawbmp.h:128>
+   23   +-initgraph() <void initgraph (Image *img) at drawbmp.h:618>
+   24   | +-malloc()
+   25   | \-ZeroMemory()
+   26   +-GetDC()
+   27   +-PeekMessage()
+   28   +-TranslateMessage()
+   29   +-DispatchMessage()
+   30   +-display() <void display (Image *img) at peaks.c:51>
+   31   | +-memcpy()
+   32   | +-RotateY() <void RotateY (float data[], int length, float t) at drawbmp.h:470>
+   33   | | +-sin()
+   34   | | \-cos()
+   35   | +-RotateX() <void RotateX (float data[], int length, float t) at drawbmp.h:454>
+   36   | | +-cos()
+   37   | | \-sin()
+   38   | \-DrawArray3() <void DrawArray3 (Image *img, float data[], int type, int number) at drawbmp.h:513>
+   39   |   +-Line() <void Line (Image *img, int x1, int y1, int x2, int y2) at drawbmp.h:406>
+   40   |   | +-abs()
+   41   |   | +-swap() <void swap (int *a, int *b) at drawbmp.h:33>
+   42   |   | \-SetPixelLocal() <void SetPixelLocal (Image *img, int x, int y) at drawbmp.h:109>
+   43   |   +-FillTriangle() <int FillTriangle (Image *img, int x0, int y0, int x1, int y1, int x2, int y2) at drawbmp.h:243>
+   44   |   | +-swap() <void swap (int *a, int *b) at drawbmp.h:33>
+   45   |   | +-TopTriangle() <void TopTriangle (Image *img, int x0, int y0, int x1, int y1, int x2, int y2) at drawbmp.h:186>
+   46   |   | | +-swap() <void swap (int *a, int *b) at drawbmp.h:33>
+   47   |   | | \-BresenhamLine() <void BresenhamLine (Image *img, int x1, int y1, int x2, int y2) at drawbmp.h:138>
+   48   |   | |   +-abs()
+   49   |   | |   +-swap() <void swap (int *a, int *b) at drawbmp.h:33>
+   50   |   | |   \-SetPixelLocal() <void SetPixelLocal (Image *img, int x, int y) at drawbmp.h:109>
+   51   |   | \-BottomTriangle() <void BottomTriangle (Image *img, int x0, int y0, int x1, int y1, int x2, int y2) at drawbmp.h:215>
+   52   |   |   +-swap() <void swap (int *a, int *b) at drawbmp.h:33>
+   53   |   |   \-BresenhamLine() <void BresenhamLine (Image *img, int x1, int y1, int x2, int y2) at drawbmp.h:138> [see 47]
+   54   |   \-SetColor() <void SetColor (Image *img, int r, int g, int b) at drawbmp.h:128>
+   55   +-SetDIBitsToDevice()
+   56   +-ClearGraph() <void ClearGraph (Image *img) at drawbmp.h:93>
+   57   | +-memset()
+   58   | \-ValidateRect()
+   59   +-printf()
+   60   \-fps() <float fps (Image img, int n_frame) at peaks.c:78>
+   61     +-printf()
+   62     +-clock()
+   63     \-render() <void render (Image img) at peaks.c:63>
+   64       +-PeekMessage()
+   65       +-TranslateMessage()
+   66       +-DispatchMessage()
+   67       +-display() <void display (Image *img) at peaks.c:51> [see 30]
+   68       +-SetDIBitsToDevice()
+   69       \-ClearGraph() <void ClearGraph (Image *img) at drawbmp.h:93> [see 56]

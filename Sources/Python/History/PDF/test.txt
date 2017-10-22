@@ -1,0 +1,140 @@
+ 
+1
+ 
+ 
+Fortran
+
+
+ 
+@‘@ﬂ
+1
+ 
+!
+ˇ™
+ 
+program ex39
+ 
+   
+implicit none
+ 
+   
+character*20 str
+ 
+   
+integer i
+ 
+   
+print*,'input the string:'
+ 
+   
+read*,str
+ 
+   
+do i=1,len_trim(str)
+ 
+if(str(i:i)>='a'.and.str(i:i)<
+='z')
+ 
+str(i:i)=char(ichar(str(i:i))
+-
+32)
+ 
+   
+end do
+ 
+   
+print*,
+
+the inverted string:
+
+ 
+   
+print*,str
+ 
+end
+ 
+ 
+!
+˙€
+ 
+program ex104
+ 
+   
+implicit none
+ 
+   
+external f
+ 
+   
+character*10 str
+ 
+   
+integer f
+ 
+   
+print*,'
+EÃ4ô˘@
+:'
+ 
+   
+read*,str
+ 
+   
+print*,'
+Eœ,´˙¤˙€
+:'
+ 
+   
+print*,f(str)
+ 
+end
+ 
+ 
+function f(str)
+ 
+   
+implicit none
+ 
+   
+character*(*) str
+ 
+   
+integer f,k,i
+ 
+   
+f=0
+ 
+   
+k=len_trim(str)
+ 
+   
+do i=1,k
+ 
+ 
+  
+f=f+(ichar(str(i:i))
+-
+ichar('0'))*10**(k
+-
+i)
+ 
+   
+end do
+ 
+end function
+ 
+ 
+!
+˙€Eœ
+ 
+program ex110
+ 
+                                        
+                    
+ 
+1
+ 
+
+2008
+4×
+ 

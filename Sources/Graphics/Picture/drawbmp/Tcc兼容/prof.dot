@@ -1,0 +1,14 @@
+digraph {
+	graph [fontname=Consolas, nodesep=0.125, ranksep=0.25];
+	node [fontcolor=white, fontname=Consolas, height=0, shape=box, style=filled, width=0];
+	edge [fontname=Consolas];
+	1 [color="#fc1200", fontcolor="#ffffff", fontsize="10.00", label="display\n98.21%\n(37.50%)\n89×"];
+	1 -> 4 [arrowsize="0.78", color="#59c508", fontcolor="#59c508", fontsize="10.00", label="60.71%\n625789×", labeldistance="2.43", penwidth="2.43"];
+	2 [color="#fc1200", fontcolor="#ffffff", fontsize="10.00", label="fps\n98.21%\n(0.00%)\n1×"];
+	2 -> 1 [arrowsize="0.99", color="#fc1200", fontcolor="#fc1200", fontsize="10.00", label="98.21%\n89×", labeldistance="3.93", penwidth="3.93"];
+	3 [color="#fc1200", fontcolor="#ffffff", fontsize="10.00", label="main\n98.21%\n(0.00%)"];
+	3 -> 2 [arrowsize="0.99", color="#fc1200", fontcolor="#fc1200", fontsize="10.00", label="98.21%\n1×", labeldistance="3.93", penwidth="3.93"];
+	4 [color="#59c508", fontcolor="#ffffff", fontsize="10.00", label="BresenhamLine\n60.71%\n(60.71%)\n3595370×"];
+	4 -> 4 [arrowsize="0.78", color="#59c508", fontcolor="#59c508", fontsize="10.00", label="2969581×", labeldistance="2.43", penwidth="2.43"];
+	5 [color="#0d1475", fontcolor="#ffffff", fontsize="10.00", label="_mcount_private\n1.79%\n(1.79%)"];
+}

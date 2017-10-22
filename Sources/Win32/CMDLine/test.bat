@@ -1,0 +1,1 @@
+wmic process where processid="7032" get CommandLine
