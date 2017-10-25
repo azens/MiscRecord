@@ -10,3 +10,11 @@ LIBS += -L$$PWD/../QGLViewer -lQGLViewer2
 
 Debug编译可能有问题,Release可以。
 QWidget: Must construct a QApplication before a QWidget
+
+
+git clone https://github.com/GillesDebunne/libQGLViewer
+cp QGLViewer2.7.0.diff libQGLViewer
+cd libQGLViewer
+git apply QGLViewer2.7.0.diff
+qmake
+make -j8 release
