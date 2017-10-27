@@ -7,9 +7,13 @@
   </ItemGroup>  
   <PropertyGroup>  
     <ConfigurationType>Application</ConfigurationType>  
-    <PlatformToolset>v140</PlatformToolset>  
+    <PlatformToolset>v141</PlatformToolset>  
   </PropertyGroup>  
-  
+  <ItemDefinitionGroup>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>  
     <ClCompile Include="main.cpp" />  
   </ItemGroup>
