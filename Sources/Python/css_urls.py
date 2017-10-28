@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-  
+import os
 import sys
 import lxml.html
 import lxml.cssselect
@@ -24,7 +25,11 @@ if __name__ == '__main__':
             # print(index,url.strip())
             url = url.strip().replace('https://','').replace('http://','')
             filename = url.replace('?','_').replace('&','_')
+            if not os.path.exists(filename):
+                # print(url.strip())
+                continue
             data = open(filename,'rb').read()
+            if len(data) == 0:continue
             eles = lxml.html.fromstring(data).cssselect(select)
         
             if len(args) < 4:

@@ -4,7 +4,7 @@
 #include <setjmp.h>
 #include <hpdf.h>
 
-//#pragma comment(lib,"hpdf")
+#pragma comment(lib,"hpdf")
 
 jmp_buf env;
 

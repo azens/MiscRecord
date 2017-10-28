@@ -7,7 +7,7 @@
   </ItemGroup>  
   <PropertyGroup>  
     <ConfigurationType>Application</ConfigurationType>  
-    <PlatformToolset>v141</PlatformToolset>  
+    <PlatformToolset>v140</PlatformToolset>  
   </PropertyGroup>  
   <ItemDefinitionGroup>
     <Link>
