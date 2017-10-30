@@ -1,4 +1,4 @@
-//tcc -lcairo-2 -run example.c
+//tcc -lcairo -run cairo_win32.c
 #include <stdio.h>
 #include <cairo/cairo.h>
 #include <windows.h>

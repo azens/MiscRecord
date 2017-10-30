@@ -1,5 +1,5 @@
 diff --git a/tcc.h b/tcc.h
-index da26298..f8556db 100644
+index da26298..e51b7f7 100644
 --- a/tcc.h
 +++ b/tcc.h
 @@ -199,7 +199,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
@@ -7,7 +7,7 @@ index da26298..f8556db 100644
  #ifndef CONFIG_TCC_SYSINCLUDEPATHS
  # ifdef TCC_TARGET_PE
 -#  define CONFIG_TCC_SYSINCLUDEPATHS "{B}/include"PATHSEP"{B}/include/winapi"
-+#  define CONFIG_TCC_SYSINCLUDEPATHS "{B}/include"PATHSEP"{B}/include/winapi"PATHSEP"{B}/../include/tcc"PATHSEP"{B}/../include/tcc/winapi"
++#  define CONFIG_TCC_SYSINCLUDEPATHS "{B}/include"PATHSEP"{B}/include/winapi"PATHSEP"{B}/../include/tcc"PATHSEP"{B}/../include/tcc/winapi"PATHSEP"{B}/../include"
  # else
  #  define CONFIG_TCC_SYSINCLUDEPATHS \
          "{B}/include" \
