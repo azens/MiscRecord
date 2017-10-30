@@ -99,7 +99,9 @@ int main(int argc, char** argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE);
 	//glutInitDisplayMode(GLUT_SINGLE);
-	glutInitWindowPosition(350, 120);
+	// glutInitWindowPosition(350, 120);
+    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH)-512)/2,
+                           (glutGet(GLUT_SCREEN_HEIGHT)-640)/2);
 	glutInitWindowSize(500, 500);
 	glutCreateWindow("");
 	initiate();

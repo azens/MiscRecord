@@ -132,9 +132,11 @@ int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode( GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGB );
-	glutInitWindowPosition(350, 120);
+	// glutInitWindowPosition(350, 120);
+    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH)-512)/2,
+                       (glutGet(GLUT_SCREEN_HEIGHT)-640)/2);
 	glutInitWindowSize(500, 500);
-	glutCreateWindow( "glutTest10" );
+	glutCreateWindow("Press f to get FPS");
 	Initial();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);

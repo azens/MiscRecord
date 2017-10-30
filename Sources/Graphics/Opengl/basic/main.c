@@ -6,8 +6,9 @@
 //
 void Run(void)
 {
-    glClear(0);
-    GLfloat c[]= {0,1,1};
+    glClearColor(1,1,1,1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    GLfloat c[]= {0,0,1};
     glColor3fv(c);
     glBegin(GL_LINES);
     glVertex2i(0,0);
@@ -19,8 +20,11 @@ void Run(void)
 int main(int argc,char*argv[])
 {
     glutInit(&argc,argv);
-    glutCreateWindow("title");
+    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH)-640)/2,
+                   (glutGet(GLUT_SCREEN_HEIGHT)-640)/2);
     glutInitWindowSize(width, height);
+    glutCreateWindow("title");
+
     // glClearColor(1,1,1,1);
     glutDisplayFunc(Run);
     glutMainLoop();
