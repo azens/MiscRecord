@@ -13,5 +13,5 @@ def convert(path):
     ff=open(path,'w')
     ff.write(data.replace('href="','href="'+s).replace('src="','src="'+s))
     ff.close()
-path='www.guotu56.com/neiyi/index.html'
+path='www.website.com/index.html'
 convert(path)

@@ -6,7 +6,7 @@ import re
 import os
 from bs4 import BeautifulSoup 
 #定义百度函数
-url='http://www.guotu56.com'
+url='http://www.website.com'
 def urlparse(data,sub):
     #调用
     # m=urllib2.urlopen(url).read()
@@ -40,7 +40,7 @@ def urlparse(data,sub):
             filename=filename.replace('?','_')
         filename=filename.replace(' ','_')
         # print filename
-        if filename.find('guotu56.com')==-1:continue
+        if filename.find('website.com')==-1:continue
         path=filename.split('/')
         path='/'.join(path[0:-1])
         if not os.path.exists(path):os.makedirs(path)

@@ -17,5 +17,5 @@ def webread(url):
 		data = f.read()
 		return data
 
-url="http://img.zngirls.com/article/10374/01_s.jpg"
+url="http://www.website.com/picture.jpg"
 open("index.jpg",'w').write(urllib2.urlopen(urllib2.Request(url,None,header)).read())

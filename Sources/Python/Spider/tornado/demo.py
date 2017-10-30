@@ -14,7 +14,7 @@ except ImportError:
 from tornado import httpclient, gen, ioloop, queues
 
 # base_url = 'http://www.tornadoweb.org/en/stable/'
-base_url = 'http://www.55m.cc/'
+base_url = 'http://www.website.com/'
 concurrency = 512
 
 	

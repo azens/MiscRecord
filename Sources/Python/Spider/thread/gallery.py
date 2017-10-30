@@ -12,7 +12,7 @@ import threading
 # import subprocess
 # from bs4 import BeautifulSoup
 
-site = 'http://www.zngirls.com/'
+site = 'http://www.website.com/'
 f=open('item3.txt','r')
 
 lines=f.readlines()

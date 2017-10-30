@@ -3,8 +3,8 @@
 import urllib2  
 from bs4 import BeautifulSoup 
 #定义百度函数
-host='http://www.guotu56.com'
-url=host+'/neiyi'
+host='http://www.website.com'
+url=host+'/path'
 def urlparse(data,sub):
     soup=BeautifulSoup(data,'lxml')
     ff=open('test.dot','w')
