@@ -1,0 +1,6 @@
+gl.h和glu.h中的
+#include <winapifamily.h>
+改为
+#include <windows.h>
+
+在使用glew.ht头文件时在前面加上#include <windows.h>
