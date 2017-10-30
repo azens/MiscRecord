@@ -5,6 +5,39 @@ LRESULT CALLBACK WndProc(HWND,UINT,WPARAM,LPARAM);
 
 //TCHAR szText[] = TEXT("win32 AlphaBlend");
 
+BOOL CenterWindow(HWND hwnd)
+{
+    HWND hwndParent;
+    RECT rect, rectP;
+    int width, height;      
+    int screenwidth, screenheight;
+    int x, y;
+ 
+    //make the window relative to its parent
+    hwndParent = GetDesktopWindow();    
+     
+    GetWindowRect(hwnd, &rect);
+    GetWindowRect(hwndParent, &rectP);
+     
+    width  = rect.right  - rect.left;
+    height = rect.bottom - rect.top;    
+     
+    x = ((rectP.right-rectP.left) -  width) / 2 + rectP.left;
+    y = ((rectP.bottom-rectP.top) - height) / 2 + rectP.top;    
+ 
+    screenwidth  = GetSystemMetrics(SM_CXSCREEN);
+    screenheight = GetSystemMetrics(SM_CYSCREEN);
+ 
+    //make sure that the dialog box never moves outside of//the screen
+    if(x < 0) x = 0;
+    if(y < 0) y = 0;
+    if(x + width  > screenwidth)  x = screenwidth  - width;
+    if(y + height > screenheight) y = screenheight - height;    
+ 
+    MoveWindow(hwnd, x, y, width, height, FALSE);
+        return TRUE;
+}
+
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int iCmdShow)
 {
 
@@ -32,6 +65,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
 	hWnd=CreateWindow(szAppName,TEXT("The hello program"),WS_OVERLAPPEDWINDOW,
 	                  350,120,640,480,NULL,NULL,hInstance,NULL);
 
+    CenterWindow(hWnd);
 	//也可以放在此
 	ShowWindow(hWnd,iCmdShow);
 	UpdateWindow(hWnd);
