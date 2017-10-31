@@ -1,4 +1,8 @@
-#include <windows.h>
+// #pragma comment(lib,"glew32")
+// #pragma comment(lib,"glfw3")
+// #pragma comment(lib,"opengl32")
+
+// #include <windows.h>
 
 // GLEW
 //#define GLEW_STATIC
@@ -7,9 +11,7 @@
 // GLFW
 #include <GLFW/glfw3.h>
 
-#pragma comment(lib,"glew32")
-#pragma comment(lib,"glfw3")
-#pragma comment(lib,"opengl32")
+
 
 
 // Function prototypes

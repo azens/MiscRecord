@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <Windows.h>
+// #include <Windows.h>
 #include <GL/glut.h>
 #define true 1
 #define false 0

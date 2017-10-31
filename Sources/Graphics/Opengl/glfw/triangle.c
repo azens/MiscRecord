@@ -1,7 +1,7 @@
 #include <GLFW/glfw3.h>
 
-#pragma comment(lib,"glfw3")
-#pragma comment(lib,"opengl32")
+// #pragma comment(lib,"glfw3")
+// #pragma comment(lib,"opengl32")
 
 int main(void)
 {
