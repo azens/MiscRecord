@@ -1,15 +1,13 @@
-
 #include <iostream>
 #include <armadillo>
 
 using namespace std;
 using namespace arma;
 
-int
-main()
+void
+SavePPM(const char*filename)
 {
-    cube c=randi<cube>(4,4,3, distr_param(0,255));
-    c.save("test.ppm",ppm_binary);
-    return 0;
+    cube c=randi<cube>(100,100,3, distr_param(0,255));
+    c.save(filename,ppm_binary);
 }
 
