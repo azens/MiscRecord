@@ -1,0 +1,54 @@
+https://wiki.archlinux.org/index.php/Install_on_WSL_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/latest/
+
+00.解压archlinux-bootstrap时在root目录,外面可能会出问题。
+
+0.文件/etc/resolv.conf:
+nameserver 46.253.48.14
+nameserver 8.8.8.8
+nameserver 46.253.48.14
+
+1.安装软件：
+sed-4.4-1-x86_64.pkg.tar.xz
+fakeroot-tcp-1.21-2-x86_64.pkg.tar.xz
+glibc-wsl-2.26-4-x86_64.pkg.tar.xz
+
+2.文件/etc/locale.gen:
+取消注释：
+es_US.UTF-8 UTF-8  
+zh_CN.UTF-8 UTF-8 
+然后输入:locale-gen
+
+3.文件~/.bashrc:
+force_color_prompt=yes
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]\$ '
+
+export LANG="zh_CN.UTF-8"
+export LC_ALL="zh_CN.UTF-8"
+export DISPLAY=:0
+
+4.文件/usr/bin/makepkg 
+#加入asroot
+splitpkg_overrides=('pkgdesc' 'arch' 'url' 'license' 'groups' 'depends'
+                    'optdepends' 'provides' 'conflicts' 'replaces' 'backup'
+                    'options' 'install' 'changelog' 'asroot')
+
+#取消root警告					
+if (( ! INFAKEROOT )); then
+	if (( EUID == 0 )); then
+		echo "You are running as root"
+	fi
+else
+	if [[ -z $FAKEROOTKEY ]]; then
+		error "$(gettext "Do not use the %s option. This option is only for use by %s.")" "'-F'" "makepkg"
+		exit 1 # TODO: error code
+	fi
+fi
+5.文件/etc/yaourtrc
+AURURL="https://aur.tuna.tsinghua.edu.cn"
+
+6.安装Cling和Root
+cling-git-r4078.00a59858-1-x86_64.pkg.tar.gz
+cling-jupyter-git-r4078.00a59858-1-x86_64.pkg.tar.gz
+root-6.10.06-1-x86_64.pkg.tar.gz
+yaourt补全依赖项
