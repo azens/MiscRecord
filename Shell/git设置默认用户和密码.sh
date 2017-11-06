@@ -1,6 +1,8 @@
 Shell:
 cd ~
 echo "https://user_name:password@github.com" > .git-credentials
+git config --global user.name "wurui1994"
+git config --global user.email 1341531859@qq.com
 git config --global credential.helper store
 
 Windows
