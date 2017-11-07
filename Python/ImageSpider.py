@@ -8,7 +8,7 @@ from scrapy.spiders import CrawlSpider, Rule
 import os
 
 class ImageSpider(CrawlSpider):
-    name = 'meitulu'
+    name = 'imagespider'
     allowed_domains = ['www.website.com','img.website.com']
     start_urls = ['http://www.website.com/']
     rules = (
