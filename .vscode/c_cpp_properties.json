@@ -45,9 +45,11 @@
         {
             "name": "Win32",
             "includePath": [
-                "D:/Software/MSYS2/mingw32/include",
-                "D:/Software/MSYS2/mingw32/include/c++/7.2.0",
-                "D:/Software/MSYS2/mingw32/i686-w64-mingw32/include",
+                "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/include/*",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/um",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/ucrt",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/shared",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/winrt",
                 "${workspaceRoot}"
             ],
             "defines": [
@@ -57,9 +59,12 @@
             "intelliSenseMode": "msvc-x64",
             "browse": {
                 "path": [
-                    "D:/Software/MSYS2/mingw32/include",
-                    "D:/Software/MSYS2/mingw32/include/c++/7.2.0",
-                    "D:/Software/MSYS2/mingw32/i686-w64-mingw32/include",
+                    "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/include/*",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/um",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/ucrt",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/shared",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/winrt",
+                    "D:/Software/GitHub/vcpkg/installed/x86-windows/include",
                     "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": true,

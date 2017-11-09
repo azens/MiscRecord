@@ -1,35 +1,38 @@
 
-### Part1.This is a equation and some websites.
->
-<center>**Hello** World</center>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
-<font size=75>$$E=mc^2$$</font><br>
-I get 10 times more traffic from [Google] [1] than from [Yahoo] [2] or [MSN] [3].**How about you.**
+### *Part1.This is a equation and some websites.*
+>
+<center>
+
+> **Hello** World
+</center>
+
+$$E=mc^2$$
+
+>I get 10 times more traffic from [Google][1] than from [Yahoo][2] or [MSN][3].
+> **How about you.**
 
 [1]: http://google.com/ "Google"
 [2]: http://search.yahoo.com/ "Yahoo Search"
 [3]: http://search.msn.com/ "MSN Search"
 
 
-### Part2.There are the examples of some programming language.
+### *Part2.There are the examples of some programming language.*
 > 给出一些例子代码：
 >
-####This is the C.
-
->> ```C
+#### This is the C. 
+```C
 #include <stdio.h>
 int main(int argc, char const *argv[])
 {
 	puts("hello");
 	return 0;
 }
->> ```
->
+```
 
-
->
-####This is the Java.
-> ```Java
+#### This is the Java.
+```Java
 //package console;
 public class Print {
 	static void print(Object obj){
@@ -39,22 +42,18 @@ public class Print {
 		print("Hello World");
 	}
 }
-> ```
->
+```
 
->
-####This is the MATLAB
-> ```MATLAB
+#### This is the MATLAB
+```MATLAB
 set(0,'DefaultFigureVisible','off')
 ezplot('cos(x)');grid minor
 print -dps main.ps
 !main.ps
-> ```
->
+```
 
->
-####This is the Python
-> ```Python
+#### This is the Python
+```Python
 from turtle import *
 from math import*
 speed('fastest')
@@ -71,16 +70,12 @@ color('blue')
 for i in range(1,100):
     setpos(x[i],y[i])
 !main.ps
-> ```
->
+```
 
-
->
 #### This is the short code in a sentence.
->Use the `printf()` function.   
+> Use the `printf()` function.   
 
-
-### Part3.These are the origin three colors.
+### *Part3.These are the origin three colors.*
 
 <font face="Cambria">
 
@@ -91,12 +86,11 @@ for i in range(1,100):
 
 </font>
 
-
 <img src="test.jpg" width="640" height="480" />
 
 
 
-### Part4.Theres are some sentences.
+### *Part4.Theres are some sentences.*
 <font face="Consolas">
 
 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -111,7 +105,7 @@ This is [an example](http://example.com/ "Title") inline link.
 
 
 
-### Part4.This is example for the picture
+### *Part5.This is example for the picture*
 >
 <center>
 <img src="test.jpg" width="640" height="480" />

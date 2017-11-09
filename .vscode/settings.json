@@ -1,6 +1,13 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "avcodec.h": "c",
+        "cairo.h": "c",
+        "esutil.h": "c",
+        "gl2.h": "c",
+        "cimport.h": "c",
+        "glext.h": "c",
+        "sdl.h": "c"
     }
 }
