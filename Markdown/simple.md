@@ -1,8 +1,8 @@
-##**Hello** ***world***
+## **Hello** ***world***
 
 Use the `printf()` function.
 
-##This is some font
+## This is some font
 
 <font face="STCAIYUN">我是华文彩云</font><br>
 <font color=gray size=5>color=gray</font><br>
@@ -10,12 +10,12 @@ Use the `printf()` function.
 
 
 
-##这是一个标题。
+## 这是一个标题。
 
 1. 这是第一行列表项。
 2. 这是第二行列表项。
 
-<font face="Cambria" color="cyan">
+<font face="Cambria" color="skyblue">
 
 >
 1. Red
@@ -44,8 +44,9 @@ return shell_exec("echo $input | $markdown_script");
 This is [an example](http://example.com/ "Title") inline link.
 [This link](http://example.net/) has no title attribute.
 <center>
+
 >
->###         黄浦江上的的卢浦大桥
+###         黄浦江上的的卢浦大桥
 >
 ><img src="test.jpg" width="350" height="234" />
 </center>
