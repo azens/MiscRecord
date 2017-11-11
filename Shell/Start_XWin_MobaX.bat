@@ -1,0 +1,1 @@
+"C:\Users\wurui\DOCUME~1\MobaXterm\slash\bin\XWin_MobaX.exe"  -silent-dup-error -nolisten inet6 -hostintitle +bs  -clipboard -nowgl -multiwindow -noreset :0
