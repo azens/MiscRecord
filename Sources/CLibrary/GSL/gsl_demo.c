@@ -3,6 +3,6 @@
 #pragma comment(lib,"gsl")
 int main()
 {
-	printf("%g",gsl_sf_bessel_J0(5.0));
+	printf("%g\n",gsl_sf_bessel_J0(5.0));
 	return 0;
 }

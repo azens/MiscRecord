@@ -1,7 +1,7 @@
 #include <gsl/gsl_complex.h>
 #include <gsl/gsl_complex_math.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 
 #pragma comment(lib,"gsl")
 int main(int argc, char** argv)
@@ -17,6 +17,6 @@ int main(int argc, char** argv)
     printf("a*b\treal : %f image : %f\n",c.dat[0],c.dat[1]);
     c = gsl_complex_div(a,b);
     printf("a/b\treal : %f image : %f\n",c.dat[0],c.dat[1]);
-    system("PAUSE");
+    // system("PAUSE");
     return 0;
 }

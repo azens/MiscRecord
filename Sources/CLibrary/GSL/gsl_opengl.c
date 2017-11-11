@@ -1,10 +1,11 @@
+//tcc -lgsl -lglut -lGL -run gsl_opengl.c
 #include <gsl/gsl_qrng.h>
-#include <gl/glut.h>
+#include <GL/glut.h>
 
 // #pragma comment(lib,"glut32")
-#pragma comment(lib,"gsl")
-#pragma comment(lib,"opengl32")
-#pragma comment(lib,"freeglut")
+// #pragma comment(lib,"gsl")
+// #pragma comment(lib,"opengl32")
+// #pragma comment(lib,"freeglut")
 
 void glutInitialize()
 {
