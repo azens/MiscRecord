@@ -4,6 +4,8 @@
 @Grab(group="org.jsoup", module="jsoup", version="1.11.1")
 
 import org.jsoup.Jsoup;
-Jsoup.connect("http://cnblogs.com").get().select("#post_list > div > div.post_item_body > h3 > a").each {
-    println it.text()
-}
+// Jsoup.connect("http://cnblogs.com").get().select("#post_list > div > div.post_item_body > h3 > a").each {
+    // println it.text()
+// }
+hrefs = Jsoup.connect("http://cnblogs.com").get().select('a[href]').collect{it.attr('href')};
+println(hrefs)
