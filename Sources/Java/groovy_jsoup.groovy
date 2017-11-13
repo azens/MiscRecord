@@ -9,3 +9,10 @@ import org.jsoup.Jsoup;
 // }
 hrefs = Jsoup.connect("http://cnblogs.com").get().select('a[href]').collect{it.attr('href')};
 println(hrefs)
+
+
+// # Python version:
+// from lxml.html import fromstring
+// from requests import get
+// # [e.get('href') for e in fromstring(get('http://cnblogs.com').text).cssselect('a[href]')]
+// fromstring(get('http://cnblogs.com').text).xpath('//a/href')
