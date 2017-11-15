@@ -5,8 +5,6 @@ acl
 acpi
 acpid
 adwaita-icon-theme
-aegisub
-alphaplot
 alsa-firmware
 alsa-lib
 alsa-plugins
@@ -62,8 +60,6 @@ chromaprint
 cifs-utils
 ckbcomp
 clang
-cling-git
-cling-jupyter-git
 clucene
 cmake
 colord
@@ -292,7 +288,6 @@ ldns
 leptonica
 less
 libabw
-libafterimage
 libaio
 libarchive
 libass
@@ -533,8 +528,6 @@ lightdm
 lightdm-gtk-greeter
 lightdm-gtk-greeter-settings
 linux-api-headers
-linux-firmware
-linux49
 lldb
 llvm-libs
 lm_sensors
@@ -790,7 +783,6 @@ renderproto
 rest
 rfkill
 rhash
-root
 rpcbind
 rsync
 rtkit
@@ -800,7 +792,6 @@ s-nail
 samba
 sbc
 schroedinger
-scidavis
 scrnsaverproto
 sdl
 sdl2
@@ -863,7 +854,6 @@ ufw
 unace
 unixodbc
 unrar
-unuran
 unzip
 upower
 uriparser
