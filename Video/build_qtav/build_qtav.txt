@@ -11,6 +11,7 @@ PATH += $$PWD/build/bin
 INCLUDEPATH += $$PWD/build/include
 LIBS += -L$$PWD/build/lib
 
+call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 qmake ..\QtAv.pro -r -spec win32-msvc -tp vc
 
 3.修改sdk_install.bat
