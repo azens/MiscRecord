@@ -1,13 +1,14 @@
 @echo off
+set PackageVersion=ffmpeg-20171204-71421f3-win32
 REM bash -c "wget https://github.com/ShiftMediaProject/FFmpeg/releases/download/3.3.5.r89114/libffmpeg_3.3.5.r89114_msvc14.zip"
-bash -c "wget https://ffmpeg.zeranoe.com/builds/win32/dev/ffmpeg-20171130-83ecdc9-win32-dev.zip"
-bash -c "wget https://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-20171130-83ecdc9-win32-shared.zip"
+bash -c "wget https://ffmpeg.zeranoe.com/builds/win32/dev/%PackageVersion%-dev.zip"
+bash -c "wget https://ffmpeg.zeranoe.com/builds/win32/shared/%PackageVersion%-shared.zip"
 
-bash -c "unzip ffmpeg-20171130-83ecdc9-win32-dev.zip"
-bash -c "unzip ffmpeg-20171130-83ecdc9-win32-shared.zip"
+bash -c "unzip %PackageVersion%-dev.zip"
+bash -c "unzip %PackageVersion%-shared.zip"
 
-rename ffmpeg-20171130-83ecdc9-win32-dev dev
-rename ffmpeg-20171130-83ecdc9-win32-shared shared
+rename %PackageVersion%-dev dev
+rename %PackageVersion%-shared shared
 
 move dev/include include
 move dev/lib lib
@@ -56,7 +57,6 @@ rmdir /s/q bin\x86
 rmdir /s/q bin\x64
 rmdir /s/q lib\x86
 rmdir /s/q lib\x64
-rmdir /s/q include\ass
 rmdir /s/q licenses
 
 del *.zip
