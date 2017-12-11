@@ -53,3 +53,10 @@ cling-git-r4078.00a59858-1-x86_64.pkg.tar.gz
 cling-jupyter-git-r4078.00a59858-1-x86_64.pkg.tar.gz
 root-6.10.06-1-x86_64.pkg.tar.gz
 yaourt补全依赖项
+
+7.声音pulseaudio:
+bash -c "wget http://bosmans.ch/pulseaudio/pulseaudio-1.1.zip"
+bach -c "unzip pulseaudio-1.1.zip -d pulseaudio"
+bash -c "echo export PULSE_SERVER=tcp:localhost >> ~/.bashrc"
+echo load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1 >> pulseaudio\etc\pulse\default.pa
+start pulseaudio\bin\pulseaudio.exe -D --exit-idle-time=-1
