@@ -18,6 +18,7 @@ copy /y bin\*.exe %Install%\bin\
 copy /y lib\*.lib %Install%\lib\
 xcopy /s /q /y /i include %Install%\include
 
+copy /y lib_win_x86\*.exe %Install%\bin\
 copy /y lib_win_x86\*Qt*AV*.lib* %Install%\lib\
 copy /y lib_win_x86\QtAVWidgets1.lib %Install%\lib\Qt5AVWidgets.lib
 copy /y lib_win_x86\QtAVWidgetsd1.lib %Install%\lib\Qt5AVWidgetsd.lib
