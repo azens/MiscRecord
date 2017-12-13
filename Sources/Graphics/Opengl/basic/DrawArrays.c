@@ -1,9 +1,16 @@
+// For MacOS: clang -framework GLUT -framework OpenGL DrawArrays.c
+// Path: /System/Library/Frameworks/OpenGL.framework/Libraries/libGL.dylib
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-// #include <Windows.h>
-#include <GL/glut.h>
+
+#if defined(__APPLE__)
+    #include <GLUT/glut.h>
+#else
+    #include <gl/glut.h>
+#endif
+
 #define true 1
 #define false 0
 #define random (rand()/(RAND_MAX+1.0))
