@@ -5,10 +5,10 @@ mkdir build
 cd build
 
 cp -f -R /usr/local/opt/ffmpeg/include .
-cp -f -R /usr/local/opt/ffmpeg/lib
+cp -f -R /usr/local/opt/ffmpeg/lib .
 
-cp -f -R /usr/local/opt/libass/include
-cp -f -R /usr/local/opt/libass/lib
+cp -f -R /usr/local/opt/libass/include .
+cp -f -R /usr/local/opt/libass/lib .
 
 qmake ../QtAV.pro
 make -j8
