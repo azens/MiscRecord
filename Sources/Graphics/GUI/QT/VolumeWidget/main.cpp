@@ -1,7 +1,7 @@
 #include "VolumeWidget.h"
 #include <QApplication>
 #include <QSlider>
-#include <QtWidgets\QtWidgets>
+#include <QtWidgets/QtWidgets>
 
 
 int main(int argc, char *argv[])
