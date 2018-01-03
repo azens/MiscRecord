@@ -1,4 +1,4 @@
-// g++ pwd.cpp -lstdc++fs
+// g++ filesystem.cpp -lstdc++fs
 #include <iostream>
 #include <experimental/filesystem>
 
