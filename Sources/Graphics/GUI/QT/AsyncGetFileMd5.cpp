@@ -1,6 +1,6 @@
 #include <QCoreApplication>
 #include <QCryptographicHash>
-#include <QtConcurrent\QtConcurrent>
+#include <QtConcurrent/QtConcurrent>
 
 QByteArray getFileMd5(QString filePath)
 {
@@ -37,11 +37,11 @@ QByteArray getFileMd5(QString filePath)
 }
 
 template<
-	typename U = std::function<T (Args... arg)>,
-	typename X = std::function<R (T arg)>,
+	typename U,
+	typename X,
 	typename... Args
 >
-void AsyncCall(U func,X callback,Args... args)
+void AsyncCall(U func, X callback, Args... args)
 {
 	auto future = QtConcurrent::run(func, args...);
 	using Watcher = QFutureWatcher<decltype(future.result())>;
@@ -71,16 +71,17 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication app(argc, argv);
 
+    //Async:"Normal" maybe not output.
 	qDebug() << asyncGetFileMd5(argv[0], [&](QByteArray const& md5)
 	{
-		qDebug() << md5.toHex();
+		qDebug() << md5.toHex() << "Normal";
 		//app.quit();
 	});
 
 	//Template
 	AsyncCall(getFileMd5,[&](auto md5)
 	{
-		qDebug() << md5.toHex();
+		qDebug() << md5.toHex() << "Template";
 		app.quit();
 	}, argv[0]);
 	app.exec();
