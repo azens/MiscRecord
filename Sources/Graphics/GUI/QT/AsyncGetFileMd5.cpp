@@ -36,6 +36,24 @@ QByteArray getFileMd5(QString filePath)
 	return md5Hash.result();
 }
 
+template<
+	typename U = std::function<T (Args... arg)>,
+	typename X = std::function<R (T arg)>,
+	typename... Args
+>
+void AsyncCall(U func,X callback,Args... args)
+{
+	auto future = QtConcurrent::run(func, args...);
+	using Watcher = QFutureWatcher<decltype(future.result())>;
+	QSharedPointer<Watcher> watcher(new Watcher());
+	QObject::connect(watcher.data(), &Watcher::finished, [=]()
+	{
+		callback(watcher->result());
+	});
+	watcher->setFuture(future);
+}
+
+
 bool asyncGetFileMd5(QString const& file, std::function<void(QByteArray const& md5)> callback)
 {
 	if (!QFile::exists(file)) return false;
@@ -56,7 +74,14 @@ int main(int argc, char *argv[])
 	qDebug() << asyncGetFileMd5(argv[0], [&](QByteArray const& md5)
 	{
 		qDebug() << md5.toHex();
-		app.quit();
+		//app.quit();
 	});
+
+	//Template
+	AsyncCall(getFileMd5,[&](auto md5)
+	{
+		qDebug() << md5.toHex();
+		app.quit();
+	}, argv[0]);
 	app.exec();
 }
