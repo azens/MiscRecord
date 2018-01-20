@@ -1,3 +1,4 @@
+//clang++ -std=c++14
 #include <QCoreApplication>
 #include <QCryptographicHash>
 #include <QtConcurrent/QtConcurrent>
@@ -53,6 +54,17 @@ void AsyncCall(U func, X callback, Args... args)
 	watcher->setFuture(future);
 }
 
+auto AsyncCallL = [](auto  func, auto callback, auto... args)
+{
+	auto future = QtConcurrent::run(func, args...);
+	using Watcher = QFutureWatcher<decltype(future.result())>;
+	QSharedPointer<Watcher> watcher(new Watcher());
+	QObject::connect(watcher.data(), &Watcher::finished, [=]()
+	{
+		callback(watcher->result());
+	});
+	watcher->setFuture(future);
+};
 
 bool asyncGetFileMd5(QString const& file, std::function<void(QByteArray const& md5)> callback)
 {
@@ -82,7 +94,15 @@ int main(int argc, char *argv[])
 	AsyncCall(getFileMd5,[&](auto md5)
 	{
 		qDebug() << md5.toHex() << "Template";
+		//app.quit();
+	}, argv[0]);
+
+	//Lambda
+	AsyncCallL(getFileMd5, [&](auto md5)
+	{
+		qDebug() << md5.toHex() << "Lambda";
 		app.quit();
 	}, argv[0]);
+
 	app.exec();
 }
