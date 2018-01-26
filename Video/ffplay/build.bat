@@ -1,1 +1,0 @@
-gcc  -lm -lSDL2 -lavutil -lavformat -lavcodec -lswresample -lavdevice -lavfilter -lswscale  -lpostproc cmdutils.c ffplay.c -o ffplay
