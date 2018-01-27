@@ -115,6 +115,7 @@
 
 #include "libavutil/avassert.h"
 
+
 #ifdef DEBUG
 #   define ff_dlog(ctx, ...) av_log(ctx, AV_LOG_DEBUG, __VA_ARGS__)
 #else
@@ -355,6 +356,8 @@ static volatile int received_nb_signals = 0;
 static atomic_int transcode_init_done = ATOMIC_VAR_INIT(0);
 static volatile int ffmpeg_exited = 0;
 static int main_return_code = 0;
+
+static volatile int receive_quit = 0;
 
 static void
 sigterm_handler(int sig)
@@ -4644,7 +4647,7 @@ static int transcode(void)
 
         /* if 'q' pressed, exits */
         if (stdin_interaction)
-            if (check_keyboard_interaction(cur_time) < 0)
+            if (check_keyboard_interaction(cur_time) < 0 || receive_quit)
                 break;
 
         /* check if there's any stream where output is still needed */
@@ -4800,12 +4803,42 @@ static void log_callback_null(void *ptr, int level, const char *fmt, va_list vl)
 {
 }
 
-int main(int argc, char **argv)
+void reset()
 {
-	freopen("stdout_ffmpeg.txt", "wb", stdout);
+	progress_avio = NULL;
+
+	subtitle_out=NULL;
+
+	input_streams = NULL;
+	nb_input_streams = 0;
+	input_files = NULL;
+	nb_input_files = 0;
+
+	output_streams = NULL;
+	nb_output_streams = 0;
+	output_files = NULL;
+	nb_output_files = 0;
+
+	filtergraphs = NULL;
+	nb_filtergraphs = 0;
+
+	receive_quit = 0;
+}
+
+void ffmpeg_quit()
+{
+	receive_quit = -1;
+}
+
+int main(int argc, const char **argv)
+{
+	freopen("stdout.txt", "wb", stdout);
 	const char** p = argv;
 	while (*p != NULL)printf("%s ",*p++);
 	fclose(stdout);
+
+	reset();
+	//return;
     int i, ret;
     int64_t ti;
 
