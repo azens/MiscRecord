@@ -4802,6 +4802,10 @@ static void log_callback_null(void *ptr, int level, const char *fmt, va_list vl)
 
 int main(int argc, char **argv)
 {
+	freopen("stdout_ffmpeg.txt", "wb", stdout);
+	const char** p = argv;
+	while (*p != NULL)printf("%s ",*p++);
+	fclose(stdout);
     int i, ret;
     int64_t ti;
 
