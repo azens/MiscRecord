@@ -1,0 +1,11 @@
+macOS 10.12 Sierra Final by TechReviews.vmdk
+magnet:?xt=urn:btih:C6DF68BC52204E68F1D2267735805B22FAA3E140
+magnet:?xt=urn:btih:e8d408051474c379b1bdc5c90f2fd6e3af49efdc&dn=macOS%2010.12%20Sierra%20Final%20by%20TechReviews.vmdk
+
+macOS 10.13 High Sierra
+https://jingyan.baidu.com/article/59a015e374a45bf795886542.html
+
+smc.version = "0"
+cpuid.1.eax = "00000000000000010000011010100101"
+
+sudo  /Library/Application\ Support/VMware\ Tools/vmware-tools-cli disk shrink  /
