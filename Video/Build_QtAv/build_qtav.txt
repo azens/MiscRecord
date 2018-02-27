@@ -15,5 +15,7 @@ git submodule update --init --recursive
 
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 qmake ..\QtAv.pro -r -spec win32-msvc -tp vc
+msbuild /m /p:platform=win32
+msbuild /m /p:platform=win32 /p:configuration=release
 
 3.修改sdk_install.bat

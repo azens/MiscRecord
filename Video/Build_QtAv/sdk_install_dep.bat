@@ -1,10 +1,10 @@
-set Install=install
+set Install=QtAV_VS2015_Qt5.9.4_Binary_20180227
 mkdir %Install%\lib\
 mkdir %Install%\bin\
 mkdir %Install%\include\QtAV\
 mkdir %Install%\mkspecs\features
 mkdir %Install%\include\QtAVWidgets\
-mkdir %Install%\include\QtAV\5.9.3\QtAV\
+mkdir %Install%\include\QtAV\5.9.4\QtAV\
 mkdir %Install%\mkspecs\modules
 mkdir %Install%\qml\QtAV\
 
@@ -31,6 +31,13 @@ copy /y ..\widgets\QtAVWidgets\*.h %Install%\include\QtAVWidgets\
 copy /y ..\widgets\QtAVWidgets\QtAVWidgets %Install%\include\QtAVWidgets\
 
 xcopy /s /q /y /i ..\src\QtAV\private %Install%\include\QtAV\private
-xcopy /s /q /y /i ..\src\QtAV\private %Install%\include\QtAV\5.9.3\QtAV\private
+xcopy /s /q /y /i ..\src\QtAV\private %Install%\include\QtAV\5.9.4\QtAV\private
 xcopy /s /q /y /i bin\QtAV %Install%\qml\QtAV
 copy /y ..\qml\plugins.qmltypes %Install%\qml\QtAV\
+
+REM %QTDIR%\bin\windeployqt.exe %Install%\bin\Player.exe
+REM %QTDIR%\bin\windeployqt.exe QtAVWidgets1.dll
+REM For Windows 10 VS2015
+REM xcopy /y /s /i "C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x86" %Install%\bin
+REM xcopy /y /s /i  "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT" %Install%\bin
+pause
