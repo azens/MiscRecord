@@ -15,5 +15,5 @@ minidump_stackwalk file.dmp . > info.txt 2>&1
 # file.sym/SubtitleClient/C644C83DD49C3403BCDA79C869398B840/SubtitleClient.sym
 s=$(grep "file.pdb|" info.txt | cut -d '|' -f 2|tr -d '\r')
 mkdir -p file.pdb/$s
-copy file.sym file.pdb/$/
+cp file.sym file.pdb/$/
 minidump_stackwalk file.dmp . > info.txt
