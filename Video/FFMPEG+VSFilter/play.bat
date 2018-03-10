@@ -9,5 +9,6 @@
 @echo %VPATH% >> %~dp0play.avs
 @echo %ASSPATH% >> %~dp0play.avs
 @type %~dp0demo.avs >> %~dp0play.avs
-ffplay.exe -f avisynth %~dp0play.avs
+REM ffplay.exe -f avisynth %~dp0play.avs
+ffplay -i %~dp0play.avs
 @pause
