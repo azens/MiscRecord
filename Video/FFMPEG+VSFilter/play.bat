@@ -1,5 +1,5 @@
-@set PATH=%~dp0x86
-@set PLUGIN_PATH=%~dp0x86\plugins+
+@set PATH=%~dp0
+@set PLUGIN_PATH=%~dp0\plugins+
 @set VSFilter=LoadPlugin("%PLUGIN_PATH%\VSFilter.dll")
 @set FFMS2=LoadPlugin("%PLUGIN_PATH%\ffms2.dll")
 @set VPATH=vPath="%~dpn1.mkv"

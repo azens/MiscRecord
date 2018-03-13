@@ -60,7 +60,7 @@ copy ..\xy-VSFilter\bin\lib_15.0\Win32\strmbaseR.lib build\plugins\DirectShowSou
 cd build
 msbuild /m /p:platform=win32 /p:configuration=release "AviSynth+.sln"
 popd
-xcopy /y /s /i AviSynthPlus\build\Output\ ffmpeg32\bin\
+xcopy /y /s /i /e AviSynthPlus\build\Output ffmpeg32\bin\
 
 REM build zlib
 pushd .
