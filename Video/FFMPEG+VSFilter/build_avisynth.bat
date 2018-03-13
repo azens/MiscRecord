@@ -1,3 +1,4 @@
+REM use `comenv` set cmake
 pushd .
 @call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
 popd
@@ -6,7 +7,7 @@ REM get ffmpeg
 pushd .
 mkdir ffmpeg32
 cd ffmpeg32
-set PackageVersion=ffmpeg-3.4.1-win32
+set PackageVersion=ffmpeg-3.4.2-win32
 bash -c "wget -c https://ffmpeg.zeranoe.com/builds/win32/dev/%PackageVersion%-dev.zip"
 bash -c "wget -c https://ffmpeg.zeranoe.com/builds/win32/shared/%PackageVersion%-shared.zip"
 
@@ -42,16 +43,6 @@ rename swresample-2.lib swresample.lib
 rename swscale-4.lib swscale.lib
 popd
 
-REM build AviSynthPlus
-pushd .
-bash -c "git clone -b MT https://github.com/pinterf/AviSynthPlus"
-cd AviSynthPlus
-cmake -Bbuild -H. -G "Visual Studio 15 2017"
-cd build
-msbuild /m /p:platform=win32 /p:configuration=release "AviSynth+.sln"
-popd
-copy /y AviSynthPlus\build\Output\AviSynth.dll ffmpeg32\bin
-
 REM build xy-VSFilter [Need MFC]
 pushd .
 bash -c "git clone https://github.com/wurui1994/xy-VSFilter"
@@ -59,6 +50,17 @@ cd xy-VSFilter
 msbuild /m /p:platform=win32 /p:configuration=release
 popd
 copy /y xy-VSFilter\bin\lib_15.0\Win32\Release\VSFilter.dll ffmpeg32\bin
+
+REM build AviSynthPlus
+pushd .
+bash -c "git clone https://github.com/wurui1994/AviSynthPlus"
+cd AviSynthPlus
+cmake -Bbuild -H. -G "Visual Studio 15 2017"
+copy ..\xy-VSFilter\bin\lib_15.0\Win32\strmbaseR.lib build\plugins\DirectShowSource\
+cd build
+msbuild /m /p:platform=win32 /p:configuration=release "AviSynth+.sln"
+popd
+xcopy /y /s /i AviSynthPlus\build\Output\ ffmpeg32\bin\
 
 REM build zlib
 pushd .
