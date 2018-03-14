@@ -8,4 +8,4 @@ ref:https://github.com/Microsoft/vcpkg/blob/master/toolsrc/src/vcpkg/export.cpp
     static fs::path do_archive_export(const VcpkgPaths& paths,
                                       const fs::path& raw_exported_dir,
                                       const fs::path& output_dir,
-const ArchiveFormat& format);
+                                      const ArchiveFormat& format);
