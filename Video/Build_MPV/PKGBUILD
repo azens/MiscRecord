@@ -51,7 +51,7 @@ build() {
   # delete libav*a and libav*dll.a,replace ffmpeg[av*.lib]and 
   # libass[ass.lib] if can't work well,
   # use vlc\contrib\i686-w64-mingw32\lib\libass.a [and libharfbuzz.a]
-  # remove libiconv.dll.a, and need libwinpthread*dll
+  # remove libiconv.dll.a, libpthread.dll.a and libwinpthread.dll.a
   cd "${srcdir}/${_realname}-${pkgver}"
 
   DEST_OS=win32 \
