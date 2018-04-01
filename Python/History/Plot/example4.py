@@ -1,8 +1,7 @@
-from pylab import*
+from pylab import figure,show,np
 
 fig = figure()
 ax = fig.add_subplot(111)
-
 
 
 # plt.suptitle('Number of counts')
@@ -24,28 +23,27 @@ minor_ticks = np.arange(0, 13, 1)
 # If I do minor_ticks = np.arange(0, 301, 5), I will not get minor ticks for the entire plot
 
 
-
 # Specify tick label size
-ax.tick_params(axis = 'both', which = 'major', color='r',length = 8,width = 4)
-ax.tick_params(axis = 'both', which = 'minor',color='b',length = 6,width = 2)
+ax.tick_params(axis='both', which='major', color='r', length=8, width=4)
+ax.tick_params(axis='both', which='minor', color='b', length=6, width=2)
 # Suppress minor tick labels
 
 ax.set_xticks(major_ticks)
-ax.set_xticks(minor_ticks, minor = True)
+ax.set_xticks(minor_ticks, minor=True)
 # ax.set_yticks(major_ticks)
 # ax.set_yticks(minor_ticks, minor = True)
 
-ax.set_xticklabels(range(2013,2020),color='c')
+ax.set_xticklabels(range(2013, 2020), color='c')
 for tick in ax.yaxis.get_majorticklabels():
     tick.set(color='b')
 
 # Set both ticks to be outside
-ax.tick_params(which = 'both', direction = 'out')
+ax.tick_params(which='both', direction='out')
 
 
 # Specify different settings for major and minor grids
 # ax.grid(which = 'minor', alpha = 0.7)
-ax.grid(which = 'major', axis = 'x',color = 'm')
+ax.grid(which='major', axis='x', color='m')
 
 ax.spines['bottom'].set_color('r')
 ax.spines['top'].set_color('g')

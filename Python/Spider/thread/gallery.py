@@ -4,8 +4,7 @@
 import os
 import re
 import Queue 
-import urllib
-import urllib2 
+from urllib.request import urlopen
 import threading  
 
 
@@ -18,18 +17,22 @@ f=open('item3.txt','r')
 lines=f.readlines()
 f.close()
 total = []
-start=0
+start = 0
 
 def GetImage(url,filename):
     try:
-        link=urllib2.urlopen(url)
-    except: print filename+' timeout';return
-    print filename
+        link = urlopen(url)
+    except: 
+        print(filename+' timeout')
+        return
+    print(filename)
     if link:
         ff=open(filename,'wb')
         try:
             buffer=link.read()
-        except:print 'fail';return
+        except:
+            print('fail')
+            return
         ff.write(buffer)
         ff.close()
 

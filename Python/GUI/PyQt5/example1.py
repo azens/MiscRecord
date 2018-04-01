@@ -1,9 +1,9 @@
 #Blank Window
 import sys
-from PyQt4 import QtGui
+from PyQt5 import QtWidgets
 def main():
-	app = QtGui.QApplication(sys.argv)
-	w = QtGui.QWidget()
+	app = QtWidgets.QApplication(sys.argv)
+	w = QtWidgets.QWidget()
 	w.resize(640, 480)
 	w.move(350, 120)
 	w.setWindowTitle('Simple')

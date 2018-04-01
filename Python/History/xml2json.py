@@ -7,10 +7,11 @@ try:
 except:
     import simplejson as json
 
+
 class Xml2Json:
     LIST_TAGS = ['COMMANDS']
-    
-    def __init__(self, data = None):
+
+    def __init__(self, data=None):
         self._parser = ParserCreate()
         self._parser.StartElementHandler = self.start
         self._parser.EndElementHandler = self.end
@@ -19,7 +20,7 @@ class Xml2Json:
         if data:
             self.feed(data)
             self.close()
-        
+
     def feed(self, data):
         self._stack = []
         self._data = ''
@@ -38,7 +39,7 @@ class Xml2Json:
     def end(self, tag):
         last_tag = self._stack.pop()
         assert last_tag[0] == tag
-        if len(last_tag) == 1: #leaf
+        if len(last_tag) == 1:  # leaf
             data = self._data
         else:
             if tag not in Xml2Json.LIST_TAGS:
@@ -53,16 +54,17 @@ class Xml2Json:
                             data[k] = [el, v]
                         else:
                             el.append(v)
-            else: #force into a list
-                data = [{k:v} for k, v in last_tag[1:]]
+            else:  # force into a list
+                data = [{k: v} for k, v in last_tag[1:]]
         if self._stack:
             self._stack[-1].append((tag, data))
         else:
-            self.result = {tag:data}
+            self.result = {tag: data}
         self._data = ''
 
     def data(self, data):
         self._data = data
+
 
 if __name__ == '__main__':
     xml = """
@@ -83,7 +85,7 @@ if __name__ == '__main__':
     </course>
 </student>
 """
-    result = Xml2Json(xml).result;
+    result = Xml2Json(xml).result
     print(result)
     print("*" * 80)
     print(result['student']['stid'])

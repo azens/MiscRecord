@@ -1,5 +1,5 @@
-# BeautifulSoupÖĞfindAllÓëselectÇø±ğ
-# findAllÖ»ÊÇÑ°ÕÒ±êÇ©¡£
-# select¿ÉÒÔÑ¡ÔñÊôĞÔ¡£
+# BeautifulSoupä¸­findAllä¸selectåŒºåˆ«
+# findAllåªæ˜¯å¯»æ‰¾æ ‡ç­¾ã€‚
+# selectå¯ä»¥é€‰æ‹©å±æ€§ã€‚
 # <a class="tags"
-img.select('li')[0].select('.tags')
+# img.select('li')[0].select('.tags')

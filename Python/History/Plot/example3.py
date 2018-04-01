@@ -1,4 +1,4 @@
-from pylab import*
+from pylab import figure, rand, setp, show
 
 contig_names = ['AAB0008r'] * 10
 fig = figure()
