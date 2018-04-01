@@ -14,17 +14,17 @@
 
 int main()
 {
-    ///¶¨Òåsockfd
+    ///å®šä¹‰sockfd
     int sock_cli = socket(AF_INET,SOCK_STREAM, 0);
 
-    ///¶¨Òåsockaddr_in
+    ///å®šä¹‰sockaddr_in
     struct sockaddr_in servaddr;
     memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(MYPORT);  ///·şÎñÆ÷¶Ë¿Ú
-    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");  ///·şÎñÆ÷ip
+    servaddr.sin_port = htons(MYPORT);  ///æœåŠ¡å™¨ç«¯å£
+    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");  ///æœåŠ¡å™¨ip
 
-    ///Á¬½Ó·şÎñÆ÷£¬³É¹¦·µ»Ø0£¬´íÎó·µ»Ø-1
+    ///è¿æ¥æœåŠ¡å™¨ï¼ŒæˆåŠŸè¿”å›0ï¼Œé”™è¯¯è¿”å›-1
     if (connect(sock_cli, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)
     {
         perror("connect");
@@ -35,10 +35,10 @@ int main()
     char recvbuf[BUFFER_SIZE];
     while (fgets(sendbuf, sizeof(sendbuf), stdin) != NULL)
     {
-        send(sock_cli, sendbuf, strlen(sendbuf),0); ///·¢ËÍ
+        send(sock_cli, sendbuf, strlen(sendbuf),0); ///å‘é€
         if(strcmp(sendbuf,"exit\n")==0)
             break;
-        recv(sock_cli, recvbuf, sizeof(recvbuf),0); ///½ÓÊÕ
+        recv(sock_cli, recvbuf, sizeof(recvbuf),0); ///æ¥æ”¶
         fputs(recvbuf, stdout);
 
         memset(sendbuf, 0, sizeof(sendbuf));

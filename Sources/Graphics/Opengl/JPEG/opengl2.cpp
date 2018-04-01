@@ -1,4 +1,4 @@
-#pragma comment(lib,"jpeg.lib")
+#pragma comment(lib, "jpeg.lib")
 #include <jpeglib.h>
 #include <jerror.h>
 #include <math.h>
@@ -13,7 +13,7 @@ using namespace std;
 vector<string> vec;
 int num = 0;
 //================================
-GLuint LoadJPEG(const char* FileName)
+GLuint LoadJPEG(const char *FileName)
 //================================
 {
 	FILE *fd;
@@ -40,23 +40,23 @@ GLuint LoadJPEG(const char* FileName)
 	while (cinfo.output_scanline < cinfo.output_height)
 	{
 		jpeg_read_scanlines(&cinfo, row_pointer, 1);
-		for (int i = 0; i< (width * depth); i++)
+		for (int i = 0; i < (width * depth); i++)
 			image[location++] = row_pointer[0][i];
 	}
 	fclose(fd);
 	jpeg_finish_decompress(&cinfo);
 	jpeg_destroy_decompress(&cinfo);
 	GLuint texture_id;
-									 //----- create OpenGL tex map (omit if not needed) --------
+	//----- create OpenGL tex map (omit if not needed) --------
 	glGenTextures(1, &texture_id);
 	glBindTexture(GL_TEXTURE_2D, texture_id);
 	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, image);
 	free(image);
-	return texture_id;    // for OpenGL tex maps
+	return texture_id; // for OpenGL tex maps
 }
 
-
-void subimage(string& s) {
+void subimage(string &s)
+{
 	GLuint texGround = LoadJPEG(s.c_str());
 	glBindTexture(GL_TEXTURE_2D, texGround);
 	glBegin(GL_QUADS);
@@ -77,9 +77,10 @@ void initiate()
 	ifstream ifs("test.txt");
 	string temp;
 	int tempr, tempt;
-	while (!ifs.eof()) {
+	while (!ifs.eof())
+	{
 		getline(ifs, temp);
-		if (temp.length()>4)
+		if (temp.length() > 4)
 			vec.push_back(temp);
 		//cout<<temp<<endl;
 	}
@@ -98,14 +99,14 @@ void display(void)
 	// cout<<vec[i]<<endl;
 	//
 	//cout<<vec[0]<<endl;
-	if (num == vec.size())exit(0);
+	if (num == vec.size())
+		exit(0);
 	subimage(vec[num++]);
 	glutSwapBuffers();
 	//glFlush();
 }
 
-
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
 	initiate();
 	glutInit(&argc, argv);

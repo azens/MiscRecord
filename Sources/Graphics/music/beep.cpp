@@ -1,4 +1,4 @@
-/*Ñİ×àÀÖÇú¡¶Ğ¡ĞÇĞÇ¡·¡¶ÜÔÀò»¨¡·¡¶ÕÒÅóÓÑ¡·¡¶ÉÏÑ§¸è¡·¡¶Ò»·ÖÇ®¡·¡¶Õ÷·ş¡·¡¶²×º£Ò»ÉùĞ¦¡·¡¶Í¯»°¡·¡¶Í¬×ÀµÄÄã¡·¡¶Ğ¡ĞÜºÍÑóÍŞÍŞ¡·*/
+/*æ¼”å¥ä¹æ›²ã€Šå°æ˜Ÿæ˜Ÿã€‹ã€ŠèŒ‰è‰èŠ±ã€‹ã€Šæ‰¾æœ‹å‹ã€‹ã€Šä¸Šå­¦æ­Œã€‹ã€Šä¸€åˆ†é’±ã€‹ã€Šå¾æœã€‹ã€Šæ²§æµ·ä¸€å£°ç¬‘ã€‹ã€Šç«¥è¯ã€‹ã€ŠåŒæ¡Œçš„ä½ ã€‹ã€Šå°ç†Šå’Œæ´‹å¨ƒå¨ƒã€‹*/
 #include<stdio.h>
 #include<windows.h>
 int main(void)
@@ -15,20 +15,20 @@ int main(void)
 	void play_tongzhuodeni(void);
 	void play_xiaoxiongheyangwawa(void);
 	while(1) {
-		printf("ÇëÑ¡ÔñĞèÒªÑİ×àµÄÇúÄ¿£º\n");
-		printf("¡¾1¡¿¡¶Ğ¡ĞÇĞÇ¡·\n");
-		printf("¡¾2¡¿¡¶ÜÔÀò»¨¡·\n");
-		printf("¡¾3¡¿¡¶ÕÒÅóÓÑ¡·\n");
-		printf("¡¾4¡¿¡¶ÉÏÑ§¸è¡·\n");
-		printf("¡¾5¡¿¡¶Ò»·ÖÇ®¡·\n");
-		printf("¡¾6¡¿¡¶Õ÷·ş¡·\n");
-		printf("¡¾7¡¿¡¶²×º£Ò»ÉùĞ¦¡·\n");
-		printf("¡¾8¡¿¡¶Í¯»°¡·\n");
-		printf("¡¾9¡¿¡¶Í¬×ÀµÄÄã¡·\n");
-		printf("¡¾10¡¿¡¶Ğ¡ĞÜºÍÑóÍŞÍŞ¡·\n");
-		printf("¡¾0¡¿ÍË³ö³ÌĞò\n");
+		printf("è¯·é€‰æ‹©éœ€è¦æ¼”å¥çš„æ›²ç›®ï¼š\n");
+		printf("ã€1ã€‘ã€Šå°æ˜Ÿæ˜Ÿã€‹\n");
+		printf("ã€2ã€‘ã€ŠèŒ‰è‰èŠ±ã€‹\n");
+		printf("ã€3ã€‘ã€Šæ‰¾æœ‹å‹ã€‹\n");
+		printf("ã€4ã€‘ã€Šä¸Šå­¦æ­Œã€‹\n");
+		printf("ã€5ã€‘ã€Šä¸€åˆ†é’±ã€‹\n");
+		printf("ã€6ã€‘ã€Šå¾æœã€‹\n");
+		printf("ã€7ã€‘ã€Šæ²§æµ·ä¸€å£°ç¬‘ã€‹\n");
+		printf("ã€8ã€‘ã€Šç«¥è¯ã€‹\n");
+		printf("ã€9ã€‘ã€ŠåŒæ¡Œçš„ä½ ã€‹\n");
+		printf("ã€10ã€‘ã€Šå°ç†Šå’Œæ´‹å¨ƒå¨ƒã€‹\n");
+		printf("ã€0ã€‘é€€å‡ºç¨‹åº\n");
 		printf("\n");
-		printf("ÇëÑ¡Ôñ£º");
+		printf("è¯·é€‰æ‹©ï¼š");
 		scanf("%d",&choice);
 		switch(choice) {
 		case 1:
@@ -64,24 +64,24 @@ int main(void)
 		case 0:
 			break;
 		default:
-			printf("ÊäÈëÓĞÎó£¡ÇëÕıÈ·ÊäÈë£¡\n");
+			printf("è¾“å…¥æœ‰è¯¯ï¼è¯·æ­£ç¡®è¾“å…¥ï¼\n");
 		}
-		Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+		Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 		printf("\n");
 		if(choice==0) {
-			printf("\nĞ»Ğ»Ê¹ÓÃ£¬ÔÙ¼û£¡");
-			Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+			printf("\nè°¢è°¢ä½¿ç”¨ï¼Œå†è§ï¼");
+			Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 			break;
 		}
 	}
 	return 0;
 }
 
-/*·µ»ØÊı×Ö¼òÆ×ÖĞÊı×ÖtËù¶ÔÓ¦µÄÆµÂÊ*/
+/*è¿”å›æ•°å­—ç®€è°±ä¸­æ•°å­—tæ‰€å¯¹åº”çš„é¢‘ç‡*/
 int notation_frequency(int t)
 {
 	switch (t) {
-		/*ÖĞÒô²¿·Ö:1,2,3,4,5,6,7*/
+		/*ä¸­éŸ³éƒ¨åˆ†:1,2,3,4,5,6,7*/
 	case 1:
 		return 523;
 	case 2:
@@ -96,7 +96,7 @@ int notation_frequency(int t)
 		return 880;
 	case 7:
 		return 988;
-		/*µÍÒô²¿·Ö:-1,-2,-3,-4,-5,-6,-7*/
+		/*ä½éŸ³éƒ¨åˆ†:-1,-2,-3,-4,-5,-6,-7*/
 	case -1:
 		return 262;
 	case -2:
@@ -111,7 +111,7 @@ int notation_frequency(int t)
 		return 440;
 	case -7:
 		return 494;
-		/*¸ßÒô²¿·Ö:11,12,13,14,15,16,17*/
+		/*é«˜éŸ³éƒ¨åˆ†:11,12,13,14,15,16,17*/
 	case 11:
 		return 1047;
 	case 12:
@@ -126,13 +126,13 @@ int notation_frequency(int t)
 		return 1760;
 	case 17:
 		return 1976;
-		/*°²¾²:0,²»ºÏ·¨ÊıÖµ*/
+		/*å®‰é™:0,ä¸åˆæ³•æ•°å€¼*/
 	default:
 		return 0;
 	}
 }
 
-/*Ñİ×à¡¶Ğ¡ĞÇĞÇ¡·*/
+/*æ¼”å¥ã€Šå°æ˜Ÿæ˜Ÿã€‹*/
 void play_xiaoxingxing(void)
 {
 	int i;
@@ -143,19 +143,19 @@ void play_xiaoxingxing(void)
 		5,5,4,4,3,3,2,0,
 		1,1,5,5,6,6,5,0,
 		4,4,3,3,2,2,1,0
-	};//Ğ¡ĞÇĞÇÀÖÆ×
+	};//å°æ˜Ÿæ˜Ÿä¹è°±
 	int notation_frequency(int t);
-	printf("ÇëĞÀÉÍÀÖÇú¡¶Ğ¡ĞÇĞÇ¡·¡­¡­\n");
-	Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+	printf("è¯·æ¬£èµä¹æ›²ã€Šå°æ˜Ÿæ˜Ÿã€‹â€¦â€¦\n");
+	Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 	for (i=0; i<=47; i++) {
 		if(_xiaoxingxing[i]==0) printf("\n");
 		else printf("%d",_xiaoxingxing[i]);
 		Beep(notation_frequency(_xiaoxingxing[i]),1000);
 	}
-	printf("Ñİ×àÍê±Ï£¡Ğ»Ğ»ĞÀÉÍ£¡\n");
+	printf("æ¼”å¥å®Œæ¯•ï¼è°¢è°¢æ¬£èµï¼\n");
 }
 
-/*Ñİ×à¡¶ÜÔÀò»¨¡·*/
+/*æ¼”å¥ã€ŠèŒ‰è‰èŠ±ã€‹*/
 void play_molihua(void)
 {
 	int i,t;
@@ -172,10 +172,10 @@ void play_molihua(void)
 		3,2,1,2,0,
 		3,5,6,11,6,5,0,
 		5,2,3,5,3,2,1,2,1,0
-	};//ÜÔÀò»¨ÀÖÆ×
+	};//èŒ‰è‰èŠ±ä¹è°±
 	int notation_frequency(int t);
-	printf("ÇëĞÀÉÍÀÖÇú¡¶ÜÔÀò»¨¡·¡­¡­\n");
-	Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+	printf("è¯·æ¬£èµä¹æ›²ã€ŠèŒ‰è‰èŠ±ã€‹â€¦â€¦\n");
+	Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 	for (i=0; i<=71; i++) {
 		t=_molihua[i];
 		if(t<0) t=-t;
@@ -184,10 +184,10 @@ void play_molihua(void)
 		else printf("%d",t);
 		Beep(notation_frequency(_molihua[i]),1000);
 	}
-	printf("Ñİ×àÍê±Ï£¡Ğ»Ğ»ĞÀÉÍ£¡\n");
+	printf("æ¼”å¥å®Œæ¯•ï¼è°¢è°¢æ¬£èµï¼\n");
 }
 
-/*Ñİ×à¡¶ÕÒÅóÓÑ¡·*/
+/*æ¼”å¥ã€Šæ‰¾æœ‹å‹ã€‹*/
 void play_zhaopengyou(void)
 {
 	int i,t;
@@ -196,10 +196,10 @@ void play_zhaopengyou(void)
 		5,11,7,6,5,5,3,0,
 		5,5,3,3,5,5,3,0,
 		2,4,3,2,1,2,1,0,
-	};//ÕÒÅóÓÑÀÖÆ×
+	};//æ‰¾æœ‹å‹ä¹è°±
 	int notation_frequency(int t);
-	printf("ÇëĞÀÉÍÀÖÇú¡¶ÕÒÅóÓÑ¡·¡­¡­\n");
-	Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+	printf("è¯·æ¬£èµä¹æ›²ã€Šæ‰¾æœ‹å‹ã€‹â€¦â€¦\n");
+	Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 	for (i=0; i<=31; i++) {
 		t=_zhaopengyou[i];
 		if(t<0) t=-t;
@@ -208,10 +208,10 @@ void play_zhaopengyou(void)
 		else printf("%d",t);
 		Beep(notation_frequency(_zhaopengyou[i]),1000);
 	}
-	printf("Ñİ×àÍê±Ï£¡Ğ»Ğ»ĞÀÉÍ£¡\n");
+	printf("æ¼”å¥å®Œæ¯•ï¼è°¢è°¢æ¬£èµï¼\n");
 }
 
-/*Ñİ×à¡¶ÉÏÑ§¸è¡·*/
+/*æ¼”å¥ã€Šä¸Šå­¦æ­Œã€‹*/
 void play_shangxuege(void)
 {
 	int i,t;
@@ -221,10 +221,10 @@ void play_shangxuege(void)
 		6,6,11,0,
 		5,6,3,0,
 		6,5,3,5,3,1,2,3,1,0
-	};//ÕÒÅóÓÑÀÖÆ×
+	};//æ‰¾æœ‹å‹ä¹è°±
 	int notation_frequency(int t);
-	printf("ÇëĞÀÉÍÀÖÇú¡¶ÉÏÑ§¸è¡·¡­¡­\n");
-	Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+	printf("è¯·æ¬£èµä¹æ›²ã€Šä¸Šå­¦æ­Œã€‹â€¦â€¦\n");
+	Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 	for (i=0; i<=29; i++) {
 		t=_shangxuege[i];
 		if(t<0) t=-t;
@@ -233,10 +233,10 @@ void play_shangxuege(void)
 		else printf("%d",t);
 		Beep(notation_frequency(_shangxuege[i]),1000);
 	}
-	printf("Ñİ×àÍê±Ï£¡Ğ»Ğ»ĞÀÉÍ£¡\n");
+	printf("æ¼”å¥å®Œæ¯•ï¼è°¢è°¢æ¬£èµï¼\n");
 }
 
-/*Ñİ×à¡¶Ò»·ÖÇ®¡·*/
+/*æ¼”å¥ã€Šä¸€åˆ†é’±ã€‹*/
 void play_yifenqian(void)
 {
 	int i,t;
@@ -249,10 +249,10 @@ void play_yifenqian(void)
 		6,5,3,5,6,0,
 		5,11,11,6,5,6,3,0,
 		5,2,3,2,1,0
-	};//ÕÒÅóÓÑÀÖÆ×
+	};//æ‰¾æœ‹å‹ä¹è°±
 	int notation_frequency(int t);
-	printf("ÇëĞÀÉÍÀÖÇú¡¶Ò»·ÖÇ®¡·¡­¡­\n");
-	Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+	printf("è¯·æ¬£èµä¹æ›²ã€Šä¸€åˆ†é’±ã€‹â€¦â€¦\n");
+	Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 	for (i=0; i<=51; i++) {
 		t=_yifenqian[i];
 		if(t<0) t=-t;
@@ -261,10 +261,10 @@ void play_yifenqian(void)
 		else printf("%d",t);
 		Beep(notation_frequency(_yifenqian[i]),1000);
 	}
-	printf("Ñİ×àÍê±Ï£¡Ğ»Ğ»ĞÀÉÍ£¡\n");
+	printf("æ¼”å¥å®Œæ¯•ï¼è°¢è°¢æ¬£èµï¼\n");
 }
 
-/*Ñİ×à¡¶Õ÷·ş¡·*/
+/*æ¼”å¥ã€Šå¾æœã€‹*/
 void play_zhengfu(void)
 {
 	int i,t;
@@ -273,10 +273,10 @@ void play_zhengfu(void)
 		5,11,7,5,6,3,6,0,
 		6,6,6,5,3,3,4,0,
 		4,4,4,5,6,3,2,2,0,
-	};//Õ÷·şÀÖÆ×
+	};//å¾æœä¹è°±
 	int notation_frequency(int t);
-	printf("ÇëĞÀÉÍÀÖÇú¡¶Õ÷·ş¡·¡­¡­\n");
-	Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+	printf("è¯·æ¬£èµä¹æ›²ã€Šå¾æœã€‹â€¦â€¦\n");
+	Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 	for (i=0; i<=32; i++) {
 		t=_zhengfu[i];
 		if(t<0) t=-t;
@@ -285,10 +285,10 @@ void play_zhengfu(void)
 		else printf("%d",t);
 		Beep(notation_frequency(_zhengfu[i]),1000);
 	}
-	printf("Ñİ×àÍê±Ï£¡Ğ»Ğ»ĞÀÉÍ£¡\n");
+	printf("æ¼”å¥å®Œæ¯•ï¼è°¢è°¢æ¬£èµï¼\n");
 }
 
-/*Ñİ×à¡¶²×º£Ò»ÉùĞ¦¡·*/
+/*æ¼”å¥ã€Šæ²§æµ·ä¸€å£°ç¬‘ã€‹*/
 void play_canghaiyishengxiao(void)
 {
 	int i,t;
@@ -297,10 +297,10 @@ void play_canghaiyishengxiao(void)
 		6,5,4,2,1,0,
 		1,2,1,2,4,4,5,6,11,0,
 		12,12,11,6,5,4,5,0
-	};//²×º£Ò»ÉùĞ¦ÀÖÆ×
+	};//æ²§æµ·ä¸€å£°ç¬‘ä¹è°±
 	int notation_frequency(int t);
-	printf("ÇëĞÀÉÍÀÖÇú¡¶²×º£Ò»ÉùĞ¦¡·¡­¡­\n");
-	Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+	printf("è¯·æ¬£èµä¹æ›²ã€Šæ²§æµ·ä¸€å£°ç¬‘ã€‹â€¦â€¦\n");
+	Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 	for (i=0; i<=30; i++) {
 		t=_canghaiyishengxiao[i];
 		if(t<0) t=-t;
@@ -309,9 +309,9 @@ void play_canghaiyishengxiao(void)
 		else printf("%d",t);
 		Beep(notation_frequency(_canghaiyishengxiao[i]),1000);
 	}
-	printf("Ñİ×àÍê±Ï£¡Ğ»Ğ»ĞÀÉÍ£¡\n");
+	printf("æ¼”å¥å®Œæ¯•ï¼è°¢è°¢æ¬£èµï¼\n");
 }
-/*Ñİ×à¡¶Í¯»°¡·*/
+/*æ¼”å¥ã€Šç«¥è¯ã€‹*/
 void play_tonghua(void)
 {
 	int i,t;
@@ -323,10 +323,10 @@ void play_tonghua(void)
 		6,6,5,2,2,4,3,0,
 		1,3,5,6,0,
 		6,6,7,6,5,4,3,4,3,2,1,0,
-	};//Í¯»°ÀÖÆ×
+	};//ç«¥è¯ä¹è°±
 	int notation_frequency(int t);
-	printf("ÇëĞÀÉÍÀÖÇú¡¶Í¯»°¡·¡­¡­\n");
-	Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+	printf("è¯·æ¬£èµä¹æ›²ã€Šç«¥è¯ã€‹â€¦â€¦\n");
+	Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 	for (i=0; i<=45; i++) {
 		t=_tonghua[i];
 		if(t<0) t=-t;
@@ -335,9 +335,9 @@ void play_tonghua(void)
 		else printf("%d",t);
 		Beep(notation_frequency(_tonghua[i]),1000);
 	}
-	printf("Ñİ×àÍê±Ï£¡Ğ»Ğ»ĞÀÉÍ£¡\n");
+	printf("æ¼”å¥å®Œæ¯•ï¼è°¢è°¢æ¬£èµï¼\n");
 }
-/*Ñİ×à¡¶Í¬×ÀµÄÄã¡·*/
+/*æ¼”å¥ã€ŠåŒæ¡Œçš„ä½ ã€‹*/
 void play_tongzhuodeni(void)
 {
 	int i,t;
@@ -351,10 +351,10 @@ void play_tongzhuodeni(void)
 		7,7,7,7,7,11,12,0,
 		5,0,
 		7,7,11,12,11,7,11,0,
-	};//Í¬×ÀµÄÄãÀÖÆ×
+	};//åŒæ¡Œçš„ä½ ä¹è°±
 	int notation_frequency(int t);
-	printf("ÇëĞÀÉÍÀÖÇú¡¶Í¬×ÀµÄÄã¡·¡­¡­\n");
-	Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+	printf("è¯·æ¬£èµä¹æ›²ã€ŠåŒæ¡Œçš„ä½ ã€‹â€¦â€¦\n");
+	Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 	for (i=0; i<=70; i++) {
 		t=_tongzhuodeni[i];
 		if(t<0) t=-t;
@@ -363,9 +363,9 @@ void play_tongzhuodeni(void)
 		else printf("%d",t);
 		Beep(notation_frequency(_tongzhuodeni[i]),1000);
 	}
-	printf("Ñİ×àÍê±Ï£¡Ğ»Ğ»ĞÀÉÍ£¡\n");
+	printf("æ¼”å¥å®Œæ¯•ï¼è°¢è°¢æ¬£èµï¼\n");
 }
-/*Ñİ×à¡¶Ğ¡ĞÜºÍÑóÍŞÍŞ¡·*/
+/*æ¼”å¥ã€Šå°ç†Šå’Œæ´‹å¨ƒå¨ƒã€‹*/
 void play_xiaoxiongheyangwawa(void)
 {
 	int i,t;
@@ -377,10 +377,10 @@ void play_xiaoxiongheyangwawa(void)
 		6,6,5,4,5,5,5,4,3,4,0,
 		4,4,3,2,1,0,
 		3,1,0,
-	};//Ğ¡ĞÜºÍÑóÍŞÍŞÀÖÆ×
+	};//å°ç†Šå’Œæ´‹å¨ƒå¨ƒä¹è°±
 	int notation_frequency(int t);
-	printf("ÇëĞÀÉÍÀÖÇú¡¶Ğ¡ĞÜºÍÑóÍŞÍŞ¡·¡­¡­\n");
-	Beep(0,1000);//ÔİÍ£Ò»ÃëÖÓ
+	printf("è¯·æ¬£èµä¹æ›²ã€Šå°ç†Šå’Œæ´‹å¨ƒå¨ƒã€‹â€¦â€¦\n");
+	Beep(0,1000);//æš‚åœä¸€ç§’é’Ÿ
 	for (i=0; i<=76; i++) {
 		t=_xiaoxiongheyangwawa[i];
 		if(t<0) t=-t;
@@ -389,5 +389,5 @@ void play_xiaoxiongheyangwawa(void)
 		else printf("%d",t);
 		Beep(notation_frequency(_xiaoxiongheyangwawa[i]),1000);
 	}
-	printf("Ñİ×àÍê±Ï£¡Ğ»Ğ»ĞÀÉÍ£¡\n");
+	printf("æ¼”å¥å®Œæ¯•ï¼è°¢è°¢æ¬£èµï¼\n");
 }

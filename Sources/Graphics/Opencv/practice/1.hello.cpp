@@ -4,8 +4,8 @@ using namespace cv;
 
 int main()
 {
-	Mat img=imread("test.jpg");
+	Mat img = imread("test.jpg");
 	//namedWindow("Title");
-	imshow("title",img);
+	imshow("title", img);
 	waitKey(0);
 }

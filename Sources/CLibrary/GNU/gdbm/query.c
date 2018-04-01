@@ -9,7 +9,7 @@
 #define ISBN_MAX 13
 #define AUTHOR_MAX 50
 #define TITLE_MAX 50
-#define FILED_MAX 50        /*×î¿íµÄÊı¾İÓò */
+#define FILED_MAX 50        /*æœ€å®½çš„æ•°æ®åŸŸ */
 
 typedef struct {
 	char isbn[ISBN_MAX + 1];
@@ -32,9 +32,9 @@ int main()
 {
 	GDBM_FILE dbm_ptr;
 	datum key, data;
-	book_entry vbook, sbook;/*vbook´æ´¢Êı¾İ¿âÖĞµÄÔ­Ê¼¼ÇÂ¼£¬sbookÊÇ×ª»»³ÉĞ¡Ğ´ÒÔºóµÄ*/
+	book_entry vbook, sbook;/*vbookå­˜å‚¨æ•°æ®åº“ä¸­çš„åŸå§‹è®°å½•ï¼Œsbookæ˜¯è½¬æ¢æˆå°å†™ä»¥åçš„*/
 	char keyword[FILED_MAX];
-	printf("ÇëÊäÈëÒ»¸ö¹Ø¼ü×Ö¿ªÊ¼Ä£ºı²éÑ¯:");
+	printf("è¯·è¾“å…¥ä¸€ä¸ªå…³é”®å­—å¼€å§‹æ¨¡ç³ŠæŸ¥è¯¢:");
 	scanf("%s",keyword);
 	dbm_ptr = gdbm_open(DB_FILE_BLOCK, 0, GDBM_READER, 0, NULL);
 	for (key = gdbm_firstkey(dbm_ptr); key.dptr;
@@ -51,7 +51,7 @@ int main()
 			printf("%s\t%s\t%s\t%d\n", vbook.isbn, vbook.author,
 			       vbook.title, vbook.numb);
 		} else {
-			printf("²éÎŞ¼ÇÂ¼\n");
+			printf("æŸ¥æ— è®°å½•\n");
 		}
 		gdbm_close(dbm_ptr);
 

@@ -9,7 +9,7 @@
 #define TITLE_MAX 50
 #define DB_FILE_BLOCK "book_data"
 
-typedef struct {        /*¶¨ÒåÍ¼Êé½á¹¹Ìå */
+typedef struct {        /*å®šä¹‰å›¾ä¹¦ç»“æ„ä½“ */
 	char isbn[ISBN_MAX + 1];
 	char author[AUTHOR_MAX + 1];
 	char title[TITLE_MAX + 1];
@@ -18,51 +18,51 @@ typedef struct {        /*¶¨ÒåÍ¼Êé½á¹¹Ìå */
 
 int main()
 {
-	book_entry newbook; /*´´½¨ĞÂµÄÍ¼Êé¼ÇÂ¼£¬²¢¸³Öµ */
+	book_entry newbook; /*åˆ›å»ºæ–°çš„å›¾ä¹¦è®°å½•ï¼Œå¹¶èµ‹å€¼ */
 	memset(&newbook, '\0', sizeof(newbook));
 	strncpy(newbook.isbn, "9787302184942", ISBN_MAX);
 	strncpy(newbook.author, "Microsoft Research Asia", AUTHOR_MAX);
 	strncpy(newbook.title, "Microsoft's Dream Works", TITLE_MAX);
 	newbook.numb = 735;
 
-	datum key, data;    /*datum½á¹¹ÌåÓĞÁ½¸ö³ÉÔ±£ºdptrÖ¸Ïò´æ´¢µÄÊı¾İ£¬dsize¼ÇÂ¼Êı¾İµÄ´óĞ¡ */
-	key.dptr = (char *)newbook.isbn;    /*ÓÃISBN×÷key */
+	datum key, data;    /*datumç»“æ„ä½“æœ‰ä¸¤ä¸ªæˆå‘˜ï¼šdptræŒ‡å‘å­˜å‚¨çš„æ•°æ®ï¼Œdsizeè®°å½•æ•°æ®çš„å¤§å° */
+	key.dptr = (char *)newbook.isbn;    /*ç”¨ISBNä½œkey */
 	key.dsize = ISBN_MAX;
-	data.dptr = (char *)&newbook;   /*ÓÃÕûÌõÊı¾İ¼ÇÂ¼×÷value */
+	data.dptr = (char *)&newbook;   /*ç”¨æ•´æ¡æ•°æ®è®°å½•ä½œvalue */
 	data.dsize = sizeof(newbook);
 
 	GDBM_FILE dbm_ptr;
-	/*´ò¿ªÊı¾İ¿â£¨¸ú´ò¿ªÎÄ¼şºÜÏàËÆ£©£¬·µ»ØÊı¾İ¿â¾ä±ú */
-	dbm_ptr = gdbm_open(DB_FILE_BLOCK,  /*ÎÄ¼şÃû */
-	                    0,  /*ÎÄ¼ş´óĞ¡£¬ÉèÎª0Ê±GDBM½«Ê¹ÓÃÎÄ¼şÏµÍ³µÄÍ³¼Æ¿é´óĞ¡ */
-	                    GDBM_WRCREAT,   /*¶ÁĞ´Ä£Ê½¡£WRCREAT¶ÁĞ´£¬Êı¾İ¿âÎÄ¼ş²»´æÔÚÊ±´´½¨£»READER¶Á£»WRITERĞ´ */
-	                    S_IRUSR | S_IWUSR,  /*È¨ÏŞ±êÖ¾Î» */
-	                    NULL    /*³ö´íÊ±µÄ¿Õ²ÎÊı»Øµ÷º¯Êı */
+	/*æ‰“å¼€æ•°æ®åº“ï¼ˆè·Ÿæ‰“å¼€æ–‡ä»¶å¾ˆç›¸ä¼¼ï¼‰ï¼Œè¿”å›æ•°æ®åº“å¥æŸ„ */
+	dbm_ptr = gdbm_open(DB_FILE_BLOCK,  /*æ–‡ä»¶å */
+	                    0,  /*æ–‡ä»¶å¤§å°ï¼Œè®¾ä¸º0æ—¶GDBMå°†ä½¿ç”¨æ–‡ä»¶ç³»ç»Ÿçš„ç»Ÿè®¡å—å¤§å° */
+	                    GDBM_WRCREAT,   /*è¯»å†™æ¨¡å¼ã€‚WRCREATè¯»å†™ï¼Œæ•°æ®åº“æ–‡ä»¶ä¸å­˜åœ¨æ—¶åˆ›å»ºï¼›READERè¯»ï¼›WRITERå†™ */
+	                    S_IRUSR | S_IWUSR,  /*æƒé™æ ‡å¿—ä½ */
+	                    NULL    /*å‡ºé”™æ—¶çš„ç©ºå‚æ•°å›è°ƒå‡½æ•° */
 	                   );
-	/*°Ñ¼ÇÂ¼´æÈëÊı¾İ¿â */
-	gdbm_store(dbm_ptr, /*Êı¾İ¿â¾ä±ú */
-	           key,     /*keyÖµ */
-	           data,    /*valueÖµ */
-	           GDBM_REPLACE /*Èç¹ûÊÇGDBM_INSERTÔò²åÈëÖØ¸´¼ÇÂ¼»á³ö´í£»GDBM¡ª¡ªREPLACEÔòÖ»ÊÇ¸²¸ÇÔ­ÏÈ´æÔÚµÄÏàÍ¬¼ÇÂ¼ */
+	/*æŠŠè®°å½•å­˜å…¥æ•°æ®åº“ */
+	gdbm_store(dbm_ptr, /*æ•°æ®åº“å¥æŸ„ */
+	           key,     /*keyå€¼ */
+	           data,    /*valueå€¼ */
+	           GDBM_REPLACE /*å¦‚æœæ˜¯GDBM_INSERTåˆ™æ’å…¥é‡å¤è®°å½•ä¼šå‡ºé”™ï¼›GDBMâ€”â€”REPLACEåˆ™åªæ˜¯è¦†ç›–åŸå…ˆå­˜åœ¨çš„ç›¸åŒè®°å½• */
 	          );
 
 	char isbnarr[ISBN_MAX + 1] = { 0 };
 	char *isbn = isbnarr;
-	puts("ÇëÊäÈëÄãÒª²éÑ¯Í¼ÊéµÄISBNºÅ:");
+	puts("è¯·è¾“å…¥ä½ è¦æŸ¥è¯¢å›¾ä¹¦çš„ISBNå·:");
 	scanf("%s",isbn);
 	key.dptr = (char *)isbn;
 	key.dsize = ISBN_MAX;
-	/*Êı¾İ¿â²éÑ¯ */
-	data = gdbm_fetch(dbm_ptr, key);    /*²Î½¨£ºÊı¾İ¿â¾ä±úµÄkeyÖµ */
+	/*æ•°æ®åº“æŸ¥è¯¢ */
+	data = gdbm_fetch(dbm_ptr, key);    /*å‚å»ºï¼šæ•°æ®åº“å¥æŸ„çš„keyå€¼ */
 	if (data.dsize == 0)
-		printf("²éÎŞ½á¹û\n");
+		printf("æŸ¥æ— ç»“æœ\n");
 	else {
 		memset(&newbook, 0, sizeof(newbook));
-		memcpy(&newbook, data.dptr, data.dsize);    /*½«´ÓÊı¾İ¿â¶Áµ½µÄ¼ÇÂ¼¸³¸øbook_entry½á¹¹Ìå */
+		memcpy(&newbook, data.dptr, data.dsize);    /*å°†ä»æ•°æ®åº“è¯»åˆ°çš„è®°å½•èµ‹ç»™book_entryç»“æ„ä½“ */
 		printf("%s\t%s\t%s\t%d\n", newbook.isbn, newbook.author,
 		       newbook.title, newbook.numb);
 	}
 
-	/*¹Ø±ÕÊı¾İ¿â */
+	/*å…³é—­æ•°æ®åº“ */
 	gdbm_close(dbm_ptr);
 }

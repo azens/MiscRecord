@@ -19,7 +19,7 @@ VTK_MODULE_INIT(vtkRenderingVolumeOpenGL2)
 #include <vtkRenderer.h>
 #include <vtkTable.h>
 
-int main(int, char*[])
+int main(int, char *[])
 {
 	// Set up a 2D scene, add an XY chart to it
 	vtkSmartPointer<vtkContextView> view =

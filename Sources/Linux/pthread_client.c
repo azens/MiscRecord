@@ -1,54 +1,62 @@
 /***************************************************
-*ÎÄ¼şÃû£ºpthread_client.c
-*ÎÄ¼şÃèÊö£º´´½¨×ÓÏß³ÌÀ´½ÓÊÕ¿Í»§¶ËµÄÊı¾İ
+*æ–‡ä»¶åï¼špthread_client.c
+*æ–‡ä»¶æè¿°ï¼šåˆ›å»ºå­çº¿ç¨‹æ¥æ¥æ”¶å®¢æˆ·ç«¯çš„æ•°æ®
 ***************************************************/
-#include<sys/types.h>
-#include<sys/socket.h>
-#include<stdio.h>
-#include<netinet/in.h>
-#include<arpa/inet.h>
-#include<unistd.h>
-#include<stdlib.h>
-int main(int argc,char*argv[])
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdlib.h>
+int main(int argc, char *argv[])
 {
 	int sockfd;
 	int len;
 	struct sockaddr_inaddress;
 	int result;
-	int i,byte;
-	char char_send[100]= {0};
-	if((sockfd=socket(AF_INET,SOCK_STREAM,0))==-1) {
+	int i, byte;
+	char char_send[100] = {0};
+	if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+	{
 		perror("socket");
 		exit(EXIT_FAILURE);
 	}
-	if(argc!=3) {
-		printf("Usage:fileclient<address><port>/n");//ÓÃ·¨£ºÎÄ¼şÃû·şÎñÆ÷IPµØÖ··şÎñÆ÷¶Ë¿ÚµØÖ·
+	if (argc != 3)
+	{
+		printf("Usage:fileclient<address><port>/n"); //ç”¨æ³•ï¼šæ–‡ä»¶åæœåŠ¡å™¨IPåœ°å€æœåŠ¡å™¨ç«¯å£åœ°å€
 		return0;
 	}
-	if((sockfd=socket(AF_INET,SOCK_STREAM,0))==-1) {
+	if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+	{
 		perror("sock");
 		exit(1);
 	}
-	bzero(&address,sizeof(address));
-	address.sin_family=AF_INET;
-	address.sin_port=htons(atoi(argv[2]));
-	inet_pton(AF_INET,argv[1],&address.sin_addr);
-	len=sizeof(address);
-	if((result=connect(sockfd,(struct sockaddr*)&address,len))==-1) {
+	bzero(&address, sizeof(address));
+	address.sin_family = AF_INET;
+	address.sin_port = htons(atoi(argv[2]));
+	inet_pton(AF_INET, argv[1], &address.sin_addr);
+	len = sizeof(address);
+	if ((result = connect(sockfd, (struct sockaddr *)&address, len)) == -1)
+	{
 		perror("connect");
 		exit(EXIT_FAILURE);
 	}
-	for(;;) {
-		scanf("%s",char_send);//ÊäÈë·¢ËÍÊı¾İ
-		fflush(stdin);//Çå³ıÊäÈë»º´æ
-		if(strcmp(char_send,"exit")==0) { //Èç¹ûÊäÈëexit£¬Ìø³öÑ­»·
-			if((byte=send(sockfd,char_send,100,0))==-1) {
+	for (;;)
+	{
+		scanf("%s", char_send); //è¾“å…¥å‘é€æ•°æ®
+		fflush(stdin);			//æ¸…é™¤è¾“å…¥ç¼“å­˜
+		if (strcmp(char_send, "exit") == 0)
+		{ //å¦‚æœè¾“å…¥exitï¼Œè·³å‡ºå¾ªç¯
+			if ((byte = send(sockfd, char_send, 100, 0)) == -1)
+			{
 				perror("send");
 				exit(EXIT_FAILURE);
 			}
 			break;
 		}
-		if((byte=send(sockfd,char_send,100,0))==-1) {
+		if ((byte = send(sockfd, char_send, 100, 0)) == -1)
+		{
 			perror("send");
 			exit(EXIT_FAILURE);
 		}

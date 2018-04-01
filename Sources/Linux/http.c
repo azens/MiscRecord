@@ -24,16 +24,33 @@
 #define DEFAULTLOG "/tmp/das-server.log"
 
 void prterrmsg(char *msg);
-#define prterrmsg(msg)        { perror(msg); abort(); }
+#define prterrmsg(msg) \
+    {                  \
+        perror(msg);   \
+        abort();       \
+    }
 void wrterrmsg(char *msg);
-#define wrterrmsg(msg)        { fputs(msg, logfp); fputs(strerror(errno), logfp);fflush(logfp); abort(); }
+#define wrterrmsg(msg)                 \
+    {                                  \
+        fputs(msg, logfp);             \
+        fputs(strerror(errno), logfp); \
+        fflush(logfp);                 \
+        abort();                       \
+    }
 
 void prtinfomsg(char *msg);
-#define prtinfomsg(msg)        { fputs(msg, stdout);  }
+#define prtinfomsg(msg)     \
+    {                       \
+        fputs(msg, stdout); \
+    }
 void wrtinfomsg(char *msg);
-#define wrtinfomsg(msg)        {  fputs(msg, logfp); fflush(logfp);}
+#define wrtinfomsg(msg)    \
+    {                      \
+        fputs(msg, logfp); \
+        fflush(logfp);     \
+    }
 
-#define MAXBUF        1024
+#define MAXBUF 1024
 
 char buffer[MAXBUF + 1];
 char *host = 0;
@@ -44,10 +61,10 @@ char *logdir = 0;
 unsigned char daemon_y_n = 0;
 FILE *logfp;
 
-#define MAXPATH        150
+#define MAXPATH 150
 
 /*----------------------------------------
- *--- dir_up - ²éÕÒdirpathËùÖ¸Ä¿Â¼µÄÉÏÒ»¼¶Ä¿Â¼
+ *--- dir_up - æŸ¥æ‰¾dirpathæ‰€æŒ‡ç›®å½•çš„ä¸Šä¸€çº§ç›®å½•
  *----------------------------------------
  */
 char *dir_up(char *dirpath)
@@ -66,7 +83,7 @@ char *dir_up(char *dirpath)
 }
 
 /*------------------------------------------------------
- *--- AllocateMemory - ·ÖÅä¿Õ¼ä²¢°ÑdËùÖ¸µÄÄÚÈİ¸´ÖÆ
+ *--- AllocateMemory - åˆ†é…ç©ºé—´å¹¶æŠŠdæ‰€æŒ‡çš„å†…å®¹å¤åˆ¶
  *------------------------------------------------------
  */
 void AllocateMemory(char **s, int l, char *d)
@@ -75,25 +92,25 @@ void AllocateMemory(char **s, int l, char *d)
     bzero(*s, l + 1);
     memcpy(*s, d, l);
 }
-/************¹ØÓÚ±¾ÎÄµµ********************************************
+/************å…³äºæœ¬æ–‡æ¡£********************************************
 *filename: das-server.c
-*purpose: ÕâÊÇÔÚLinuxÏÂÓÃCÓïÑÔĞ´µÄÄ¿Â¼·ÃÎÊ·şÎñÆ÷£¬Ö§³ÖÄ¿Â¼ä¯ÀÀºÍÎÄ¼şÏÂÔØ
-*wrote by: zhoulifa(zhoulifa@163.com) ÖÜÁ¢·¢(http://zhoulifa.bokee.com)
-Linux°®ºÃÕß LinuxÖªÊ¶´«²¥Õß SOHO×å ¿ª·¢Õß ×îÉÃ³¤CÓïÑÔ
+*purpose: è¿™æ˜¯åœ¨Linuxä¸‹ç”¨Cè¯­è¨€å†™çš„ç›®å½•è®¿é—®æœåŠ¡å™¨ï¼Œæ”¯æŒç›®å½•æµè§ˆå’Œæ–‡ä»¶ä¸‹è½½
+*wrote by: zhoulifa(zhoulifa@163.com) å‘¨ç«‹å‘(http://zhoulifa.bokee.com)
+Linuxçˆ±å¥½è€… LinuxçŸ¥è¯†ä¼ æ’­è€… SOHOæ— å¼€å‘è€… æœ€æ“…é•¿Cè¯­è¨€
 *date time:2007-01-26 19:32
-*Note: ÈÎºÎÈË¿ÉÒÔÈÎÒâ¸´ÖÆ´úÂë²¢ÔËÓÃÕâĞ©ÎÄµµ£¬µ±È»°üÀ¨ÄãµÄÉÌÒµÓÃÍ¾
-* µ«Çë×ñÑ­GPL
+*Note: ä»»ä½•äººå¯ä»¥ä»»æ„å¤åˆ¶ä»£ç å¹¶è¿ç”¨è¿™äº›æ–‡æ¡£ï¼Œå½“ç„¶åŒ…æ‹¬ä½ çš„å•†ä¸šç”¨é€”
+* ä½†è¯·éµå¾ªGPL
 *Thanks to: Google.com
-*Hope:Ï£ÍûÔ½À´Ô½¶àµÄÈË¹±Ï××Ô¼ºµÄÁ¦Á¿£¬Îª¿ÆÑ§¼¼Êõ·¢Õ¹³öÁ¦
-* ¿Æ¼¼Õ¾ÔÚ¾ŞÈËµÄ¼ç°òÉÏ½ø²½¸ü¿ì£¡¸ĞĞ»ÓĞ¿ªÔ´Ç°±²µÄ¹±Ï×£¡
+*Hope:å¸Œæœ›è¶Šæ¥è¶Šå¤šçš„äººè´¡çŒ®è‡ªå·±çš„åŠ›é‡ï¼Œä¸ºç§‘å­¦æŠ€æœ¯å‘å±•å‡ºåŠ›
+* ç§‘æŠ€ç«™åœ¨å·¨äººçš„è‚©è†€ä¸Šè¿›æ­¥æ›´å¿«ï¼æ„Ÿè°¢æœ‰å¼€æºå‰è¾ˆçš„è´¡çŒ®ï¼
 *********************************************************************/
 /*------------------------------------------------------
- *--- GiveResponse - °ÑPathËùÖ¸µÄÄÚÈİ·¢ËÍµ½client_sockÈ¥
- *-------------------Èç¹ûPathÊÇÒ»¸öÄ¿Â¼£¬ÔòÁĞ³öÄ¿Â¼ÄÚÈİ
- *-------------------Èç¹ûPathÊÇÒ»¸öÎÄ¼ş£¬ÔòÏÂÔØÎÄ¼ş
+ *--- GiveResponse - æŠŠPathæ‰€æŒ‡çš„å†…å®¹å‘é€åˆ°client_sockå»
+ *-------------------å¦‚æœPathæ˜¯ä¸€ä¸ªç›®å½•ï¼Œåˆ™åˆ—å‡ºç›®å½•å†…å®¹
+ *-------------------å¦‚æœPathæ˜¯ä¸€ä¸ªæ–‡ä»¶ï¼Œåˆ™ä¸‹è½½æ–‡ä»¶
  *------------------------------------------------------
  */
-void GiveResponse(FILE * client_sock, char *Path)
+void GiveResponse(FILE *client_sock, char *Path)
 {
     struct dirent *dirent;
     struct stat info;
@@ -102,35 +119,38 @@ void GiveResponse(FILE * client_sock, char *Path)
     int fd, len, ret;
     char *p, *realPath, *realFilename, *nport;
 
-    /* »ñµÃÊµ¼Ê¹¤×÷Ä¿Â¼»òÎÄ¼ş */
+    /* è·å¾—å®é™…å·¥ä½œç›®å½•æˆ–æ–‡ä»¶ */
     len = strlen(dirroot) + strlen(Path) + 1;
     realPath = malloc(len + 1);
     bzero(realPath, len + 1);
     sprintf(realPath, "%s/%s", dirroot, Path);
 
-    /* »ñµÃÊµ¼Ê¹¤×÷¶Ë¿Ú */
+    /* è·å¾—å®é™…å·¥ä½œç«¯å£ */
     len = strlen(port) + 1;
     nport = malloc(len + 1);
     bzero(nport, len + 1);
     sprintf(nport, ":%s", port);
 
-    /* »ñµÃÊµ¼Ê¹¤×÷Ä¿Â¼»òÎÄ¼şµÄĞÅÏ¢ÒÔÅĞ¶ÏÊÇÎÄ¼ş»¹ÊÇÄ¿Â¼ */
-    if (stat(realPath, &info)) {
+    /* è·å¾—å®é™…å·¥ä½œç›®å½•æˆ–æ–‡ä»¶çš„ä¿¡æ¯ä»¥åˆ¤æ–­æ˜¯æ–‡ä»¶è¿˜æ˜¯ç›®å½• */
+    if (stat(realPath, &info))
+    {
         fprintf(client_sock,
                 "HTTP/1.1 200 OK\r\nServer: DAS by ZhouLifa\r\nConnection: close\r\n\r\n<html><head><title>%d - %s</title></head>"
-                "<body><font size=+4>Linux ÏÂÄ¿Â¼·ÃÎÊ·şÎñÆ÷</font><br><hr width=\"100%%\"><br><center>"
-                "<table border cols=3 width=\"100%%\">", errno,
+                "<body><font size=+4>Linux ä¸‹ç›®å½•è®¿é—®æœåŠ¡å™¨</font><br><hr width=\"100%%\"><br><center>"
+                "<table border cols=3 width=\"100%%\">",
+                errno,
                 strerror(errno));
         fprintf(client_sock,
-                "</table><font color=\"CC0000\" size=+2>ÇëÏò¹ÜÀíÔ±×ÉÑ¯ÎªºÎ³öÏÖÈçÏÂ´íÎóÌáÊ¾£º\n%s %s</font></body></html>",
+                "</table><font color=\"CC0000\" size=+2>è¯·å‘ç®¡ç†å‘˜å’¨è¯¢ä¸ºä½•å‡ºç°å¦‚ä¸‹é”™è¯¯æç¤ºï¼š\n%s %s</font></body></html>",
                 Path, strerror(errno));
         goto out;
     }
-    /* ´¦Àíä¯ÀÀÎÄ¼şÇëÇó£¬¼´ÏÂÔØÎÄ¼ş */
-    if (S_ISREG(info.st_mode)) {
+    /* å¤„ç†æµè§ˆæ–‡ä»¶è¯·æ±‚ï¼Œå³ä¸‹è½½æ–‡ä»¶ */
+    if (S_ISREG(info.st_mode))
+    {
         fd = open(realPath, O_RDONLY);
         len = lseek(fd, 0, SEEK_END);
-        p = (char *) malloc(len + 1);
+        p = (char *)malloc(len + 1);
         bzero(p, len + 1);
         lseek(fd, 0, SEEK_SET);
         ret = read(fd, p, len);
@@ -140,26 +160,31 @@ void GiveResponse(FILE * client_sock, char *Path)
                 len);
         fwrite(p, len, 1, client_sock);
         free(p);
-    } else if (S_ISDIR(info.st_mode)) {
-        /* ´¦Àíä¯ÀÀÄ¿Â¼ÇëÇó */
+    }
+    else if (S_ISDIR(info.st_mode))
+    {
+        /* å¤„ç†æµè§ˆç›®å½•è¯·æ±‚ */
         dir = opendir(realPath);
         fprintf(client_sock,
                 "HTTP/1.1 200 OK\r\nServer: DAS by ZhouLifa\r\nConnection: close\r\n\r\n<html><head><title>%s</title></head>"
-                "<body><font size=+4>Linux ÏÂÄ¿Â¼·ÃÎÊ·şÎñÆ÷</font><br><hr width=\"100%%\"><br><center>"
-                "<table border cols=3 width=\"100%%\">", Path);
-        fprintf(client_sock,
-                "<caption><font size=+3>Ä¿Â¼ %s</font></caption>\n",
+                "<body><font size=+4>Linux ä¸‹ç›®å½•è®¿é—®æœåŠ¡å™¨</font><br><hr width=\"100%%\"><br><center>"
+                "<table border cols=3 width=\"100%%\">",
                 Path);
         fprintf(client_sock,
-                "<tr><td>Ãû³Æ</td><td>´óĞ¡</td><td>ĞŞ¸ÄÊ±¼ä</td></tr>\n");
-        if (dir == 0) {
+                "<caption><font size=+3>ç›®å½• %s</font></caption>\n",
+                Path);
+        fprintf(client_sock,
+                "<tr><td>åç§°</td><td>å¤§å°</td><td>ä¿®æ”¹æ—¶é—´</td></tr>\n");
+        if (dir == 0)
+        {
             fprintf(client_sock,
                     "</table><font color=\"CC0000\" size=+2>%s</font></body></html>",
                     strerror(errno));
             return;
         }
-        /* ¶ÁÈ¡Ä¿Â¼ÀïµÄËùÓĞÄÚÈİ */
-        while ((dirent = readdir(dir)) != 0) {
+        /* è¯»å–ç›®å½•é‡Œçš„æ‰€æœ‰å†…å®¹ */
+        while ((dirent = readdir(dir)) != 0)
+        {
             if (strcmp(Path, "/") == 0)
                 sprintf(Filename, "/%s", dirent->d_name);
             else
@@ -169,7 +194,8 @@ void GiveResponse(FILE * client_sock, char *Path)
             realFilename = malloc(len + 1);
             bzero(realFilename, len + 1);
             sprintf(realFilename, "%s/%s", dirroot, Filename);
-            if (stat(realFilename, &info) == 0) {
+            if (stat(realFilename, &info) == 0)
+            {
                 if (strcmp(dirent->d_name, "..") == 0)
                     fprintf(client_sock,
                             "<td><a href=\"http://%s%s%s\">(parent)</a></td>",
@@ -181,44 +207,46 @@ void GiveResponse(FILE * client_sock, char *Path)
                             host, atoi(port) == 80 ? "" : nport, Filename,
                             dirent->d_name);
                 if (S_ISDIR(info.st_mode))
-                    fprintf(client_sock, "<td>Ä¿Â¼</td>");
+                    fprintf(client_sock, "<td>ç›®å½•</td>");
                 else if (S_ISREG(info.st_mode))
                     fprintf(client_sock, "<td>%d</td>", info.st_size);
                 else if (S_ISLNK(info.st_mode))
-                    fprintf(client_sock, "<td>Á´½Ó</td>");
+                    fprintf(client_sock, "<td>é“¾æ¥</td>");
                 else if (S_ISCHR(info.st_mode))
-                    fprintf(client_sock, "<td>×Ö·ûÉè±¸</td>");
+                    fprintf(client_sock, "<td>å­—ç¬¦è®¾å¤‡</td>");
                 else if (S_ISBLK(info.st_mode))
-                    fprintf(client_sock, "<td>¿éÉè±¸</td>");
+                    fprintf(client_sock, "<td>å—è®¾å¤‡</td>");
                 else if (S_ISFIFO(info.st_mode))
                     fprintf(client_sock, "<td>FIFO</td>");
                 else if (S_ISSOCK(info.st_mode))
                     fprintf(client_sock, "<td>Socket</td>");
                 else
-                    fprintf(client_sock, "<td>(Î´Öª)</td>");
+                    fprintf(client_sock, "<td>(æœªçŸ¥)</td>");
                 fprintf(client_sock, "<td>%s</td>", ctime(&info.st_ctime));
             }
             fprintf(client_sock, "</tr>\n");
             free(realFilename);
         }
         fprintf(client_sock, "</table></center></body></html>");
-    } else {
-        /* ¼È·Ç³£¹æÎÄ¼şÓÖ·ÇÄ¿Â¼£¬½ûÖ¹·ÃÎÊ */
+    }
+    else
+    {
+        /* æ—¢éå¸¸è§„æ–‡ä»¶åˆéç›®å½•ï¼Œç¦æ­¢è®¿é—® */
         fprintf(client_sock,
                 "HTTP/1.1 200 OK\r\nServer: DAS by ZhouLifa\r\nConnection: close\r\n\r\n<html><head><title>permission denied</title></head>"
-                "<body><font size=+4>Linux ÏÂÄ¿Â¼·ÃÎÊ·şÎñÆ÷</font><br><hr width=\"100%%\"><br><center>"
+                "<body><font size=+4>Linux ä¸‹ç›®å½•è®¿é—®æœåŠ¡å™¨</font><br><hr width=\"100%%\"><br><center>"
                 "<table border cols=3 width=\"100%%\">");
         fprintf(client_sock,
-                "</table><font color=\"CC0000\" size=+2>Äã·ÃÎÊµÄ×ÊÔ´'%s'±»½ûÖ¹·ÃÎÊ£¬ÇëÁªÏµ¹ÜÀíÔ±½â¾ö£¡</font></body></html>",
+                "</table><font color=\"CC0000\" size=+2>ä½ è®¿é—®çš„èµ„æº'%s'è¢«ç¦æ­¢è®¿é—®ï¼Œè¯·è”ç³»ç®¡ç†å‘˜è§£å†³ï¼</font></body></html>",
                 Path);
     }
-  out:
+out:
     free(realPath);
     free(nport);
 }
 
 /*------------------------------------------------------
- *--- getoption - ·ÖÎöÈ¡³ö³ÌĞòµÄ²ÎÊı
+ *--- getoption - åˆ†æå–å‡ºç¨‹åºçš„å‚æ•°
  *------------------------------------------------------
  */
 void getoption(int argc, char **argv)
@@ -227,7 +255,8 @@ void getoption(int argc, char **argv)
     char *p = 0;
 
     opterr = 0;
-    while (1) {
+    while (1)
+    {
         int option_index = 0;
         static struct option long_options[] = {
             {"host", 1, 0, 0},
@@ -236,49 +265,42 @@ void getoption(int argc, char **argv)
             {"dir", 1, 0, 0},
             {"log", 1, 0, 0},
             {"daemon", 0, 0, 0},
-            {0, 0, 0, 0}
-        };
-        /* ±¾³ÌĞòÖ§³ÖÈçÒ»Ğ©²ÎÊı£º
-         * --host IPµØÖ· »òÕß -H IPµØÖ·
-         * --port ¶Ë¿Ú »òÕß -P ¶Ë¿Ú
-         * --back ¼àÌıÊıÁ¿ »òÕß -B ¼àÌıÊıÁ¿
-         * --dir ÍøÕ¾¸ùÄ¿Â¼ »òÕß -D ÍøÕ¾¸ùÄ¿Â¼
-         * --log ÈÕÖ¾´æ·ÅÂ·¾¶ »òÕß -L ÈÕÖ¾´æ·ÅÂ·¾¶
-         * --daemon Ê¹³ÌĞò½øÈëºóÌ¨ÔËĞĞÄ£Ê½
+            {0, 0, 0, 0}};
+        /* æœ¬ç¨‹åºæ”¯æŒå¦‚ä¸€äº›å‚æ•°ï¼š
+         * --host IPåœ°å€ æˆ–è€… -H IPåœ°å€
+         * --port ç«¯å£ æˆ–è€… -P ç«¯å£
+         * --back ç›‘å¬æ•°é‡ æˆ–è€… -B ç›‘å¬æ•°é‡
+         * --dir ç½‘ç«™æ ¹ç›®å½• æˆ–è€… -D ç½‘ç«™æ ¹ç›®å½•
+         * --log æ—¥å¿—å­˜æ”¾è·¯å¾„ æˆ–è€… -L æ—¥å¿—å­˜æ”¾è·¯å¾„
+         * --daemon ä½¿ç¨‹åºè¿›å…¥åå°è¿è¡Œæ¨¡å¼
          */
         c = getopt_long(argc, argv, "H:P:B:D:L",
                         long_options, &option_index);
         if (c == -1 || c == '?')
             break;
 
-        if(optarg)        len = strlen(optarg);
-        else        len = 0;
+        if (optarg)
+            len = strlen(optarg);
+        else
+            len = 0;
 
-        if ((!c && !(strcasecmp(long_options[option_index].name, "host")))
-            || c == 'H')
+        if ((!c && !(strcasecmp(long_options[option_index].name, "host"))) || c == 'H')
             p = host = malloc(len + 1);
-        else if ((!c
-                  &&
-                  !(strcasecmp(long_options[option_index].name, "port")))
-                 || c == 'P')
+        else if ((!c &&
+                  !(strcasecmp(long_options[option_index].name, "port"))) ||
+                 c == 'P')
             p = port = malloc(len + 1);
-        else if ((!c
-                  &&
-                  !(strcasecmp(long_options[option_index].name, "back")))
-                 || c == 'B')
+        else if ((!c &&
+                  !(strcasecmp(long_options[option_index].name, "back"))) ||
+                 c == 'B')
             p = back = malloc(len + 1);
-        else if ((!c
-                  && !(strcasecmp(long_options[option_index].name, "dir")))
-                 || c == 'D')
+        else if ((!c && !(strcasecmp(long_options[option_index].name, "dir"))) || c == 'D')
             p = dirroot = malloc(len + 1);
-        else if ((!c
-                  && !(strcasecmp(long_options[option_index].name, "log")))
-                 || c == 'L')
+        else if ((!c && !(strcasecmp(long_options[option_index].name, "log"))) || c == 'L')
             p = logdir = malloc(len + 1);
-        else if ((!c
-                  &&
-                  !(strcasecmp
-                    (long_options[option_index].name, "daemon")))) {
+        else if ((!c &&
+                  !(strcasecmp(long_options[option_index].name, "daemon"))))
+        {
             daemon_y_n = 1;
             continue;
         }
@@ -294,36 +316,41 @@ int main(int argc, char **argv)
     struct sockaddr_in addr;
     int sock_fd, addrlen;
 
-    /* »ñµÃ³ÌĞò¹¤×÷µÄ²ÎÊı£¬Èç IP ¡¢¶Ë¿Ú¡¢¼àÌıÊı¡¢ÍøÒ³¸ùÄ¿Â¼¡¢Ä¿Â¼´æ·ÅÎ»ÖÃµÈ */
+    /* è·å¾—ç¨‹åºå·¥ä½œçš„å‚æ•°ï¼Œå¦‚ IP ã€ç«¯å£ã€ç›‘å¬æ•°ã€ç½‘é¡µæ ¹ç›®å½•ã€ç›®å½•å­˜æ”¾ä½ç½®ç­‰ */
     getoption(argc, argv);
 
-    if (!host) {
+    if (!host)
+    {
         addrlen = strlen(DEFAULTIP);
         AllocateMemory(&host, addrlen, DEFAULTIP);
     }
-    if (!port) {
+    if (!port)
+    {
         addrlen = strlen(DEFAULTPORT);
         AllocateMemory(&port, addrlen, DEFAULTPORT);
     }
-    if (!back) {
+    if (!back)
+    {
         addrlen = strlen(DEFAULTBACK);
         AllocateMemory(&back, addrlen, DEFAULTBACK);
     }
-    if (!dirroot) {
+    if (!dirroot)
+    {
         addrlen = strlen(DEFAULTDIR);
         AllocateMemory(&dirroot, addrlen, DEFAULTDIR);
     }
-    if (!logdir) {
+    if (!logdir)
+    {
         addrlen = strlen(DEFAULTLOG);
         AllocateMemory(&logdir, addrlen, DEFAULTLOG);
     }
 
-    printf
-        ("host=%s port=%s back=%s dirroot=%s logdir=%s %sÊÇºóÌ¨¹¤×÷Ä£Ê½(½ø³ÌID£º%d)\n",
-         host, port, back, dirroot, logdir, daemon_y_n?"":"²»", getpid());
+    printf("host=%s port=%s back=%s dirroot=%s logdir=%s %sæ˜¯åå°å·¥ä½œæ¨¡å¼(è¿›ç¨‹IDï¼š%d)\n",
+           host, port, back, dirroot, logdir, daemon_y_n ? "" : "ä¸", getpid());
 
-    /* fork() Á½´Î´¦ÓÚºóÌ¨¹¤×÷Ä£Ê½ÏÂ */
-    if (daemon_y_n) {
+    /* fork() ä¸¤æ¬¡å¤„äºåå°å·¥ä½œæ¨¡å¼ä¸‹ */
+    if (daemon_y_n)
+    {
         if (fork())
             exit(0);
         if (fork())
@@ -334,19 +361,23 @@ int main(int argc, char **argv)
             exit(0);
     }
 
-    /* ´¦Àí×Ó½ø³ÌÍË³öÒÔÃâ²úÉú½©Ê¬½ø³Ì */
+    /* å¤„ç†å­è¿›ç¨‹é€€å‡ºä»¥å…äº§ç”Ÿåƒµå°¸è¿›ç¨‹ */
     signal(SIGCHLD, SIG_IGN);
 
-    /* ´´½¨ socket */
-    if ((sock_fd = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
-        if (!daemon_y_n) {
+    /* åˆ›å»º socket */
+    if ((sock_fd = socket(PF_INET, SOCK_STREAM, 0)) < 0)
+    {
+        if (!daemon_y_n)
+        {
             prterrmsg("socket()");
-        } else {
+        }
+        else
+        {
             wrterrmsg("socket()");
         }
     }
 
-    /* ÉèÖÃ¶Ë¿Ú¿ìËÙÖØÓÃ */
+    /* è®¾ç½®ç«¯å£å¿«é€Ÿé‡ç”¨ */
     addrlen = 1;
     setsockopt(sock_fd, SOL_SOCKET, SO_REUSEADDR, &addrlen,
                sizeof(addrlen));
@@ -355,67 +386,94 @@ int main(int argc, char **argv)
     addr.sin_port = htons(atoi(port));
     addr.sin_addr.s_addr = inet_addr(host);
     addrlen = sizeof(struct sockaddr_in);
-    /* °ó¶¨µØÖ·¡¢¶Ë¿ÚµÈĞÅÏ¢ */
-    if (bind(sock_fd, (struct sockaddr *) &addr, addrlen) < 0) {
-        if (!daemon_y_n) {
+    /* ç»‘å®šåœ°å€ã€ç«¯å£ç­‰ä¿¡æ¯ */
+    if (bind(sock_fd, (struct sockaddr *)&addr, addrlen) < 0)
+    {
+        if (!daemon_y_n)
+        {
             prterrmsg("bind()");
-        } else {
+        }
+        else
+        {
             wrterrmsg("bind()");
         }
     }
 
-    /* ¿ªÆôÁÙÌı */
-    if (listen(sock_fd, atoi(back)) < 0) {
-        if (!daemon_y_n) {
+    /* å¼€å¯ä¸´å¬ */
+    if (listen(sock_fd, atoi(back)) < 0)
+    {
+        if (!daemon_y_n)
+        {
             prterrmsg("listen()");
-        } else {
+        }
+        else
+        {
             wrterrmsg("listen()");
         }
     }
-    while (1) {
+    while (1)
+    {
         int len;
         int new_fd;
         addrlen = sizeof(struct sockaddr_in);
-        /* ½ÓÊÜĞÂÁ¬½ÓÇëÇó */
-        new_fd = accept(sock_fd, (struct sockaddr *) &addr, &addrlen);
-        if (new_fd < 0) {
-            if (!daemon_y_n) {
+        /* æ¥å—æ–°è¿æ¥è¯·æ±‚ */
+        new_fd = accept(sock_fd, (struct sockaddr *)&addr, &addrlen);
+        if (new_fd < 0)
+        {
+            if (!daemon_y_n)
+            {
                 prterrmsg("accept()");
-            } else {
+            }
+            else
+            {
                 wrterrmsg("accept()");
             }
             break;
         }
         bzero(buffer, MAXBUF + 1);
-        sprintf(buffer, "Á¬½ÓÀ´×ÔÓÚ: %s:%d\n",
+        sprintf(buffer, "è¿æ¥æ¥è‡ªäº: %s:%d\n",
                 inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
-        if (!daemon_y_n) {
+        if (!daemon_y_n)
+        {
             prtinfomsg(buffer);
-        } else {
+        }
+        else
+        {
             wrtinfomsg(buffer);
         }
-        /* ²úÉúÒ»¸ö×Ó½ø³ÌÈ¥´¦ÀíÇëÇó£¬µ±Ç°½ø³Ì¼ÌĞøµÈ´ıĞÂµÄÁ¬½Óµ½À´ */
-        if (!fork()) {
+        /* äº§ç”Ÿä¸€ä¸ªå­è¿›ç¨‹å»å¤„ç†è¯·æ±‚ï¼Œå½“å‰è¿›ç¨‹ç»§ç»­ç­‰å¾…æ–°çš„è¿æ¥åˆ°æ¥ */
+        if (!fork())
+        {
             bzero(buffer, MAXBUF + 1);
-            if ((len = recv(new_fd, buffer, MAXBUF, 0)) > 0) {
+            if ((len = recv(new_fd, buffer, MAXBUF, 0)) > 0)
+            {
                 FILE *ClientFP = fdopen(new_fd, "w");
-                if (ClientFP == NULL) {
-                    if (!daemon_y_n) {
-                        prterrmsg("fdopen()");
-                    } else {
+                if (ClientFP == NULL)
+                {
+                    if (!daemon_y_n)
+                    {
                         prterrmsg("fdopen()");
                     }
-                } else {
+                    else
+                    {
+                        prterrmsg("fdopen()");
+                    }
+                }
+                else
+                {
                     char Req[MAXPATH + 1] = "";
                     sscanf(buffer, "GET %s HTTP", Req);
                     bzero(buffer, MAXBUF + 1);
-                    sprintf(buffer, "ÇëÇóÈ¡ÎÄ¼ş: \"%s\"\n", Req);
-                    if (!daemon_y_n) {
+                    sprintf(buffer, "è¯·æ±‚å–æ–‡ä»¶: \"%s\"\n", Req);
+                    if (!daemon_y_n)
+                    {
                         prtinfomsg(buffer);
-                    } else {
+                    }
+                    else
+                    {
                         wrtinfomsg(buffer);
                     }
-                    /* ´¦ÀíÓÃ»§ÇëÇó */
+                    /* å¤„ç†ç”¨æˆ·è¯·æ±‚ */
                     GiveResponse(ClientFP, Req);
                     fclose(ClientFP);
                 }

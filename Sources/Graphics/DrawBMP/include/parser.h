@@ -14,24 +14,27 @@
 #define EXPR_SIZE 100
 #define VECTOR_LEN 100
 
-typedef struct tagSplitedStrings {
+typedef struct tagSplitedStrings
+{
 	int n;
 	char *s[MAX_STR_LEN];
-}SplitedStrings;
+} SplitedStrings;
 
 //
-typedef struct tagScalarExpr {
+typedef struct tagScalarExpr
+{
 	char str[32];
 	double value;
-}ScalarExpr;
+} ScalarExpr;
 
 ScalarExpr scalarexpr[EXPR_SIZE];
 
-typedef struct tagVectorExpr {
+typedef struct tagVectorExpr
+{
 	char str[32];
 	int length;
 	double value[VECTOR_LEN];
-}VectorExpr;
+} VectorExpr;
 
 VectorExpr vectorexpr[EXPR_SIZE];
 
@@ -42,14 +45,16 @@ SplitedStrings split()
 	int count = 0;
 	char str[MAX_STR_LEN];
 	SplitedStrings ds;
-	char *s = str; 
+	char *s = str;
 	char *p;
 	gets(str);
-	while (1) {
+	while (1)
+	{
 		p = strtok(s, ",");
-		if (p == NULL)break;
+		if (p == NULL)
+			break;
 		ds.s[count] = p;
-		//puts(p); 
+		//puts(p);
 		s = NULL;
 		count++;
 	}
@@ -58,15 +63,16 @@ SplitedStrings split()
 }
 void show(SplitedStrings ds)
 {
-	for (int i = 0; i < ds.n; i++) {
+	for (int i = 0; i < ds.n; i++)
+	{
 		puts(ds.s[i]);
 	}
 }
 
-
 void print(char *str)
 {
-	for (int i = 0; i < EXPR_SIZE; i++) {
+	for (int i = 0; i < EXPR_SIZE; i++)
+	{
 		if (!strcmp(str, scalarexpr[i].str))
 			printf("%s: %lf\n", str, scalarexpr[i].value);
 	}
@@ -74,8 +80,10 @@ void print(char *str)
 void printv(char *str)
 {
 	//printf("%s", str);
-	for (int i = 0; i < EXPR_SIZE; i++) {
-		if (!strcmp(str, vectorexpr[i].str)) {
+	for (int i = 0; i < EXPR_SIZE; i++)
+	{
+		if (!strcmp(str, vectorexpr[i].str))
+		{
 			printf("%s:[ ", str);
 			for (int j = 0; j < vectorexpr[i].length; j++)
 				printf("%lf ", vectorexpr[i].value[j]);
@@ -86,7 +94,8 @@ void printv(char *str)
 double getvalue(char *str)
 {
 	double r;
-	for (int i = 0; i < EXPR_SIZE; i++) {
+	for (int i = 0; i < EXPR_SIZE; i++)
+	{
 		if (!strcmp(str, scalarexpr[i].str))
 			r = scalarexpr[i].value;
 	}
@@ -94,7 +103,8 @@ double getvalue(char *str)
 }
 void avoidrepeat(char *str)
 {
-	for (int i = 0; i < EXPR_SIZE; i++) {
+	for (int i = 0; i < EXPR_SIZE; i++)
+	{
 		if (!strcmp(str, scalarexpr[i].str))
 			return;
 	}
@@ -134,7 +144,8 @@ void drawbmp(SplitedStrings ds)
 		Arc(atoi(ds.s[1]), atoi(ds.s[2]), atoi(ds.s[3]), atoi(ds.s[4]), atoi(ds.s[5]), atoi(ds.s[6]));
 	if (!strcmp(ds.s[0], "fillarc"))
 		FillArc(atoi(ds.s[1]), atoi(ds.s[2]), atoi(ds.s[3]), atoi(ds.s[4]), atoi(ds.s[5]), atoi(ds.s[6]));
-	if (!strcmp(ds.s[0], "littleletter")) littleletter(ds.s[1][0]);
+	if (!strcmp(ds.s[0], "littleletter"))
+		littleletter(ds.s[1][0]);
 	//计算部分
 	//scalar
 	if (!strcmp(ds.s[1], "=") || !strcmp(ds.s[1], "equal"))
@@ -142,80 +153,97 @@ void drawbmp(SplitedStrings ds)
 	if (!strcmp(ds.s[0], "print"))
 		print(ds.s[1]);
 	//plus
-	if (!strcmp(ds.s[1], "+") || !strcmp(ds.s[1], "plus")) {
+	if (!strcmp(ds.s[1], "+") || !strcmp(ds.s[1], "plus"))
+	{
 		double a, b;
 		strcpy(scalarexpr[g_index].str, ds.s[0]);
-		if (ds.s[2][0] >= '0'&&ds.s[2][0] <= '9')
+		if (ds.s[2][0] >= '0' && ds.s[2][0] <= '9')
 			a = atof(ds.s[2]);
-		else a = getvalue(ds.s[2]);
-		if (ds.s[3][0] >= '0'&&ds.s[3][0] <= '9')
+		else
+			a = getvalue(ds.s[2]);
+		if (ds.s[3][0] >= '0' && ds.s[3][0] <= '9')
 			b = atof(ds.s[3]);
-		else b = getvalue(ds.s[3]);
+		else
+			b = getvalue(ds.s[3]);
 		//printf("%lf %lf", a, b);
 		scalarexpr[g_index].value = a + b;
 		avoidrepeat(scalarexpr[g_index].str);
 	}
 	//sub
-	if (!strcmp(ds.s[1], "-") || !strcmp(ds.s[1], "sub")) {
+	if (!strcmp(ds.s[1], "-") || !strcmp(ds.s[1], "sub"))
+	{
 		double a, b;
 		strcpy(scalarexpr[g_index].str, ds.s[0]);
-		if (ds.s[2][0] >= '0'&&ds.s[2][0] <= '9')
+		if (ds.s[2][0] >= '0' && ds.s[2][0] <= '9')
 			a = atof(ds.s[2]);
-		else a = getvalue(ds.s[2]);
-		if (ds.s[3][0] >= '0'&&ds.s[3][0] <= '9')
+		else
+			a = getvalue(ds.s[2]);
+		if (ds.s[3][0] >= '0' && ds.s[3][0] <= '9')
 			b = atof(ds.s[3]);
-		else b = getvalue(ds.s[3]);
+		else
+			b = getvalue(ds.s[3]);
 		//printf("%lf %lf", a, b);
 		scalarexpr[g_index].value = a - b;
 		avoidrepeat(scalarexpr[g_index].str);
 	}
 	//mul
-	if (!strcmp(ds.s[1], "*") || !strcmp(ds.s[1], "mul")) {
+	if (!strcmp(ds.s[1], "*") || !strcmp(ds.s[1], "mul"))
+	{
 		double a, b;
 		strcpy(scalarexpr[g_index].str, ds.s[0]);
-		if (ds.s[2][0] >= '0'&&ds.s[2][0] <= '9')
+		if (ds.s[2][0] >= '0' && ds.s[2][0] <= '9')
 			a = atof(ds.s[2]);
-		else a = getvalue(ds.s[2]);
-		if (ds.s[3][0] >= '0'&&ds.s[3][0] <= '9')
+		else
+			a = getvalue(ds.s[2]);
+		if (ds.s[3][0] >= '0' && ds.s[3][0] <= '9')
 			b = atof(ds.s[3]);
-		else b = getvalue(ds.s[3]);
+		else
+			b = getvalue(ds.s[3]);
 		//printf("%lf %lf", a, b);
 		scalarexpr[g_index].value = a * b;
 		avoidrepeat(scalarexpr[g_index].str);
 	}
 	//div
-	if (!strcmp(ds.s[1], "/") || !strcmp(ds.s[1], "div")) {
+	if (!strcmp(ds.s[1], "/") || !strcmp(ds.s[1], "div"))
+	{
 		double a, b;
 		strcpy(scalarexpr[g_index].str, ds.s[0]);
-		if (ds.s[2][0] >= '0'&&ds.s[2][0] <= '9')
+		if (ds.s[2][0] >= '0' && ds.s[2][0] <= '9')
 			a = atof(ds.s[2]);
-		else a = getvalue(ds.s[2]);
-		if (ds.s[3][0] >= '0'&&ds.s[3][0] <= '9')
+		else
+			a = getvalue(ds.s[2]);
+		if (ds.s[3][0] >= '0' && ds.s[3][0] <= '9')
 			b = atof(ds.s[3]);
-		else b = getvalue(ds.s[3]);
+		else
+			b = getvalue(ds.s[3]);
 		//printf("%lf %lf", a, b);
 		scalarexpr[g_index].value = a / b;
 		avoidrepeat(scalarexpr[g_index].str);
 	}
 	//pow
-	if (!strcmp(ds.s[1], "^") || !strcmp(ds.s[1], "pow")) {
+	if (!strcmp(ds.s[1], "^") || !strcmp(ds.s[1], "pow"))
+	{
 		double a, b, c;
 		strcpy(scalarexpr[g_index].str, ds.s[0]);
 		if (isdigit(ds.s[2][0]) || ds.s[2][0] == '-')
 			a = atof(ds.s[2]);
-		else a = getvalue(ds.s[2]);
+		else
+			a = getvalue(ds.s[2]);
 		if (isdigit(ds.s[3][0]) || ds.s[2][0] == '-')
 			b = atof(ds.s[3]);
-		else b = getvalue(ds.s[3]);
+		else
+			b = getvalue(ds.s[3]);
 		//printf("%lf %lf", a, b);
 		c = pow(a, b);
 		scalarexpr[g_index].value = c;
 		avoidrepeat(scalarexpr[g_index].str);
 	}
 	//vector
-	if (!strcmp(ds.s[1], "v=") || !strcmp(ds.s[1], "vequal")) {
+	if (!strcmp(ds.s[1], "v=") || !strcmp(ds.s[1], "vequal"))
+	{
 		strcpy(vectorexpr[g_index].str, ds.s[0]);
-		for (int i = 2; i < ds.n; i++) {
+		for (int i = 2; i < ds.n; i++)
+		{
 			vectorexpr[g_index].value[i - 2] = atof(ds.s[i]);
 		}
 		//printf("%lf\n", vectorexpr[index].value[0]);
@@ -226,8 +254,8 @@ void drawbmp(SplitedStrings ds)
 	if (!strcmp(ds.s[0], "printv"))
 		printv(ds.s[1]);
 	//linespace
-	if (!strcmp(ds.s[1], ":") || !strcmp(ds.s[1], "linspace")) {
-
+	if (!strcmp(ds.s[1], ":") || !strcmp(ds.s[1], "linspace"))
+	{
 	};
 }
 #endif //PARSER_H

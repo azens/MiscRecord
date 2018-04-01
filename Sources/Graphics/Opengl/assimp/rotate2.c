@@ -14,40 +14,40 @@ void drawBox()
     glBegin(GL_QUADS);
 
     glColor3f(1.0f, 0.0f, 0.0f);
-// FRONT
+    // FRONT
     glVertex3f(-0.5f, -0.5f, 0.5f);
-    glVertex3f( 0.5f, -0.5f, 0.5f);
-    glVertex3f( 0.5f, 0.5f, 0.5f);
+    glVertex3f(0.5f, -0.5f, 0.5f);
+    glVertex3f(0.5f, 0.5f, 0.5f);
     glVertex3f(-0.5f, 0.5f, 0.5f);
-// BACK
+    // BACK
     glVertex3f(-0.5f, -0.5f, -0.5f);
     glVertex3f(-0.5f, 0.5f, -0.5f);
-    glVertex3f( 0.5f, 0.5f, -0.5f);
-    glVertex3f( 0.5f, -0.5f, -0.5f);
+    glVertex3f(0.5f, 0.5f, -0.5f);
+    glVertex3f(0.5f, -0.5f, -0.5f);
 
     glColor3f(0.0f, 1.0f, 0.0f);
-// LEFT
+    // LEFT
     glVertex3f(-0.5f, -0.5f, 0.5f);
     glVertex3f(-0.5f, 0.5f, 0.5f);
     glVertex3f(-0.5f, 0.5f, -0.5f);
     glVertex3f(-0.5f, -0.5f, -0.5f);
-// RIGHT
-    glVertex3f( 0.5f, -0.5f, -0.5f);
-    glVertex3f( 0.5f, 0.5f, -0.5f);
-    glVertex3f( 0.5f, 0.5f, 0.5f);
-    glVertex3f( 0.5f, -0.5f, 0.5f);
+    // RIGHT
+    glVertex3f(0.5f, -0.5f, -0.5f);
+    glVertex3f(0.5f, 0.5f, -0.5f);
+    glVertex3f(0.5f, 0.5f, 0.5f);
+    glVertex3f(0.5f, -0.5f, 0.5f);
 
     glColor3f(0.0f, 0.0f, 1.0f);
-// TOP
+    // TOP
     glVertex3f(-0.5f, 0.5f, 0.5f);
-    glVertex3f( 0.5f, 0.5f, 0.5f);
-    glVertex3f( 0.5f, 0.5f, -0.5f);
+    glVertex3f(0.5f, 0.5f, 0.5f);
+    glVertex3f(0.5f, 0.5f, -0.5f);
     glVertex3f(-0.5f, 0.5f, -0.5f);
-// BOTTOM
+    // BOTTOM
     glVertex3f(-0.5f, -0.5f, 0.5f);
     glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f( 0.5f, -0.5f, -0.5f);
-    glVertex3f( 0.5f, -0.5f, 0.5f);
+    glVertex3f(0.5f, -0.5f, -0.5f);
+    glVertex3f(0.5f, -0.5f, 0.5f);
     glEnd();
 }
 
@@ -107,9 +107,9 @@ void idle()
 
 void keyboard(unsigned char key, int x, int y)
 {
-    switch(key)
+    switch (key)
     {
-    case 27 :
+    case 27:
         exit(1);
         break;
     }
@@ -172,7 +172,7 @@ int main(int argc, char *argv[])
     glutMouseFunc(mouse);
     glutMotionFunc(mouseMotion);
     glutReshapeFunc(resize);
-//glutIdleFunc(idle);
+    //glutIdleFunc(idle);
 
     if (!init())
         return 1;

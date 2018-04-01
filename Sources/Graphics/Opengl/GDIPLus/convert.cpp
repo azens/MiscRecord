@@ -7,56 +7,58 @@
 #include <ctime>
 using namespace std;
 using namespace Gdiplus;
-#pragma comment(lib,"gdiplus")
+#pragma comment(lib, "gdiplus")
 vector<string> vec;
 int num = 0;
-int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
+int GetEncoderClsid(const WCHAR *format, CLSID *pClsid)
 {
-	UINT  num = 0;          // number of image encoders
-	UINT  size = 0;         // size of the image encoder array in bytes
+	UINT num = 0;  // number of image encoders
+	UINT size = 0; // size of the image encoder array in bytes
 
-	ImageCodecInfo* pImageCodecInfo = NULL;
+	ImageCodecInfo *pImageCodecInfo = NULL;
 
-	//2.»ñÈ¡GDI+Ö§³ÖµÄÍ¼Ïñ¸ñÊ½±àÂëÆ÷ÖÖÀàÊıÒÔ¼°ImageCodecInfoÊı×éµÄ´æ·Å´óĞ¡
+	//2.è·å–GDI+æ”¯æŒçš„å›¾åƒæ ¼å¼ç¼–ç å™¨ç§ç±»æ•°ä»¥åŠImageCodecInfoæ•°ç»„çš„å­˜æ”¾å¤§å°
 	GetImageEncodersSize(&num, &size);
 	if (size == 0)
-		return -1;  // Failure
+		return -1; // Failure
 
-					//3.ÎªImageCodecInfoÊı×é·ÖÅä×ã¶î¿Õ¼ä
-	pImageCodecInfo = (ImageCodecInfo*)(malloc(size));
+	//3.ä¸ºImageCodecInfoæ•°ç»„åˆ†é…è¶³é¢ç©ºé—´
+	pImageCodecInfo = (ImageCodecInfo *)(malloc(size));
 	if (pImageCodecInfo == NULL)
-		return -1;  // Failure
+		return -1; // Failure
 
-					//4.»ñÈ¡ËùÓĞµÄÍ¼Ïñ±àÂëÆ÷ĞÅÏ¢
+	//4.è·å–æ‰€æœ‰çš„å›¾åƒç¼–ç å™¨ä¿¡æ¯
 	GetImageEncoders(num, size, pImageCodecInfo);
 
-	//5.²éÕÒ·ûºÏµÄÍ¼Ïñ±àÂëÆ÷µÄClsid
-	for (UINT j = 0; j < num; ++j) {
-		if (wcscmp(pImageCodecInfo[j].MimeType, format) == 0) {
+	//5.æŸ¥æ‰¾ç¬¦åˆçš„å›¾åƒç¼–ç å™¨çš„Clsid
+	for (UINT j = 0; j < num; ++j)
+	{
+		if (wcscmp(pImageCodecInfo[j].MimeType, format) == 0)
+		{
 			*pClsid = pImageCodecInfo[j].Clsid;
 			free(pImageCodecInfo);
-			return j;  // Success
+			return j; // Success
 		}
 	}
 
-	//6.ÊÍ·Å²½Öè3·ÖÅäµÄÄÚ´æ
+	//6.é‡Šæ”¾æ­¥éª¤3åˆ†é…çš„å†…å­˜
 	free(pImageCodecInfo);
-	return -1;  // Failure
+	return -1; // Failure
 }
 
 wstring StringToWstring(string str)
 {
 	string temp = str;
 	int len = MultiByteToWideChar(CP_ACP, 0, (LPCSTR)temp.c_str(), -1, NULL, 0);
-	wchar_t * wszUtf8 = new wchar_t[len + 1];
+	wchar_t *wszUtf8 = new wchar_t[len + 1];
 	wstring szDst,
-	memset(wszUtf8, 0, len * 2 + 2);
+		memset(wszUtf8, 0, len * 2 + 2);
 	MultiByteToWideChar(CP_ACP, 0, (LPCSTR)temp.c_str(), -1, (LPWSTR)wszUtf8, len);
 	szDst = wszUtf8;
 	return szDst;
 }
 
-void draw_image(const char* file)
+void draw_image(const char *file)
 {
 
 	int width, height;
@@ -65,26 +67,28 @@ void draw_image(const char* file)
 	wchar_t *WStr;
 	string savename = file;
 	savename += ".bmp";
-	WStr = (wchar_t*)malloc(len*sizeof(wchar_t));
+	WStr = (wchar_t *)malloc(len * sizeof(wchar_t));
 	mbstowcs_s(&converted, WStr, len, file, _TRUNCATE);
-	//¼ÓÔØÍ¼Ïñ
+	//åŠ è½½å›¾åƒ
 	Image image(WStr);
-	//È¡µÃ¿í¶ÈºÍ¸ß¶È
+	//å–å¾—å®½åº¦å’Œé«˜åº¦
 	width = image.GetWidth();
 	height = image.GetHeight();
-	CLSID   encoderClsid;
+	CLSID encoderClsid;
 	GetEncoderClsid(L"image/bmp", &encoderClsid);
 	wstring savename2 = StringToWstring(savename);
 	image.Save(savename2.c_str(), &encoderClsid, NULL);
 	//cout<<width<<" "<<height<<endl;
 	return;
 }
-void encode(void) {
+void encode(void)
+{
 	int len = vec.size();
-	for (int i = 0; i<len; i++)
+	for (int i = 0; i < len; i++)
 		draw_image(vec[i].c_str());
 }
-void calctime(void(*fun)(void)) {
+void calctime(void (*fun)(void))
+{
 	clock_t st, et;
 	st = clock();
 	fun();
@@ -97,9 +101,10 @@ void initiate()
 	ifstream ifs("test.txt");
 	string temp;
 	int tempr, tempt;
-	while (!ifs.eof()) {
+	while (!ifs.eof())
+	{
 		getline(ifs, temp);
-		if (temp.length()>4)
+		if (temp.length() > 4)
 			vec.push_back(temp);
 		//cout<<temp<<endl;
 	}
@@ -108,7 +113,7 @@ void initiate()
 int main()
 {
 
-	//GdiPlus³õÊ¼»¯
+	//GdiPlusåˆå§‹åŒ–
 	ULONG_PTR gdipludToken;
 	GdiplusStartupInput gdiplusInput;
 	GdiplusStartup(&gdipludToken, &gdiplusInput, NULL);
@@ -116,7 +121,7 @@ int main()
 	initiate();
 	//
 	calctime(encode);
-	//GdiPlus È¡Ïû³õÊ¼»¯
+	//GdiPlus å–æ¶ˆåˆå§‹åŒ–
 	GdiplusShutdown(gdipludToken);
 
 	return 0;

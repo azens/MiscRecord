@@ -1,72 +1,77 @@
 /***************************************************
-*ÎÄ¼şÃû£ºpthread_server.c
-*ÎÄ¼şÃèÊö£º´´½¨×ÓÏß³ÌÀ´½ÓÊÕ¿Í»§¶ËµÄÊı¾İ
+*æ–‡ä»¶åï¼špthread_server.c
+*æ–‡ä»¶æè¿°ï¼šåˆ›å»ºå­çº¿ç¨‹æ¥æ¥æ”¶å®¢æˆ·ç«¯çš„æ•°æ®
 ***************************************************/
-#include<sys/types.h>
-#include<sys/socket.h>
-#include<stdio.h>
-#include<netinet/in.h>
-#include<arpa/inet.h>
-#include<unistd.h>
-#include<stdlib.h>
-#include<pthread.h>
-void*rec_data(void*fd);
-int main(intargc,char*argv[])
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <pthread.h>
+void *rec_data(void *fd);
+int main(intargc, char *argv[])
 {
 	int server_sockfd;
-	int*client_sockfd;
-	int server_len,client_len;
+	int *client_sockfd;
+	int server_len, client_len;
 	struct sockaddr_inserver_address;
 	struct sockaddr_inclient_address;
 	struct sockaddr_intempaddr;
-	int i,byte;
-	char char_recv,char_send;
+	int i, byte;
+	char char_recv, char_send;
 	socklen_t templen;
-	server_sockfd=socket(AF_INET,SOCK_STREAM,0);//´´½¨Ì×½Ó×Ö
-	server_address.sin_family=AF_INET;
-	server_address.sin_addr.s_addr=htonl(INADDR_ANY);
-	server_address.sin_port=htons(9734);
-	server_len=sizeof(server_address);
-	bind(server_sockfd,(struct sockaddr*)&server_address,server_len);//°ó¶¨Ì×½Ó×Ö
-	templen=sizeof(struct sockaddr);
+	server_sockfd = socket(AF_INET, SOCK_STREAM, 0); //åˆ›å»ºå¥—æ¥å­—
+	server_address.sin_family = AF_INET;
+	server_address.sin_addr.s_addr = htonl(INADDR_ANY);
+	server_address.sin_port = htons(9734);
+	server_len = sizeof(server_address);
+	bind(server_sockfd, (struct sockaddr *)&server_address, server_len); //ç»‘å®šå¥—æ¥å­—
+	templen = sizeof(struct sockaddr);
 	printf("server waiting forconnect/n");
-	while(1) {
-		pthread_t thread;//´´½¨²»Í¬µÄ×ÓÏß³ÌÒÔÇø±ğ²»Í¬µÄ¿Í»§¶Ë
-		client_sockfd=(int*)malloc(sizeof(int));
-		client_len=sizeof(client_address);
-		*client_sockfd=accept(server_sockfd,(struct sockaddr*)&client_address,(socklen_t*)&client_len);
-		if(-1==*client_sockfd) {
+	while (1)
+	{
+		pthread_t thread; //åˆ›å»ºä¸åŒçš„å­çº¿ç¨‹ä»¥åŒºåˆ«ä¸åŒçš„å®¢æˆ·ç«¯
+		client_sockfd = (int *)malloc(sizeof(int));
+		client_len = sizeof(client_address);
+		*client_sockfd = accept(server_sockfd, (struct sockaddr *)&client_address, (socklen_t *)&client_len);
+		if (-1 == *client_sockfd)
+		{
 			perror("accept");
 			continue;
 		}
-		if(pthread_create(&thread,NULL,rec_data,client_sockfd)!=0) { //´´½¨×ÓÏß³Ì
+		if (pthread_create(&thread, NULL, rec_data, client_sockfd) != 0)
+		{ //åˆ›å»ºå­çº¿ç¨‹
 			perror("pthread_create");
 			break;
 		}
 	}
-	shutdown(*client_sockfd,2);
-	shutdown(server_sockfd,2);
+	shutdown(*client_sockfd, 2);
+	shutdown(server_sockfd, 2);
 }
 /*****************************************
-*º¯ÊıÃû³Æ£ºrec_data
-*¹¦ÄÜÃèÊö£º½ÓÊÜ¿Í»§¶ËµÄÊı¾İ
-*²ÎÊıÁĞ±í£ºfd¡ª¡ªÁ¬½ÓÌ×½Ó×Ö
-*·µ»Ø½á¹û£ºvoid
+*å‡½æ•°åç§°ï¼šrec_data
+*åŠŸèƒ½æè¿°ï¼šæ¥å—å®¢æˆ·ç«¯çš„æ•°æ®
+*å‚æ•°åˆ—è¡¨ï¼šfdâ€”â€”è¿æ¥å¥—æ¥å­—
+*è¿”å›ç»“æœï¼švoid
 *****************************************/
-void*rec_data(void*fd)
+void *rec_data(void *fd)
 {
 	int client_sockfd;
-	int i,byte;
-	char char_recv[100];//´æ·ÅÊı¾İ
-	client_sockfd=*((int*)fd);
-	for(;;) {
-		if((byte=recv(client_sockfd,char_recv,100,0))==-1) {
+	int i, byte;
+	char char_recv[100]; //å­˜æ”¾æ•°æ®
+	client_sockfd = *((int *)fd);
+	for (;;)
+	{
+		if ((byte = recv(client_sockfd, char_recv, 100, 0)) == -1)
+		{
 			perror("recv");
 			exit(EXIT_FAILURE);
 		}
-		if(strcmp(char_recv,"exit")==0)//½ÓÊÜµ½exitÊ±£¬Ìø³öÑ­»·
+		if (strcmp(char_recv, "exit") == 0) //æ¥å—åˆ°exitæ—¶ï¼Œè·³å‡ºå¾ªç¯
 			break;
-		printf("receivefromclientis%s\n",char_recv);//´òÓ¡ÊÕµ½µÄÊı¾İ
+		printf("receivefromclientis%s\n", char_recv); //æ‰“å°æ”¶åˆ°çš„æ•°æ®
 	}
 	free(fd);
 	close(client_sockfd);

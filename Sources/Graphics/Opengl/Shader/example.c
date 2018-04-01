@@ -8,7 +8,7 @@
 void Run(void);
 void glutCenterWindow(void);
 //
-int main(int argc, char*argv[])
+int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE);
@@ -16,7 +16,8 @@ int main(int argc, char*argv[])
 	glutCenterWindow();
 	glutCreateWindow("title");
 	//
-	if (glewInit() != GLEW_OK)return -1;
+	if (glewInit() != GLEW_OK)
+		return -1;
 	//
 	// glClearColor(1,1,1,1);
 	glutDisplayFunc(Run);
@@ -39,8 +40,8 @@ void Run(void)
 	GLuint vs = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
 	//
-	const GLchar* vs_s = "attribute vec4 p;void main(){gl_Position=p;}";
-	const GLchar* fs_s = "void main(){gl_FragColor=vec4(1.0,0.0,0.0,1.0);}";
+	const GLchar *vs_s = "attribute vec4 p;void main(){gl_Position=p;}";
+	const GLchar *fs_s = "void main(){gl_FragColor=vec4(1.0,0.0,0.0,1.0);}";
 	//
 	glShaderSource(vs, 1, &vs_s, NULL);
 	glShaderSource(fs, 1, &fs_s, NULL);
@@ -56,13 +57,13 @@ void Run(void)
 	glUseProgram(program);
 	//
 	float vertices[] = {
-        -0.9f, -0.5f, 0.0f,  // left 
-        -0.0f, -0.5f, 0.0f,  // right
-        -0.45f, 0.5f, 0.0f,  // top 
-        // second triangle
-         0.0f, -0.5f, 0.0f,  // left
-         0.9f, -0.5f, 0.0f,  // right
-         0.45f, 0.5f, 0.0f   // top 
+		-0.9f, -0.5f, 0.0f, // left
+		-0.0f, -0.5f, 0.0f, // right
+		-0.45f, 0.5f, 0.0f, // top
+							// second triangle
+		0.0f, -0.5f, 0.0f,  // left
+		0.9f, -0.5f, 0.0f,  // right
+		0.45f, 0.5f, 0.0f   // top
 	};
 
 	unsigned int VBO, VAO;
@@ -75,7 +76,7 @@ void Run(void)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	//
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
 	glEnableVertexAttribArray(0);
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);

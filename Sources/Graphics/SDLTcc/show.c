@@ -3,39 +3,39 @@
 #include <string.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-int num=0;
+int num = 0;
 typedef struct
 {
     int length;
-    char** strs;
+    char **strs;
 } vecstr;
 vecstr vs;
 void initiate()
 {
-    char filename[FILENAME_MAX]="test.txt";
-    vs.length=0;
-    vs.strs=NULL;
-    FILE* fp=fopen(filename,"rt");
-    while(!feof(fp))
+    char filename[FILENAME_MAX] = "test.txt";
+    vs.length = 0;
+    vs.strs = NULL;
+    FILE *fp = fopen(filename, "rt");
+    while (!feof(fp))
     {
-        char* line=(char*)malloc(BUFSIZ);
-        memset(line,0,BUFSIZ);
-        fgets(line,BUFSIZ,fp);
-        line[strlen(line)-1]='\0';//去除\n
+        char *line = (char *)malloc(BUFSIZ);
+        memset(line, 0, BUFSIZ);
+        fgets(line, BUFSIZ, fp);
+        line[strlen(line) - 1] = '\0'; //去除\n
         //puts(line);
-        vs.strs=(char**)realloc(vs.strs,++(vs.length)*sizeof(char*));
-        vs.strs[vs.length-1]=line;
+        vs.strs = (char **)realloc(vs.strs, ++(vs.length) * sizeof(char *));
+        vs.strs[vs.length - 1] = line;
     }
     fclose(fp);
     //printf("%d\n",vs.length);
 }
-int main ( int argc, char** argv )
+int main(int argc, char **argv)
 {
     initiate();
     // initialize SDL video
-    if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
-        printf( "Unable to init SDL: %s\n", SDL_GetError() );
+        printf("Unable to init SDL: %s\n", SDL_GetError());
         return 1;
     }
 
@@ -43,15 +43,13 @@ int main ( int argc, char** argv )
     atexit(SDL_Quit);
 
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(640, 480, 16,
-                                           SDL_HWSURFACE|SDL_DOUBLEBUF);
-    if ( !screen )
+    SDL_Surface *screen = SDL_SetVideoMode(640, 480, 16,
+                                           SDL_HWSURFACE | SDL_DOUBLEBUF);
+    if (!screen)
     {
         printf("Unable to set 640x480 video: %s\n", SDL_GetError());
         return 1;
     }
-
-
 
     // program main loop
     int done = 0;
@@ -78,13 +76,14 @@ int main ( int argc, char** argv )
                 break;
             }
             } // end switch
-        } // end of message processing
+        }     // end of message processing
 
         // DRAWING STARTS HERE
         // load an image
-        if(num==vs.length-1) exit(0);
+        if (num == vs.length - 1)
+            exit(0);
         //printf("%d\n",num);
-        SDL_Surface* bmp = IMG_Load(vs.strs[num++]);
+        SDL_Surface *bmp = IMG_Load(vs.strs[num++]);
         if (!bmp)
         {
             printf("Unable to load bitmap: %s\n", SDL_GetError());

@@ -9,7 +9,7 @@
 #define width 640
 #define height 480
 
-clock_t st,et;
+clock_t st, et;
 unsigned int VBO, VAO;
 GLuint program;
 GLuint vs;
@@ -17,32 +17,32 @@ GLuint fs;
 // const GLchar* vs_s = "attribute vec4 p;void main(){gl_Position=p;}";
 
 // const GLchar* fs_s = "uniform vec4 ourColor;"
-                     // "void main(){gl_FragColor=ourColor;}";
-                     
-const char *vs_s ="#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "layout (location = 1) in vec3 aColor;\n"
-    "out vec3 ourColor;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_Position = vec4(aPos, 1.0);\n"
-    "   ourColor = aColor;\n"
-    "}\0";
+// "void main(){gl_FragColor=ourColor;}";
+
+const char *vs_s = "#version 330 core\n"
+                   "layout (location = 0) in vec3 aPos;\n"
+                   "layout (location = 1) in vec3 aColor;\n"
+                   "out vec3 ourColor;\n"
+                   "void main()\n"
+                   "{\n"
+                   "   gl_Position = vec4(aPos, 1.0);\n"
+                   "   ourColor = aColor;\n"
+                   "}\0";
 
 const char *fs_s = "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "in vec3 ourColor;\n"
-    "void main()\n"
-    "{\n"
-    "   FragColor = vec4(ourColor, 1.0f);\n"
-    "}\n\0";
+                   "out vec4 FragColor;\n"
+                   "in vec3 ourColor;\n"
+                   "void main()\n"
+                   "{\n"
+                   "   FragColor = vec4(ourColor, 1.0f);\n"
+                   "}\n\0";
 
 void Run(void);
 void Init(void);
 void OnTimer(int value);
 void glutCenterWindow(void);
 //
-int main(int argc, char*argv[])
+int main(int argc, char *argv[])
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE);
@@ -50,7 +50,8 @@ int main(int argc, char*argv[])
     glutCenterWindow();
     glutCreateWindow("title");
     //
-    if (glewInit() != GLEW_OK)return -1;
+    if (glewInit() != GLEW_OK)
+        return -1;
     //
     Init();
     glutDisplayFunc(Run);
@@ -87,12 +88,11 @@ void Init()
 
     float vertices[] = {
         // positions         // colors
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  // bottom left
-         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // top 
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // bottom right
+        -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // bottom left
+        0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f    // top
 
     };
-
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -103,22 +103,22 @@ void Init()
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
     // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-    
+
     //
     st = clock();
-    
+
     glUseProgram(program);
 }
 //
 void OnTimer(int value)
 {
-   glutPostRedisplay();
-   glutTimerFunc(1000, OnTimer, 1);
+    glutPostRedisplay();
+    glutTimerFunc(1000, OnTimer, 1);
 }
 //
 void Run(void)
@@ -128,10 +128,10 @@ void Run(void)
     glClear(GL_COLOR_BUFFER_BIT);
     //
     int et = clock();
-    float dt = 1.0*(et-st)/CLOCKS_PER_SEC;
+    float dt = 1.0 * (et - st) / CLOCKS_PER_SEC;
     float redValue = sin(dt);
-    float greenValue = cos(dt)*sin(dt);
-    float blueValue = cos(dt)*cos(dt);
+    float greenValue = cos(dt) * sin(dt);
+    float blueValue = cos(dt) * cos(dt);
     // printf("%f\n",greenValue);
     int vertexColorLocation = glGetUniformLocation(program, "aColor");
     glUniform3f(vertexColorLocation, redValue, greenValue, blueValue);

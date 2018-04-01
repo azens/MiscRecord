@@ -4,9 +4,9 @@ using namespace cv;
 
 int main()
 {
-	Mat img=imread("blend.jpg",0);
+	Mat img = imread("blend.jpg", 0);
 	//namedWindow("Title");
-	Canny(img,img,100,100);
-	imshow("title",img);
+	Canny(img, img, 100, 100);
+	imshow("title", img);
 	waitKey(0);
 }

@@ -30,44 +30,44 @@ public:
   {
     return new vtkSliderCallback;
   }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  virtual void Execute(vtkObject *caller, unsigned long, void *)
   {
     vtkSliderWidget *sliderWidget =
-      reinterpret_cast<vtkSliderWidget*>(caller);
+        reinterpret_cast<vtkSliderWidget *>(caller);
     this->SphereSource->SetPhiResolution(static_cast<vtkSliderRepresentation *>(sliderWidget->GetRepresentation())->GetValue());
     this->SphereSource->SetThetaResolution(static_cast<vtkSliderRepresentation *>(sliderWidget->GetRepresentation())->GetValue());
   }
-  vtkSliderCallback():SphereSource(0) {}
+  vtkSliderCallback() : SphereSource(0) {}
   vtkSphereSource *SphereSource;
 };
 
-int main (int, char *[])
+int main(int, char *[])
 {
   // A sphere
   vtkSmartPointer<vtkSphereSource> sphereSource =
-    vtkSmartPointer<vtkSphereSource>::New();
+      vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->SetCenter(0.0, 0.0, 0.0);
   sphereSource->SetRadius(4.0);
 
   vtkSmartPointer<vtkPolyDataMapper> mapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+      vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(sphereSource->GetOutputPort());
 
   vtkSmartPointer<vtkActor> actor =
-    vtkSmartPointer<vtkActor>::New();
+      vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetInterpolationToFlat();
 
   // A renderer and render window
   vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
+      vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
+      vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
 
   // An interactor
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   // Add the actors to the scene
@@ -77,7 +77,7 @@ int main (int, char *[])
   renderWindow->Render();
 
   vtkSmartPointer<vtkSliderRepresentation2D> sliderRep =
-    vtkSmartPointer<vtkSliderRepresentation2D>::New();
+      vtkSmartPointer<vtkSliderRepresentation2D>::New();
 
   sliderRep->SetMinimumValue(3.0);
   sliderRep->SetMaximumValue(20.0);
@@ -86,40 +86,40 @@ int main (int, char *[])
 
   // Set color properties:
   // Change the color of the knob that slides
-  sliderRep->GetSliderProperty()->SetColor(1,0,0);//red
+  sliderRep->GetSliderProperty()->SetColor(1, 0, 0); //red
 
   // Change the color of the text indicating what the slider controls
-  sliderRep->GetTitleProperty()->SetColor(1,0,0);//red
+  sliderRep->GetTitleProperty()->SetColor(1, 0, 0); //red
 
   // Change the color of the text displaying the value
-  sliderRep->GetLabelProperty()->SetColor(1,0,0);//red
+  sliderRep->GetLabelProperty()->SetColor(1, 0, 0); //red
 
   // Change the color of the knob when the mouse is held on it
-  sliderRep->GetSelectedProperty()->SetColor(0,1,0);//green
+  sliderRep->GetSelectedProperty()->SetColor(0, 1, 0); //green
 
   // Change the color of the bar
-  sliderRep->GetTubeProperty()->SetColor(1,1,0);//yellow
+  sliderRep->GetTubeProperty()->SetColor(1, 1, 0); //yellow
 
   // Change the color of the ends of the bar
-  sliderRep->GetCapProperty()->SetColor(1,1,0);//yellow
+  sliderRep->GetCapProperty()->SetColor(1, 1, 0); //yellow
 
   sliderRep->GetPoint1Coordinate()->SetCoordinateSystemToDisplay();
-  sliderRep->GetPoint1Coordinate()->SetValue(40 ,40);
+  sliderRep->GetPoint1Coordinate()->SetValue(40, 40);
   sliderRep->GetPoint2Coordinate()->SetCoordinateSystemToDisplay();
   sliderRep->GetPoint2Coordinate()->SetValue(100, 40);
 
   vtkSmartPointer<vtkSliderWidget> sliderWidget =
-    vtkSmartPointer<vtkSliderWidget>::New();
+      vtkSmartPointer<vtkSliderWidget>::New();
   sliderWidget->SetInteractor(renderWindowInteractor);
   sliderWidget->SetRepresentation(sliderRep);
   sliderWidget->SetAnimationModeToAnimate();
   sliderWidget->EnabledOn();
 
   vtkSmartPointer<vtkSliderCallback> callback =
-    vtkSmartPointer<vtkSliderCallback>::New();
+      vtkSmartPointer<vtkSliderCallback>::New();
   callback->SphereSource = sphereSource;
 
-  sliderWidget->AddObserver(vtkCommand::InteractionEvent,callback);
+  sliderWidget->AddObserver(vtkCommand::InteractionEvent, callback);
 
   renderWindowInteractor->Initialize();
   renderWindow->Render();

@@ -9,5 +9,6 @@
         "cimport.h": "c",
         "glext.h": "c",
         "sdl.h": "c"
-    }
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

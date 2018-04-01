@@ -16,7 +16,7 @@ typedef int bool;
 
 bool quit;
 
-SDL_Window* window;
+SDL_Window *window;
 SDL_GLContext glContext;
 SDL_Event sdlEvent;
 
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
     // Initialize video subsystem
-    if(SDL_Init(SDL_INIT_VIDEO) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
         // Display error message
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -39,11 +39,11 @@ int main(int argc, char *argv[])
     else
     {
         // Create window
-        window = SDL_CreateWindow("Hello World!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
-        if( window == NULL )
+        window = SDL_CreateWindow("Hello World!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+        if (window == NULL)
         {
             // Display error message
-            printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
+            printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
             return false;
         }
         else
@@ -51,10 +51,10 @@ int main(int argc, char *argv[])
             // Create OpenGL context
             glContext = SDL_GL_CreateContext(window);
 
-            if( glContext == NULL )
+            if (glContext == NULL)
             {
                 // Display error message
-                printf( "OpenGL context could not be created! SDL Error: %s\n", SDL_GetError() );
+                printf("OpenGL context could not be created! SDL Error: %s\n", SDL_GetError());
                 return false;
             }
             else
@@ -68,10 +68,10 @@ int main(int argc, char *argv[])
     // Game loop
     while (!quit)
     {
-        while(SDL_PollEvent(&sdlEvent) != 0)
+        while (SDL_PollEvent(&sdlEvent) != 0)
         {
             // Esc button is pressed
-            if(sdlEvent.type == SDL_QUIT)
+            if (sdlEvent.type == SDL_QUIT)
             {
                 quit = true;
             }

@@ -11,32 +11,29 @@
 // GLFW
 #include <GLFW/glfw3.h>
 
-
-
-
 // Function prototypes
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 
 // Shaders
-const GLchar* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 position;\n"
-"layout (location = 1) in vec3 color;\n"
-"out vec3 ourColor;\n"
-"void main()\n"
-"{\n"
-"gl_Position = vec4(position, 1.0);\n"
-"ourColor = color;\n"
-"}\0";
-const GLchar* fragmentShaderSource = "#version 330 core\n"
-"in vec3 ourColor;\n"
-"out vec4 color;\n"
-"void main()\n"
-"{\n"
-"color = vec4(ourColor, 1.0f);\n"
-"}\n\0";
+const GLchar *vertexShaderSource = "#version 330 core\n"
+								   "layout (location = 0) in vec3 position;\n"
+								   "layout (location = 1) in vec3 color;\n"
+								   "out vec3 ourColor;\n"
+								   "void main()\n"
+								   "{\n"
+								   "gl_Position = vec4(position, 1.0);\n"
+								   "ourColor = color;\n"
+								   "}\0";
+const GLchar *fragmentShaderSource = "#version 330 core\n"
+									 "in vec3 ourColor;\n"
+									 "out vec4 color;\n"
+									 "void main()\n"
+									 "{\n"
+									 "color = vec4(ourColor, 1.0f);\n"
+									 "}\n\0";
 
 // The MAIN function, from here we start the application and run the game loop
 int main()
@@ -50,12 +47,12 @@ int main()
 	// glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", NULL, NULL);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", NULL, NULL);
 	glfwMakeContextCurrent(window);
-    
-    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-    glfwSetWindowPos(window, (mode->width - WIDTH) / 2, (mode->height - HEIGHT - 200) / 2);
+
+	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+	glfwSetWindowPos(window, (mode->width - WIDTH) / 2, (mode->height - HEIGHT - 200) / 2);
 
 	// Set the required callback functions
 	glfwSetKeyCallback(window, key_callback);
@@ -67,7 +64,6 @@ int main()
 
 	// Define the viewport dimensions
 	glViewport(0, 0, WIDTH, HEIGHT);
-
 
 	// Build and compile our shader program
 	// Vertex shader
@@ -101,20 +97,20 @@ int main()
 	glLinkProgram(shaderProgram);
 	// Check for linking errors
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-	if (!success) {
+	if (!success)
+	{
 		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
 		// std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
 	}
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
-
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	GLfloat vertices[] = {
 		// Positions         // Colors
-		0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  // Bottom Right
-		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  // Bottom Left
-		0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // Top 
+		0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // Bottom Right
+		-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom Left
+		0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f	// Top
 	};
 	GLuint VBO, VAO;
 	glGenVertexArrays(1, &VAO);
@@ -126,16 +122,15 @@ int main()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	// Position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)0);
 	glEnableVertexAttribArray(0);
 	// Color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 
 	glBindVertexArray(0); // Unbind VAO
 
-
-						  // Game loop
+	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
@@ -164,9 +159,8 @@ int main()
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
-

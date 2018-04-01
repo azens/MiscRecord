@@ -1,179 +1,171 @@
-//-----------------------------------¡¾³ÌĞòËµÃ÷¡¿----------------------------------------------
-//		³ÌĞòÃû³Æ:£º¡¶¡¾OpenCVÈëÃÅ½Ì³ÌÖ®Ê®¶ş¡¿OpenCV±ßÔµ¼ì²â£ºCannyËã×Ó,SobelËã×Ó,LaplaceËã×Ó,ScharrÂË²¨Æ÷ºÏ¼­ºÏ¼­¡· ²©ÎÄÅäÌ×Ô´Âë
-//		¿ª·¢ËùÓÃIDE°æ±¾£ºVisual Studio 2010
-//   	<span style="white-space:pre">	</span>¿ª·¢ËùÓÃOpenCV°æ±¾£º	2.4.9
-//		2014Äê5ÔÂ11ÈÕ Create by Ç³Ä«
-//		Ç³Ä«µÄÎ¢²©£º@Ç³Ä«_Ã«ĞÇÔÆ http://weibo.com/1723155442/profile?topnav=1&wvr=5&user=1
-//		Ç³Ä«µÄÖªºõ£ºhttp://www.zhihu.com/people/mao-xing-yun
-//		Ç³Ä«µÄ¶¹°ê£ºhttp://www.douban.com/people/53426472/
+//-----------------------------------ã€ç¨‹åºè¯´æ˜ã€‘----------------------------------------------
+//		ç¨‹åºåç§°:ï¼šã€Šã€OpenCVå…¥é—¨æ•™ç¨‹ä¹‹åäºŒã€‘OpenCVè¾¹ç¼˜æ£€æµ‹ï¼šCannyç®—å­,Sobelç®—å­,Laplaceç®—å­,Scharræ»¤æ³¢å™¨åˆè¾‘åˆè¾‘ã€‹ åšæ–‡é…å¥—æºç 
+//		å¼€å‘æ‰€ç”¨IDEç‰ˆæœ¬ï¼šVisual Studio 2010
+//   	<span style="white-space:pre">	</span>å¼€å‘æ‰€ç”¨OpenCVç‰ˆæœ¬ï¼š	2.4.9
+//		2014å¹´5æœˆ11æ—¥ Create by æµ…å¢¨
+//		æµ…å¢¨çš„å¾®åšï¼š@æµ…å¢¨_æ¯›æ˜Ÿäº‘ http://weibo.com/1723155442/profile?topnav=1&wvr=5&user=1
+//		æµ…å¢¨çš„çŸ¥ä¹ï¼šhttp://www.zhihu.com/people/mao-xing-yun
+//		æµ…å¢¨çš„è±†ç“£ï¼šhttp://www.douban.com/people/53426472/
 //----------------------------------------------------------------------------------------------
 
-
-
-//-----------------------------------¡¾Í·ÎÄ¼ş°üº¬²¿·Ö¡¿---------------------------------------
-//		ÃèÊö£º°üº¬³ÌĞòËùÒÀÀµµÄÍ·ÎÄ¼ş
+//-----------------------------------ã€å¤´æ–‡ä»¶åŒ…å«éƒ¨åˆ†ã€‘---------------------------------------
+//		æè¿°ï¼šåŒ…å«ç¨‹åºæ‰€ä¾èµ–çš„å¤´æ–‡ä»¶
 //----------------------------------------------------------------------------------------------
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-//-----------------------------------¡¾ÃüÃû¿Õ¼äÉùÃ÷²¿·Ö¡¿--------------------------------------
-//		ÃèÊö£º°üº¬³ÌĞòËùÊ¹ÓÃµÄÃüÃû¿Õ¼ä
+//-----------------------------------ã€å‘½åç©ºé—´å£°æ˜éƒ¨åˆ†ã€‘--------------------------------------
+//		æè¿°ï¼šåŒ…å«ç¨‹åºæ‰€ä½¿ç”¨çš„å‘½åç©ºé—´
 //-----------------------------------------------------------------------------------------------
 using namespace cv;
 
-
-//-----------------------------------¡¾È«¾Ö±äÁ¿ÉùÃ÷²¿·Ö¡¿--------------------------------------
-//		ÃèÊö£ºÈ«¾Ö±äÁ¿ÉùÃ÷
+//-----------------------------------ã€å…¨å±€å˜é‡å£°æ˜éƒ¨åˆ†ã€‘--------------------------------------
+//		æè¿°ï¼šå…¨å±€å˜é‡å£°æ˜
 //-----------------------------------------------------------------------------------------------
-//Ô­Í¼£¬Ô­Í¼µÄ»Ò¶È°æ£¬Ä¿±êÍ¼
-Mat g_srcImage, g_srcGrayImage,g_dstImage;
+//åŸå›¾ï¼ŒåŸå›¾çš„ç°åº¦ç‰ˆï¼Œç›®æ ‡å›¾
+Mat g_srcImage, g_srcGrayImage, g_dstImage;
 
-//Canny±ßÔµ¼ì²âÏà¹Ø±äÁ¿
+//Cannyè¾¹ç¼˜æ£€æµ‹ç›¸å…³å˜é‡
 Mat g_cannyDetectedEdges;
-int g_cannyLowThreshold=1;//TrackBarÎ»ÖÃ²ÎÊı
+int g_cannyLowThreshold = 1; //TrackBarä½ç½®å‚æ•°
 
-//Sobel±ßÔµ¼ì²âÏà¹Ø±äÁ¿
+//Sobelè¾¹ç¼˜æ£€æµ‹ç›¸å…³å˜é‡
 Mat g_sobelGradient_X, g_sobelGradient_Y;
 Mat g_sobelAbsGradient_X, g_sobelAbsGradient_Y;
-int g_sobelKernelSize=1;//TrackBarÎ»ÖÃ²ÎÊı
+int g_sobelKernelSize = 1; //TrackBarä½ç½®å‚æ•°
 
-//ScharrÂË²¨Æ÷Ïà¹Ø±äÁ¿
+//Scharræ»¤æ³¢å™¨ç›¸å…³å˜é‡
 Mat g_scharrGradient_X, g_scharrGradient_Y;
 Mat g_scharrAbsGradient_X, g_scharrAbsGradient_Y;
 
-
-//-----------------------------------¡¾È«¾Öº¯ÊıÉùÃ÷²¿·Ö¡¿--------------------------------------
-//		ÃèÊö£ºÈ«¾Öº¯ÊıÉùÃ÷
+//-----------------------------------ã€å…¨å±€å‡½æ•°å£°æ˜éƒ¨åˆ†ã€‘--------------------------------------
+//		æè¿°ï¼šå…¨å±€å‡½æ•°å£°æ˜
 //-----------------------------------------------------------------------------------------------
-static void ShowHelpText( );
-static void on_Canny(int, void*);//Canny±ßÔµ¼ì²â´°¿Ú¹ö¶¯ÌõµÄ»Øµ÷º¯Êı
-static void on_Sobel(int, void*);//Sobel±ßÔµ¼ì²â´°¿Ú¹ö¶¯ÌõµÄ»Øµ÷º¯Êı
-void Scharr( );//·â×°ÁËScharr±ßÔµ¼ì²âÏà¹Ø´úÂëµÄº¯Êı
+static void ShowHelpText();
+static void on_Canny(int, void *); //Cannyè¾¹ç¼˜æ£€æµ‹çª—å£æ»šåŠ¨æ¡çš„å›è°ƒå‡½æ•°
+static void on_Sobel(int, void *); //Sobelè¾¹ç¼˜æ£€æµ‹çª—å£æ»šåŠ¨æ¡çš„å›è°ƒå‡½æ•°
+void Scharr();					   //å°è£…äº†Scharrè¾¹ç¼˜æ£€æµ‹ç›¸å…³ä»£ç çš„å‡½æ•°
 
-
-//-----------------------------------¡¾main( )º¯Êı¡¿--------------------------------------------
-//		ÃèÊö£º¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úº¯Êı£¬ÎÒÃÇµÄ³ÌĞò´ÓÕâÀï¿ªÊ¼
+//-----------------------------------ã€main( )å‡½æ•°ã€‘--------------------------------------------
+//		æè¿°ï¼šæ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£å‡½æ•°ï¼Œæˆ‘ä»¬çš„ç¨‹åºä»è¿™é‡Œå¼€å§‹
 //-----------------------------------------------------------------------------------------------
-int main( int argc, char** argv )
+int main(int argc, char **argv)
 {
-	//¸Ä±äconsole×ÖÌåÑÕÉ«
+	//æ”¹å˜consoleå­—ä½“é¢œè‰²
 	//system("color 2F");
 
-	//ÏÔÊ¾»¶Ó­Óï
+	//æ˜¾ç¤ºæ¬¢è¿è¯­
 	ShowHelpText();
 
-	//ÔØÈëÔ­Í¼
+	//è½½å…¥åŸå›¾
 	g_srcImage = imread("test.jpg");
-	if( !g_srcImage.data ) {
-		printf("Oh£¬no£¬¶ÁÈ¡srcImage´íÎó~£¡ \n");
+	if (!g_srcImage.data)
+	{
+		printf("Ohï¼Œnoï¼Œè¯»å–srcImageé”™è¯¯~ï¼ \n");
 		return false;
 	}
 
-	//ÏÔÊ¾Ô­Ê¼Í¼
-	namedWindow("¡¾Ô­Ê¼Í¼¡¿");
-	imshow("¡¾Ô­Ê¼Í¼¡¿", g_srcImage);
+	//æ˜¾ç¤ºåŸå§‹å›¾
+	namedWindow("ã€åŸå§‹å›¾ã€‘");
+	imshow("ã€åŸå§‹å›¾ã€‘", g_srcImage);
 
-	// ´´½¨ÓësrcÍ¬ÀàĞÍºÍ´óĞ¡µÄ¾ØÕó(dst)
-	g_dstImage.create( g_srcImage.size(), g_srcImage.type() );
+	// åˆ›å»ºä¸srcåŒç±»å‹å’Œå¤§å°çš„çŸ©é˜µ(dst)
+	g_dstImage.create(g_srcImage.size(), g_srcImage.type());
 
-	// ½«Ô­Í¼Ïñ×ª»»Îª»Ò¶ÈÍ¼Ïñ
-	cvtColor( g_srcImage, g_srcGrayImage, CV_BGR2GRAY );
+	// å°†åŸå›¾åƒè½¬æ¢ä¸ºç°åº¦å›¾åƒ
+	cvtColor(g_srcImage, g_srcGrayImage, CV_BGR2GRAY);
 
-	// ´´½¨ÏÔÊ¾´°¿Ú
-	namedWindow( "¡¾Ğ§¹ûÍ¼¡¿Canny±ßÔµ¼ì²â", CV_WINDOW_AUTOSIZE );
-	namedWindow( "¡¾Ğ§¹ûÍ¼¡¿Sobel±ßÔµ¼ì²â", CV_WINDOW_AUTOSIZE );
+	// åˆ›å»ºæ˜¾ç¤ºçª—å£
+	namedWindow("ã€æ•ˆæœå›¾ã€‘Cannyè¾¹ç¼˜æ£€æµ‹", CV_WINDOW_AUTOSIZE);
+	namedWindow("ã€æ•ˆæœå›¾ã€‘Sobelè¾¹ç¼˜æ£€æµ‹", CV_WINDOW_AUTOSIZE);
 
-	// ´´½¨trackbar
-	createTrackbar( "²ÎÊıÖµ£º", "¡¾Ğ§¹ûÍ¼¡¿Canny±ßÔµ¼ì²â", &g_cannyLowThreshold, 120, on_Canny );
-	createTrackbar( "²ÎÊıÖµ£º", "¡¾Ğ§¹ûÍ¼¡¿Sobel±ßÔµ¼ì²â", &g_sobelKernelSize, 3, on_Sobel );
+	// åˆ›å»ºtrackbar
+	createTrackbar("å‚æ•°å€¼ï¼š", "ã€æ•ˆæœå›¾ã€‘Cannyè¾¹ç¼˜æ£€æµ‹", &g_cannyLowThreshold, 120, on_Canny);
+	createTrackbar("å‚æ•°å€¼ï¼š", "ã€æ•ˆæœå›¾ã€‘Sobelè¾¹ç¼˜æ£€æµ‹", &g_sobelKernelSize, 3, on_Sobel);
 
-	// µ÷ÓÃ»Øµ÷º¯Êı
+	// è°ƒç”¨å›è°ƒå‡½æ•°
 	on_Canny(0, 0);
 	on_Sobel(0, 0);
 
-	//µ÷ÓÃ·â×°ÁËScharr±ßÔµ¼ì²â´úÂëµÄº¯Êı
-	Scharr( );
+	//è°ƒç”¨å°è£…äº†Scharrè¾¹ç¼˜æ£€æµ‹ä»£ç çš„å‡½æ•°
+	Scharr();
 
-	//ÂÖÑ¯»ñÈ¡°´¼üĞÅÏ¢£¬Èô°´ÏÂQ£¬³ÌĞòÍË³ö
-	while((char(waitKey(1)) != 'q')) {}
+	//è½®è¯¢è·å–æŒ‰é”®ä¿¡æ¯ï¼Œè‹¥æŒ‰ä¸‹Qï¼Œç¨‹åºé€€å‡º
+	while ((char(waitKey(1)) != 'q'))
+	{
+	}
 
 	return 0;
 }
 
-
-//-----------------------------------¡¾ShowHelpText( )º¯Êı¡¿----------------------------------
-//		ÃèÊö£ºÊä³öÒ»Ğ©°ïÖúĞÅÏ¢
+//-----------------------------------ã€ShowHelpText( )å‡½æ•°ã€‘----------------------------------
+//		æè¿°ï¼šè¾“å‡ºä¸€äº›å¸®åŠ©ä¿¡æ¯
 //----------------------------------------------------------------------------------------------
 static void ShowHelpText()
 {
-	//Êä³öÒ»Ğ©°ïÖúĞÅÏ¢
-	printf( "\n\n\tàÅ¡£ÔËĞĞ³É¹¦£¬Çëµ÷Õû¹ö¶¯Ìõ¹Û²ìÍ¼ÏñĞ§¹û~\n\n"
-	        "\t°´ÏÂ¡°q¡±¼üÊ±£¬³ÌĞòÍË³ö~!\n"
-	        "\n\n\t\t\t\t byÇ³Ä«"	);
+	//è¾“å‡ºä¸€äº›å¸®åŠ©ä¿¡æ¯
+	printf("\n\n\tå—¯ã€‚è¿è¡ŒæˆåŠŸï¼Œè¯·è°ƒæ•´æ»šåŠ¨æ¡è§‚å¯Ÿå›¾åƒæ•ˆæœ~\n\n"
+		   "\tæŒ‰ä¸‹â€œqâ€é”®æ—¶ï¼Œç¨‹åºé€€å‡º~!\n"
+		   "\n\n\t\t\t\t byæµ…å¢¨");
 }
 
-
-//-----------------------------------¡¾on_Canny( )º¯Êı¡¿----------------------------------
-//		ÃèÊö£ºCanny±ßÔµ¼ì²â´°¿Ú¹ö¶¯ÌõµÄ»Øµ÷º¯Êı
+//-----------------------------------ã€on_Canny( )å‡½æ•°ã€‘----------------------------------
+//		æè¿°ï¼šCannyè¾¹ç¼˜æ£€æµ‹çª—å£æ»šåŠ¨æ¡çš„å›è°ƒå‡½æ•°
 //-----------------------------------------------------------------------------------------------
-void on_Canny(int, void*)
+void on_Canny(int, void *)
 {
-	// ÏÈÊ¹ÓÃ 3x3ÄÚºËÀ´½µÔë
-	blur( g_srcGrayImage, g_cannyDetectedEdges, Size(3,3) );
+	// å…ˆä½¿ç”¨ 3x3å†…æ ¸æ¥é™å™ª
+	blur(g_srcGrayImage, g_cannyDetectedEdges, Size(3, 3));
 
-	// ÔËĞĞÎÒÃÇµÄCannyËã×Ó
-	Canny( g_cannyDetectedEdges, g_cannyDetectedEdges, g_cannyLowThreshold, g_cannyLowThreshold*3, 3 );
+	// è¿è¡Œæˆ‘ä»¬çš„Cannyç®—å­
+	Canny(g_cannyDetectedEdges, g_cannyDetectedEdges, g_cannyLowThreshold, g_cannyLowThreshold * 3, 3);
 
-	//ÏÈ½«g_dstImageÄÚµÄËùÓĞÔªËØÉèÖÃÎª0
+	//å…ˆå°†g_dstImageå†…çš„æ‰€æœ‰å…ƒç´ è®¾ç½®ä¸º0
 	g_dstImage = Scalar::all(0);
 
-	//Ê¹ÓÃCannyËã×ÓÊä³öµÄ±ßÔµÍ¼g_cannyDetectedEdges×÷ÎªÑÚÂë£¬À´½«Ô­Í¼g_srcImage¿½µ½Ä¿±êÍ¼g_dstImageÖĞ
-	g_srcImage.copyTo( g_dstImage, g_cannyDetectedEdges);
+	//ä½¿ç”¨Cannyç®—å­è¾“å‡ºçš„è¾¹ç¼˜å›¾g_cannyDetectedEdgesä½œä¸ºæ©ç ï¼Œæ¥å°†åŸå›¾g_srcImageæ‹·åˆ°ç›®æ ‡å›¾g_dstImageä¸­
+	g_srcImage.copyTo(g_dstImage, g_cannyDetectedEdges);
 
-	//ÏÔÊ¾Ğ§¹ûÍ¼
-	imshow( "¡¾Ğ§¹ûÍ¼¡¿Canny±ßÔµ¼ì²â", g_dstImage );
+	//æ˜¾ç¤ºæ•ˆæœå›¾
+	imshow("ã€æ•ˆæœå›¾ã€‘Cannyè¾¹ç¼˜æ£€æµ‹", g_dstImage);
 }
 
-
-
-//-----------------------------------¡¾on_Sobel( )º¯Êı¡¿----------------------------------
-//		ÃèÊö£ºSobel±ßÔµ¼ì²â´°¿Ú¹ö¶¯ÌõµÄ»Øµ÷º¯Êı
+//-----------------------------------ã€on_Sobel( )å‡½æ•°ã€‘----------------------------------
+//		æè¿°ï¼šSobelè¾¹ç¼˜æ£€æµ‹çª—å£æ»šåŠ¨æ¡çš„å›è°ƒå‡½æ•°
 //-----------------------------------------------------------------------------------------
-void on_Sobel(int, void*)
+void on_Sobel(int, void *)
 {
-	// Çó X·½ÏòÌİ¶È
-	Sobel( g_srcImage, g_sobelGradient_X, CV_16S, 1, 0, (2*g_sobelKernelSize+1), 1, 1, BORDER_DEFAULT );
-	convertScaleAbs( g_sobelGradient_X, g_sobelAbsGradient_X );//¼ÆËã¾ø¶ÔÖµ£¬²¢½«½á¹û×ª»»³É8Î»
+	// æ±‚ Xæ–¹å‘æ¢¯åº¦
+	Sobel(g_srcImage, g_sobelGradient_X, CV_16S, 1, 0, (2 * g_sobelKernelSize + 1), 1, 1, BORDER_DEFAULT);
+	convertScaleAbs(g_sobelGradient_X, g_sobelAbsGradient_X); //è®¡ç®—ç»å¯¹å€¼ï¼Œå¹¶å°†ç»“æœè½¬æ¢æˆ8ä½
 
-	// ÇóY·½ÏòÌİ¶È
-	Sobel( g_srcImage, g_sobelGradient_Y, CV_16S, 0, 1, (2*g_sobelKernelSize+1), 1, 1, BORDER_DEFAULT );
-	convertScaleAbs( g_sobelGradient_Y, g_sobelAbsGradient_Y );//¼ÆËã¾ø¶ÔÖµ£¬²¢½«½á¹û×ª»»³É8Î»
+	// æ±‚Yæ–¹å‘æ¢¯åº¦
+	Sobel(g_srcImage, g_sobelGradient_Y, CV_16S, 0, 1, (2 * g_sobelKernelSize + 1), 1, 1, BORDER_DEFAULT);
+	convertScaleAbs(g_sobelGradient_Y, g_sobelAbsGradient_Y); //è®¡ç®—ç»å¯¹å€¼ï¼Œå¹¶å°†ç»“æœè½¬æ¢æˆ8ä½
 
-	// ºÏ²¢Ìİ¶È
-	addWeighted( g_sobelAbsGradient_X, 0.5, g_sobelAbsGradient_Y, 0.5, 0, g_dstImage );
+	// åˆå¹¶æ¢¯åº¦
+	addWeighted(g_sobelAbsGradient_X, 0.5, g_sobelAbsGradient_Y, 0.5, 0, g_dstImage);
 
-	//ÏÔÊ¾Ğ§¹ûÍ¼
-	imshow("¡¾Ğ§¹ûÍ¼¡¿Sobel±ßÔµ¼ì²â", g_dstImage);
-
+	//æ˜¾ç¤ºæ•ˆæœå›¾
+	imshow("ã€æ•ˆæœå›¾ã€‘Sobelè¾¹ç¼˜æ£€æµ‹", g_dstImage);
 }
 
-
-//-----------------------------------¡¾Scharr( )º¯Êı¡¿----------------------------------
-//		ÃèÊö£º·â×°ÁËScharr±ßÔµ¼ì²âÏà¹Ø´úÂëµÄº¯Êı
+//-----------------------------------ã€Scharr( )å‡½æ•°ã€‘----------------------------------
+//		æè¿°ï¼šå°è£…äº†Scharrè¾¹ç¼˜æ£€æµ‹ç›¸å…³ä»£ç çš„å‡½æ•°
 //-----------------------------------------------------------------------------------------
-void Scharr( )
+void Scharr()
 {
-	// Çó X·½ÏòÌİ¶È
-	Scharr( g_srcImage, g_scharrGradient_X, CV_16S, 1, 0, 1, 0, BORDER_DEFAULT );
-	convertScaleAbs( g_scharrGradient_X, g_scharrAbsGradient_X );//¼ÆËã¾ø¶ÔÖµ£¬²¢½«½á¹û×ª»»³É8Î»
+	// æ±‚ Xæ–¹å‘æ¢¯åº¦
+	Scharr(g_srcImage, g_scharrGradient_X, CV_16S, 1, 0, 1, 0, BORDER_DEFAULT);
+	convertScaleAbs(g_scharrGradient_X, g_scharrAbsGradient_X); //è®¡ç®—ç»å¯¹å€¼ï¼Œå¹¶å°†ç»“æœè½¬æ¢æˆ8ä½
 
-	// ÇóY·½ÏòÌİ¶È
-	Scharr( g_srcImage, g_scharrGradient_Y, CV_16S, 0, 1, 1, 0, BORDER_DEFAULT );
-	convertScaleAbs( g_scharrGradient_Y, g_scharrAbsGradient_Y );//¼ÆËã¾ø¶ÔÖµ£¬²¢½«½á¹û×ª»»³É8Î»
+	// æ±‚Yæ–¹å‘æ¢¯åº¦
+	Scharr(g_srcImage, g_scharrGradient_Y, CV_16S, 0, 1, 1, 0, BORDER_DEFAULT);
+	convertScaleAbs(g_scharrGradient_Y, g_scharrAbsGradient_Y); //è®¡ç®—ç»å¯¹å€¼ï¼Œå¹¶å°†ç»“æœè½¬æ¢æˆ8ä½
 
-	// ºÏ²¢Ìİ¶È
-	addWeighted( g_scharrAbsGradient_X, 0.5, g_scharrAbsGradient_Y, 0.5, 0, g_dstImage );
+	// åˆå¹¶æ¢¯åº¦
+	addWeighted(g_scharrAbsGradient_X, 0.5, g_scharrAbsGradient_Y, 0.5, 0, g_dstImage);
 
-	//ÏÔÊ¾Ğ§¹ûÍ¼
-	imshow("¡¾Ğ§¹ûÍ¼¡¿ScharrÂË²¨Æ÷", g_dstImage);
+	//æ˜¾ç¤ºæ•ˆæœå›¾
+	imshow("ã€æ•ˆæœå›¾ã€‘Scharræ»¤æ³¢å™¨", g_dstImage);
 }

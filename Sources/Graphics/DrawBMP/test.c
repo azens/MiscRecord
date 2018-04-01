@@ -17,10 +17,12 @@ int main(void)
 	SetOrigin(250, 250);
 	write_bmp_file();
 	system("test.bmp");
-	while (1) {
+	while (1)
+	{
 		printf(">>");
 		SplitedStrings drawds = split();
-		if (drawds.s[0][0] == 'e')break;
+		if (drawds.s[0][0] == 'e')
+			break;
 		drawbmp(drawds);
 		write_bmp_file();
 	}

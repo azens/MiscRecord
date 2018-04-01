@@ -3,17 +3,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
-#define Random rand()%255
-#define Length(x) (sizeof(x)/sizeof(x[0])/3)
-const float PI=3.1415926536;
+#define Random rand() % 255
+#define Length(x) (sizeof(x) / sizeof(x[0]) / 3)
+const float PI = 3.1415926536;
 typedef unsigned char byte;
-int iWidth,iHeight;
+int iWidth, iHeight;
 BYTE *PImage;
 BITMAPINFO bmi;
 //
 typedef float vector3[3];
-//ÈıÎ¬µãÊı×é½á¹¹
-struct PointArray {
+//ä¸‰ç»´ç‚¹æ•°ç»„ç»“æ„
+struct PointArray
+{
 	int length;
 	float *x, *y, *z;
 };
@@ -27,62 +28,73 @@ inline void swap(int &a, int &b)
 //
 DWORD WINAPI ImageShow(LPVOID)
 {
-	static TCHAR szAppName[] = TEXT (" ") ;
-	HWND         hwnd ;
-	MSG          msg ;
-	WNDCLASS     wndclass ;
-	int iCmdShow=1;
+	static TCHAR szAppName[] = TEXT(" ");
+	HWND hwnd;
+	MSG msg;
+	WNDCLASS wndclass;
+	int iCmdShow = 1;
 	HINSTANCE hInstance = NULL; //GetModuleHandle(NULL);
-	wndclass.style         = CS_HREDRAW | CS_VREDRAW ;
-	wndclass.lpfnWndProc   = DefWindowProc;
-	wndclass.cbClsExtra    = 0 ;
-	wndclass.cbWndExtra    = 0 ;
-	wndclass.hInstance     = hInstance ;
-	wndclass.hIcon         = LoadIcon (NULL, IDI_APPLICATION) ;
-	wndclass.hCursor       = LoadCursor (NULL, IDC_ARROW) ;
-	wndclass.hbrBackground = (HBRUSH) GetStockObject (BLACK_BRUSH) ;
-	wndclass.lpszMenuName  = NULL ;
-	wndclass.lpszClassName = szAppName ;
-	if (!RegisterClass (&wndclass)) {
-		MessageBox (NULL, TEXT ("This program requires Windows NT!"), szAppName, MB_ICONERROR) ;
+	wndclass.style = CS_HREDRAW | CS_VREDRAW;
+	wndclass.lpfnWndProc = DefWindowProc;
+	wndclass.cbClsExtra = 0;
+	wndclass.cbWndExtra = 0;
+	wndclass.hInstance = hInstance;
+	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wndclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wndclass.lpszMenuName = NULL;
+	wndclass.lpszClassName = szAppName;
+	if (!RegisterClass(&wndclass))
+	{
+		MessageBox(NULL, TEXT("This program requires Windows NT!"), szAppName, MB_ICONERROR);
 		//return;
 	}
 	int nScreenWidth, nScreenHeight;
 	nScreenWidth = GetSystemMetrics(SM_CXSCREEN);
 	nScreenHeight = GetSystemMetrics(SM_CYSCREEN);
-	int PosX,PosY,WndW,WndH;
-	if(iWidth>nScreenWidth) {
-		PosX=0;
-		WndW=nScreenWidth;
-	} else {
-		PosX=(nScreenWidth-iWidth-6)/2;
-		WndW=iWidth+6;
+	int PosX, PosY, WndW, WndH;
+	if (iWidth > nScreenWidth)
+	{
+		PosX = 0;
+		WndW = nScreenWidth;
 	}
-	if(iHeight>nScreenHeight) {
-		PosY=0;
-		WndH=nScreenHeight;
-	} else {
-		PosY=(nScreenHeight-iHeight-28)/2;
-		WndH=iHeight+28;
+	else
+	{
+		PosX = (nScreenWidth - iWidth - 6) / 2;
+		WndW = iWidth + 6;
+	}
+	if (iHeight > nScreenHeight)
+	{
+		PosY = 0;
+		WndH = nScreenHeight;
+	}
+	else
+	{
+		PosY = (nScreenHeight - iHeight - 28) / 2;
+		WndH = iHeight + 28;
 	}
 
-	hwnd = CreateWindow (szAppName, TEXT (""),WS_SYSMENU,
-	                     PosX,PosY,WndW,WndH,
-	                     NULL, NULL, hInstance, NULL) ;
-	HDC hdc=GetDC(hwnd);
-	ShowWindow (hwnd, iCmdShow) ;
-	UpdateWindow (hwnd) ;
+	hwnd = CreateWindow(szAppName, TEXT(""), WS_SYSMENU,
+						PosX, PosY, WndW, WndH,
+						NULL, NULL, hInstance, NULL);
+	HDC hdc = GetDC(hwnd);
+	ShowWindow(hwnd, iCmdShow);
+	UpdateWindow(hwnd);
 	//
-	while (TRUE) {
-		Sleep(40);//½µµÍCPUÕ¼ÓÃÂÊ
-		if (PeekMessage (&msg, NULL, 0, 0, PM_REMOVE)) {
-			if (msg.message == WM_QUIT)break ;
-			TranslateMessage (&msg) ;
-			DispatchMessage (&msg) ;
-
-		} else {
+	while (TRUE)
+	{
+		Sleep(40); //é™ä½CPUå ç”¨ç‡
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			if (msg.message == WM_QUIT)
+				break;
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+		else
+		{
 			SetDIBitsToDevice(hdc, 0, 0, iWidth, iHeight,
-			                  0, 0, 0, iHeight, PImage, &bmi, DIB_RGB_COLORS);
+							  0, 0, 0, iHeight, PImage, &bmi, DIB_RGB_COLORS);
 		}
 	}
 	return msg.wParam;
@@ -92,123 +104,152 @@ DWORD WINAPI ImageShow(LPVOID)
 //
 class Image
 {
-public:
-	int Width,Height,Size;
+  public:
+	int Width, Height, Size;
 	byte *Data;
 	int ox, oy;
 	int red, green, blue;
 	float xscale, yscale;
-	//³õÊ¼»¯Î»Í¼¾ØÕóbitmap
-	Image(int w, int h) {
+	//åˆå§‹åŒ–ä½å›¾çŸ©é˜µbitmap
+	Image(int w, int h)
+	{
 		//
-		this->ox=0,this->oy=0;
+		this->ox = 0, this->oy = 0;
 		this->red = 0, this->green = 255, this->blue = 0;
 		this->xscale = 1.0, this->yscale = 1.0;
 		//
-		this->Width=w,this->Height=h;
+		this->Width = w, this->Height = h;
 		//
-		this->Data=new byte[w*h*3];
-		for (int i = 0; i < w*h*3; i++) {
-			this->Data[i]=0;
+		this->Data = new byte[w * h * 3];
+		for (int i = 0; i < w * h * 3; i++)
+		{
+			this->Data[i] = 0;
 		}
 	}
-	Image& operator=(const Image& image) {
-		this->Width=image.Width;
-		this->Height=image.Height;
-		this->Size=image.Width*image.Height*3;
-		for (int i = 0; i <this->Size ; i++) {
-			this->Data[i]=image.Data[i];
+	Image &operator=(const Image &image)
+	{
+		this->Width = image.Width;
+		this->Height = image.Height;
+		this->Size = image.Width * image.Height * 3;
+		for (int i = 0; i < this->Size; i++)
+		{
+			this->Data[i] = image.Data[i];
 		}
 		return *this;
 	}
-	void Rand() {
-		for(int i=0; i<this->Size; i++) {
-			this->Data[i]=rand()%255;
+	void Rand()
+	{
+		for (int i = 0; i < this->Size; i++)
+		{
+			this->Data[i] = rand() % 255;
 		}
 	}
-//ÉèÖÃ±³¾°É«
-	void SetBgColor(int r, int g, int b) {
-		for (int i = 0; i < this->Height; i++) {
-			for (int j = 0; j < this->Width * 3;) {
-				this->Data[i*this->Width * 3 + j++] = b;
-				this->Data[i*this->Width * 3 + j++] = g;
-				this->Data[i*this->Width * 3 + j++] = r;
+	//è®¾ç½®èƒŒæ™¯è‰²
+	void SetBgColor(int r, int g, int b)
+	{
+		for (int i = 0; i < this->Height; i++)
+		{
+			for (int j = 0; j < this->Width * 3;)
+			{
+				this->Data[i * this->Width * 3 + j++] = b;
+				this->Data[i * this->Width * 3 + j++] = g;
+				this->Data[i * this->Width * 3 + j++] = r;
 			}
 		}
 	}
-	void ClearGraph() {
-		memset(PImage,0,this->Width*this->Height*3);
+	void ClearGraph()
+	{
+		memset(PImage, 0, this->Width * this->Height * 3);
 	}
-//ÉèÖÃ×ø±êÔ­µã
-	void SetOrigin(int x, int y) {
+	//è®¾ç½®åæ ‡åŸç‚¹
+	void SetOrigin(int x, int y)
+	{
 		ox = x, oy = y;
 	}
-//ÉèÖÃËõ·Å±ÈÀı
-	void SetScale(float x, float y) {
+	//è®¾ç½®ç¼©æ”¾æ¯”ä¾‹
+	void SetScale(float x, float y)
+	{
 		xscale = x, yscale = y;
 	}
-//ÉèÖÃÏñËØµãÎªÖ¸¶¨µÄRGBÖµ
-	void SetPixel(int x, int y) {
-		x = ox + x*xscale;
-		y = oy + y*yscale;
-		if ((x<0 || x>this->Width) || (y<0 || y>this->Height))return;
-		this->Data[y*this->Width * 3 + x * 3] = blue;
-		this->Data[y*this->Width * 3 + x * 3 + 1] = green;
-		this->Data[y*this->Width * 3 + x * 3 + 2] = red;
+	//è®¾ç½®åƒç´ ç‚¹ä¸ºæŒ‡å®šçš„RGBå€¼
+	void SetPixel(int x, int y)
+	{
+		x = ox + x * xscale;
+		y = oy + y * yscale;
+		if ((x < 0 || x > this->Width) || (y < 0 || y > this->Height))
+			return;
+		this->Data[y * this->Width * 3 + x * 3] = blue;
+		this->Data[y * this->Width * 3 + x * 3 + 1] = green;
+		this->Data[y * this->Width * 3 + x * 3 + 2] = red;
 	}
-//ÉèÖÃ½«ÒªÊ¹ÓÃµÄRGBÑÕÉ«Öµ
-	void SetColor(int r, int g, int b) {
+	//è®¾ç½®å°†è¦ä½¿ç”¨çš„RGBé¢œè‰²å€¼
+	void SetColor(int r, int g, int b)
+	{
 		red = r;
 		green = g;
 		blue = b;
 	}
 
-	/*¶şÎ¬»æÍ¼²¿·Ö£ºÖ÷ÒªÊÇ»ù±¾Í¼ÔªµÄËã·¨*/
-//Bresenham line
+	/*äºŒç»´ç»˜å›¾éƒ¨åˆ†ï¼šä¸»è¦æ˜¯åŸºæœ¬å›¾å…ƒçš„ç®—æ³•*/
+	//Bresenham line
 
-	void BresenhamLine(int x1, int y1, int x2, int y2) {
+	void BresenhamLine(int x1, int y1, int x2, int y2)
+	{
 		int dx = x2 - x1, dy = y2 - y1, inc, pi;
 		inc = ((dx * dy) >= 0) ? 1 : -1;
-		if (abs(dx) > abs(dy)) {
-			if (dx < 0) {
-				swap(x1, x2),swap(y1, y2);
-				dx = -dx,dy = -dy;
+		if (abs(dx) > abs(dy))
+		{
+			if (dx < 0)
+			{
+				swap(x1, x2), swap(y1, y2);
+				dx = -dx, dy = -dy;
 			}
 			dy = (dy > 0) ? dy : -dy;
 			pi = 2 * dy - dx;
-			while (x1++ <= x2) {
+			while (x1++ <= x2)
+			{
 				SetPixel(x1 - 1, y1);
-				if (pi < 0) pi += 2 * dy;
-				else {
+				if (pi < 0)
+					pi += 2 * dy;
+				else
+				{
 					y1 += inc;
 					pi += 2 * (dy - dx);
 				}
 			}
-		} else {
-			if (dy < 0) {
-				swap(x1, x2),swap(y1, y2);
-				dx = -dx,dy = -dy;
+		}
+		else
+		{
+			if (dy < 0)
+			{
+				swap(x1, x2), swap(y1, y2);
+				dx = -dx, dy = -dy;
 			}
 			dx = (dx > 0) ? dx : -dx;
 			pi = 2 * dx - dy;
-			while (y1++ < y2) {
+			while (y1++ < y2)
+			{
 				SetPixel(x1, y1 - 1);
-				if (pi < 0) pi += 2 * dx;
-				else {
+				if (pi < 0)
+					pi += 2 * dx;
+				else
+				{
 					x1 += inc;
 					pi += 2 * (dx - dy);
 				}
 			}
 		}
 	}
-//ÖĞµã»­Ô²·¨
-	void MidCircle(int x1, int y1, int r) {
+	//ä¸­ç‚¹ç”»åœ†æ³•
+	void MidCircle(int x1, int y1, int r)
+	{
 		int x, y;
 		float d;
 		x = 0;
 		y = r;
 		d = 5.0 / 4 - r;
-		while (x <= y) {
+		while (x <= y)
+		{
 			SetPixel(x1 + x, y1 + y);
 			SetPixel(x1 + x, y1 - y);
 			SetPixel(x1 - x, y1 + y);
@@ -217,90 +258,113 @@ public:
 			SetPixel(x1 + y, y1 - x);
 			SetPixel(x1 - y, y1 + x);
 			SetPixel(x1 - y, y1 - x);
-			if (d < 0) d += x*2.0 + 3;
-			else {
-				d += 2.0*(x - y) + 5;
+			if (d < 0)
+				d += x * 2.0 + 3;
+			else
+			{
+				d += 2.0 * (x - y) + 5;
 				y--;
 			}
 			x++;
 		}
 	}
-//ÖĞµã»­Ô²[Ìî³ä]
-	void FillCircle(int x1, int y1, int r) {
+	//ä¸­ç‚¹ç”»åœ†[å¡«å……]
+	void FillCircle(int x1, int y1, int r)
+	{
 		int x, y;
 		float d;
 		x = 0;
 		y = r;
 		d = 5.0 / 4 - r;
-		while (x <= y) {
+		while (x <= y)
+		{
 			BresenhamLine(x1 + x, y1 + y, x1 + x, y1 - y);
 			BresenhamLine(x1 - x, y1 + y, x1 - x, y1 - y);
 			BresenhamLine(x1 + y, y1 + x, x1 + y, y1 - x);
 			BresenhamLine(x1 - y, y1 + x, x1 - y, y1 - x);
-			if (d < 0) d += x*2.0 + 3;
-			else {
-				d += 2.0*(x - y) + 5;
+			if (d < 0)
+				d += x * 2.0 + 3;
+			else
+			{
+				d += 2.0 * (x - y) + 5;
 				y--;
 			}
 			x++;
 		}
 	}
-//Bresenham»­Ô²Ëã·¨
-	void BresenhamCircle(int x1, int y1, int r) {
+	//Bresenhamç”»åœ†ç®—æ³•
+	void BresenhamCircle(int x1, int y1, int r)
+	{
 		float x, y, d, d1, d2;
 		x = 0;
 		y = r;
 		d = 2 * (1 - r);
-		while (y >= 0) {
-			SetPixel(x + x1, y + y1);  //Ë³Ê±ÕëµÚÒ»ËÄ·ÖÔ²²¿·Ö
-			SetPixel(-x + x1, y + y1);  //ÆäÓàµÄ3¸öËÄ·ÖÔ²
+		while (y >= 0)
+		{
+			SetPixel(x + x1, y + y1);  //é¡ºæ—¶é’ˆç¬¬ä¸€å››åˆ†åœ†éƒ¨åˆ†
+			SetPixel(-x + x1, y + y1); //å…¶ä½™çš„3ä¸ªå››åˆ†åœ†
 			SetPixel(-x + x1, -y + y1);
 			SetPixel(x + x1, -y + y1);
-			if (d < 0) {     //´ÓH¡¢D¡¢VÈı¸öµãÖĞ×öÑ¡Ôñ
+			if (d < 0)
+			{ //ä»Hã€Dã€Vä¸‰ä¸ªç‚¹ä¸­åšé€‰æ‹©
 				d1 = 2 * (d + y) - 1;
-				if (d1 <= 0) {
+				if (d1 <= 0)
+				{
 					x++;
 					d = d + 2 * x + 1;
-				} else {
+				}
+				else
+				{
 					x++;
 					y--;
 					d = d + 2 * (x - y + 1);
 				}
-			} else if (d > 0) {
+			}
+			else if (d > 0)
+			{
 				d2 = 2 * (d - x) - 1;
-				if (d2 <= 0) {
+				if (d2 <= 0)
+				{
 					x++;
 					y--;
 					d = d + 2 * (x - y + 1);
-				} else {
+				}
+				else
+				{
 					y--;
 					d = d - 2 * y + 1;
 				}
-			} else {
+			}
+			else
+			{
 				y--;
 				d = d - 2 * y + 1;
 			}
 		}
-
 	}
 	//
-	// »ùÓÚ Bresenham Ëã·¨»­Ìî³äÔ²
-	void FillCircle_Bresenham(int x, int y, int r) {
+	// åŸºäº Bresenham ç®—æ³•ç”»å¡«å……åœ†
+	void FillCircle_Bresenham(int x, int y, int r)
+	{
 		int tx = 0, ty = r, d = 3 - 2 * r, i;
 
-		while( tx < ty) {
-			// »­Ë®Æ½Á½µãÁ¬Ïß(<45¶È)
-			for (i = x - ty; i <= x + ty; i++) {
+		while (tx < ty)
+		{
+			// ç”»æ°´å¹³ä¸¤ç‚¹è¿çº¿(<45åº¦)
+			for (i = x - ty; i <= x + ty; i++)
+			{
 				SetPixel(i, y - tx);
-				if (tx != 0)	// ·ÀÖ¹Ë®Æ½ÏßÖØ¸´»æÖÆ
+				if (tx != 0) // é˜²æ­¢æ°´å¹³çº¿é‡å¤ç»˜åˆ¶
 					SetPixel(i, y + tx);
 			}
 
-			if (d < 0)			// È¡ÉÏÃæµÄµã
+			if (d < 0) // å–ä¸Šé¢çš„ç‚¹
 				d += 4 * tx + 6;
-			else {			// È¡ÏÂÃæµÄµã
-				// »­Ë®Æ½Á½µãÁ¬Ïß(>45¶È)
-				for (i = x - tx; i <= x + tx; i++) {
+			else
+			{ // å–ä¸‹é¢çš„ç‚¹
+				// ç”»æ°´å¹³ä¸¤ç‚¹è¿çº¿(>45åº¦)
+				for (i = x - tx; i <= x + tx; i++)
+				{
 					SetPixel(i, y - ty);
 					SetPixel(i, y + ty);
 				}
@@ -310,209 +374,276 @@ public:
 			tx++;
 		}
 
-		if (tx == ty)			// »­Ë®Æ½Á½µãÁ¬Ïß(=45¶È)
-			for (i = x - ty; i <= x + ty; i++) {
+		if (tx == ty) // ç”»æ°´å¹³ä¸¤ç‚¹è¿çº¿(=45åº¦)
+			for (i = x - ty; i <= x + ty; i++)
+			{
 				SetPixel(i, y - tx);
 				SetPixel(i, y + tx);
 			}
 		//Sleep(10);
 	}
-//Ïß¿òÈı½Ç
-	void Triangle(int x1, int y1, int x2, int y2, int x3, int y3) {
+	//çº¿æ¡†ä¸‰è§’
+	void Triangle(int x1, int y1, int x2, int y2, int x3, int y3)
+	{
 		BresenhamLine(x1, y1, x2, y2);
 		BresenhamLine(x2, y2, x3, y3);
 		BresenhamLine(x3, y3, x1, y1);
 	}
 
-	/*Ìî³äÈı½ÇĞÎ*/
-//»æÖÆÌî³äÆ½¶¥Èı½ÇĞÎ
-	void TopTriangle(int x0, int y0, int x1, int y1, int x2, int y2) {
-		//ÏÈÅĞ¶ÏÏÂÊäÈëµÄÈı½ÇĞÎ
-		if (y0 == y1) {
-		} else if (y0 == y2) {
-			swap(x2, x1),swap(y2, y1);
-		} else if (y1 == y2) {
-			swap(x0, x2),swap(y0, y2);
-		} else {
-			return; //error \brief ²»ÊÇÆ½¶¥Èı½ÇĞÎ
+	/*å¡«å……ä¸‰è§’å½¢*/
+	//ç»˜åˆ¶å¡«å……å¹³é¡¶ä¸‰è§’å½¢
+	void TopTriangle(int x0, int y0, int x1, int y1, int x2, int y2)
+	{
+		//å…ˆåˆ¤æ–­ä¸‹è¾“å…¥çš„ä¸‰è§’å½¢
+		if (y0 == y1)
+		{
+		}
+		else if (y0 == y2)
+		{
+			swap(x2, x1), swap(y2, y1);
+		}
+		else if (y1 == y2)
+		{
+			swap(x0, x2), swap(y0, y2);
+		}
+		else
+		{
+			return; //error \brief ä¸æ˜¯å¹³é¡¶ä¸‰è§’å½¢
 		}
 
-		if (x1 < x0) {
-			swap(x1, x0),swap(y1, y0);
-		} else if (x1 == x0) {
-			return;// error \brief²»ÊÇÈı½ÇĞÎ
+		if (x1 < x0)
+		{
+			swap(x1, x0), swap(y1, y0);
 		}
-		//¼ÆËã×óÓÒÎó²î
-		float dxy_left = (x2 - x0)*1.0 / (y2 - y0);
-		float dxy_right = (x1 - x2)*1.0 / (y1 - y2);
-		//¿ªÊ¼½øĞĞÌî³ä
+		else if (x1 == x0)
+		{
+			return; // error \briefä¸æ˜¯ä¸‰è§’å½¢
+		}
+		//è®¡ç®—å·¦å³è¯¯å·®
+		float dxy_left = (x2 - x0) * 1.0 / (y2 - y0);
+		float dxy_right = (x1 - x2) * 1.0 / (y1 - y2);
+		//å¼€å§‹è¿›è¡Œå¡«å……
 		float xs = x0, xe = x1;
-		for (int y = y0; y <= y2; y++) {
-			BresenhamLine(xs,y,xe,y);
+		for (int y = y0; y <= y2; y++)
+		{
+			BresenhamLine(xs, y, xe, y);
 			xs += dxy_left;
 			xe += dxy_right;
 		}
 	} //
-//»æÖÆÆ½µ×Èı½ÇĞÎ
-	void BottomTriangle(int x0, int y0, int x1, int y1, int x2, int y2) {
-		//ÏÈÅĞ¶ÏÏÂÊäÈëµÄÈı½ÇĞÎ
-		if (y2 == y1) {
-		} else if (y2 == y0) {
-			swap(x0, x1),swap(y0, y1);
-		} else if (y0 == y1) {
-			swap(x0, x2),swap(y0, y2);
-		} else {
-			return; //error \brief ²»ÊÇÆ½¶¥Èı½ÇĞÎ
+	  //ç»˜åˆ¶å¹³åº•ä¸‰è§’å½¢
+	void BottomTriangle(int x0, int y0, int x1, int y1, int x2, int y2)
+	{
+		//å…ˆåˆ¤æ–­ä¸‹è¾“å…¥çš„ä¸‰è§’å½¢
+		if (y2 == y1)
+		{
 		}
-		if (x1 < x2) {
+		else if (y2 == y0)
+		{
+			swap(x0, x1), swap(y0, y1);
+		}
+		else if (y0 == y1)
+		{
+			swap(x0, x2), swap(y0, y2);
+		}
+		else
+		{
+			return; //error \brief ä¸æ˜¯å¹³é¡¶ä¸‰è§’å½¢
+		}
+		if (x1 < x2)
+		{
 			swap(x1, x2);
-		} else if (x1 == x2) {
-			return;// error \brief²»ÊÇÈı½ÇĞÎ
 		}
-		//¼ÆËã×óÓÒÎó²î
-		float dxy_left = (x2 - x0)*1.0 / (y2 - y0);
-		float dxy_right = (x1 - x0)*1.0 / (y1 - y0);
-		//¿ªÊ¼½øĞĞÌî³ä
+		else if (x1 == x2)
+		{
+			return; // error \briefä¸æ˜¯ä¸‰è§’å½¢
+		}
+		//è®¡ç®—å·¦å³è¯¯å·®
+		float dxy_left = (x2 - x0) * 1.0 / (y2 - y0);
+		float dxy_right = (x1 - x0) * 1.0 / (y1 - y0);
+		//å¼€å§‹è¿›è¡Œå¡«å……
 		float xs = x0, xe = x0;
-		for (int y = y0; y <= y2; y++) {
-			BresenhamLine(xs,y,xe,y);
+		for (int y = y0; y <= y2; y++)
+		{
+			BresenhamLine(xs, y, xe, y);
 			xs += dxy_left;
 			xe += dxy_right;
 		}
 	}
-//»æÖÆÈÎÒâÈı½ÇĞÎ
-	int FillTriangle(int x0, int y0, int x1, int y1, int x2, int y2) {
-		if ((x0 == x1&&x1 == x2) || (y0 == y1&&y1 == y2)) {
-			return 1; //error \brief´«½øÀ´µÄµãÎŞ·¨¹¹³ÉÈı½ÇĞÎ
+	//ç»˜åˆ¶ä»»æ„ä¸‰è§’å½¢
+	int FillTriangle(int x0, int y0, int x1, int y1, int x2, int y2)
+	{
+		if ((x0 == x1 && x1 == x2) || (y0 == y1 && y1 == y2))
+		{
+			return 1; //error \briefä¼ è¿›æ¥çš„ç‚¹æ— æ³•æ„æˆä¸‰è§’å½¢
 		}
-		//½«Èı¸ö¶¥µã°´ÕÕ´ÓÉÏµ½ÏÂÅÅĞò
-		if (y0 > y1)swap(x0, x1),swap(y0, y1);
-		if (y0 > y2)swap(x0, x2),swap(y0, y2);
-		if (y1 > y2)swap(y1, y2),swap(x1, x2);
-		//½øĞĞ»æÖÆ
-		if (y0 == y1) { //Æ½¶¥Èı½ÇĞÎ
+		//å°†ä¸‰ä¸ªé¡¶ç‚¹æŒ‰ç…§ä»ä¸Šåˆ°ä¸‹æ’åº
+		if (y0 > y1)
+			swap(x0, x1), swap(y0, y1);
+		if (y0 > y2)
+			swap(x0, x2), swap(y0, y2);
+		if (y1 > y2)
+			swap(y1, y2), swap(x1, x2);
+		//è¿›è¡Œç»˜åˆ¶
+		if (y0 == y1)
+		{ //å¹³é¡¶ä¸‰è§’å½¢
 			TopTriangle(x0, y0, x1, y1, x2, y2);
-		} else if (y1 == y2) {
+		}
+		else if (y1 == y2)
+		{
 			BottomTriangle(x0, y0, x1, y1, x2, y2);
-		} else {
-			float k=1.0*(x2 - x0) / (y2 - y0);
-			int new_x = x0 +k*(y1 - y0);
+		}
+		else
+		{
+			float k = 1.0 * (x2 - x0) / (y2 - y0);
+			int new_x = x0 + k * (y1 - y0);
 			BottomTriangle(x0, y0, new_x, y1, x1, y1);
 			TopTriangle(new_x, y1, x1, y1, x2, y2);
 		}
 		return 0;
 	}
-//Ïß¿ò¾ØĞÎ
-	void Rect(int x1, int y1, int x2, int y2) {
+	//çº¿æ¡†çŸ©å½¢
+	void Rect(int x1, int y1, int x2, int y2)
+	{
 		BresenhamLine(x1, y1, x2, y1);
 		BresenhamLine(x2, y1, x2, y2);
 		BresenhamLine(x2, y2, x1, y2);
 		BresenhamLine(x1, y2, x1, y1);
 	}
-//Ìî³ä¾ØĞÎ
-	void FillRect(int x1, int y1, int x2, int y2) {
-		if (y1 > y2) swap(y1,y2);
-		for (int y = y1; y < y2; y++) {
+	//å¡«å……çŸ©å½¢
+	void FillRect(int x1, int y1, int x2, int y2)
+	{
+		if (y1 > y2)
+			swap(y1, y2);
+		for (int y = y1; y < y2; y++)
+		{
 			BresenhamLine(x1, y, x2, y);
 		}
 	}
-//¶à±ßĞÎÏß[ÕÛÏß]
-	void PolyLine(int *x, int *y, int n) {
-		for (int i = 0; i < n - 1; i++) {
+	//å¤šè¾¹å½¢çº¿[æŠ˜çº¿]
+	void PolyLine(int *x, int *y, int n)
+	{
+		for (int i = 0; i < n - 1; i++)
+		{
 			BresenhamLine(x[i], y[i], x[i + 1], y[i + 1]);
 		}
 	}
-//·â±Õ¶à±ßĞÎ
-	void Polygon(int *x, int *y, int n) {
-		for (int i = 0; i < n - 1; i++) {
+	//å°é—­å¤šè¾¹å½¢
+	void Polygon(int *x, int *y, int n)
+	{
+		for (int i = 0; i < n - 1; i++)
+		{
 			BresenhamLine(x[i], y[i], x[i + 1], y[i + 1]);
 		}
 		BresenhamLine(x[n - 1], y[n - 1], x[0], y[0]);
 	}
-//Ìî³ä¶à±ßĞÎ[Î´¿¼ÂÇ°¼Í¹ĞÔ]
-	void FillPoly(int *x, int *y, int n) {
-		if (n < 3)return;
-		for (int i = 0; i < n - 2; i++) {
+	//å¡«å……å¤šè¾¹å½¢[æœªè€ƒè™‘å‡¹å‡¸æ€§]
+	void FillPoly(int *x, int *y, int n)
+	{
+		if (n < 3)
+			return;
+		for (int i = 0; i < n - 2; i++)
+		{
 			FillTriangle(x[i], y[i], x[i + 1], y[i + 1], x[i + 2], y[i + 2]);
 		}
-		if (n>3)FillTriangle(x[n - 1], y[n - 1], x[0], y[0], x[1], y[1]);
+		if (n > 3)
+			FillTriangle(x[n - 1], y[n - 1], x[0], y[0], x[1], y[1]);
 	}
-//ËÄ·Öµã
-	void CirclePlot(int xc, int yc, int x, int y) {
+	//å››åˆ†ç‚¹
+	void CirclePlot(int xc, int yc, int x, int y)
+	{
 		SetPixel(xc + x, yc + y);
 		SetPixel(xc + x, yc - y);
 		SetPixel(xc - x, yc + y);
 		SetPixel(xc - x, yc - y);
 	}
-//ËÄ·ÖÌî³äÏß
-	void FillPlot(int xc, int yc, int x, int y) {
+	//å››åˆ†å¡«å……çº¿
+	void FillPlot(int xc, int yc, int x, int y)
+	{
 		BresenhamLine(xc + x, yc + y, xc + x, yc - y);
 		BresenhamLine(xc - x, yc + y, xc - x, yc - y);
 	}
-//ÖĞµã·¨»­ÍÖÔ²
-	void MidEllipse(int xc, int yc, int a, int b) {
+	//ä¸­ç‚¹æ³•ç”»æ¤­åœ†
+	void MidEllipse(int xc, int yc, int a, int b)
+	{
 		float sqa = a * a;
 		float sqb = b * b;
 		float d = sqb + sqa * (-b + 0.25);
 		int x = 0;
 		int y = b;
 		CirclePlot(xc, yc, x, y);
-		while (sqb * (x + 1) < sqa * (y - 0.5)) {
-			if (d < 0) {
+		while (sqb * (x + 1) < sqa * (y - 0.5))
+		{
+			if (d < 0)
+			{
 				d += sqb * (2 * x + 3);
-			} else {
+			}
+			else
+			{
 				d += (sqb * (2 * x + 3) + sqa * (-2 * y + 2));
 				y--;
 			}
 			x++;
 			CirclePlot(xc, yc, x, y);
-
 		}
 		d = (b * (x + 0.5)) * 2 + (a * (y - 1)) * 2 - (a * b) * 2;
-		while (y > 0) {
-			if (d < 0) {
+		while (y > 0)
+		{
+			if (d < 0)
+			{
 				d += sqb * (2 * x + 2) + sqa * (-2 * y + 3);
 				x++;
-			} else {
+			}
+			else
+			{
 				d += sqa * (-2 * y + 3);
 			}
 			y--;
 			CirclePlot(xc, yc, x, y);
 		}
 	}
-//Ìî³äÍÖÔ²[ÖĞµã·¨]
-	void FillEllipse(int xc, int yc, int a, int b) {
+	//å¡«å……æ¤­åœ†[ä¸­ç‚¹æ³•]
+	void FillEllipse(int xc, int yc, int a, int b)
+	{
 		float sqa = a * a;
 		float sqb = b * b;
 		float d = sqb + sqa * (-b + 0.25);
 		int x = 0;
 		int y = b;
 		FillPlot(xc, yc, x, y);
-		while (sqb * (x + 1) < sqa * (y - 0.5)) {
-			if (d < 0) {
+		while (sqb * (x + 1) < sqa * (y - 0.5))
+		{
+			if (d < 0)
+			{
 				d += sqb * (2 * x + 3);
-			} else {
+			}
+			else
+			{
 				d += (sqb * (2 * x + 3) + sqa * (-2 * y + 2));
 				y--;
 			}
 			x++;
 			FillPlot(xc, yc, x, y);
-
 		}
 		d = (b * (x + 0.5)) * 2 + (a * (y - 1)) * 2 - (a * b) * 2;
-		while (y > 0) {
-			if (d < 0) {
+		while (y > 0)
+		{
+			if (d < 0)
+			{
 				d += sqb * (2 * x + 2) + sqa * (-2 * y + 3);
 				x++;
-			} else {
+			}
+			else
+			{
 				d += sqa * (-2 * y + 3);
 			}
 			y--;
 			FillPlot(xc, yc, x, y);
 		}
 	}
-//Bresenham»­ÍÖÔ²
-	void BresenhamEllipse(int xc, int yc, int a, int b) {
+	//Bresenhamç”»æ¤­åœ†
+	void BresenhamEllipse(int xc, int yc, int a, int b)
+	{
 		int sqa = a * a;
 		int sqb = b * b;
 		int x = 0;
@@ -520,10 +651,14 @@ public:
 		int d = 2 * sqb - 2 * b * sqa + sqa;
 		CirclePlot(xc, yc, x, y);
 		int P_x = int((float)sqa / sqrt((float)(sqa + sqb)) + 0.5);
-		while (x <= P_x) {
-			if (d < 0) {
+		while (x <= P_x)
+		{
+			if (d < 0)
+			{
 				d += 2 * sqb * (2 * x + 3);
-			} else {
+			}
+			else
+			{
 				d += 2 * sqb * (2 * x + 3) - 4 * sqa * (y - 1);
 				y--;
 			}
@@ -531,81 +666,98 @@ public:
 			CirclePlot(xc, yc, x, y);
 		}
 		d = sqb * (x * x + x) + sqa * (y * y - y) - sqa * sqb;
-		while (y >= 0) {
+		while (y >= 0)
+		{
 			CirclePlot(xc, yc, x, y);
 			y--;
-			if (d < 0) {
+			if (d < 0)
+			{
 				x++;
 				d = d - 2 * sqa * y - sqa + 2 * sqb * x + 2 * sqb;
-			} else {
+			}
+			else
+			{
 				d = d - 2 * sqa * y - sqa;
 			}
 		}
 	}
-//»­ÍÖÔ²»¡
-	inline void Arc(int xc, int yc, int a, int b, float theta1, float theta2) {
-		int n = sqrt(float(a*a + b*b))*PI*abs(theta2 - theta1) / 90 * 2; //2±¶ÓàÁ¿
-		int x, y; //printf("%lf\n", sqrt(float(a*a + b*b)));
-		for (int i = 0; i < n; i++) {
-			x = xc + a*cos(2 * PI / 360 * (theta1 + (theta2 - theta1)*i / n));
-			y = yc + b*sin(2 * PI / 360 * (theta1 + (theta2 - theta1)*i / n));
+	//ç”»æ¤­åœ†å¼§
+	inline void Arc(int xc, int yc, int a, int b, float theta1, float theta2)
+	{
+		int n = sqrt(float(a * a + b * b)) * PI * abs(theta2 - theta1) / 90 * 2; //2å€ä½™é‡
+		int x, y;																 //printf("%lf\n", sqrt(float(a*a + b*b)));
+		for (int i = 0; i < n; i++)
+		{
+			x = xc + a * cos(2 * PI / 360 * (theta1 + (theta2 - theta1) * i / n));
+			y = yc + b * sin(2 * PI / 360 * (theta1 + (theta2 - theta1) * i / n));
 			SetPixel(x, y);
 		}
 		//printf("%d\n", n);
 	}
-//»­ÍÖÔ²»¡[Ìî³ä£¬Ğ§ÂÊ²»¸ß]
-	void FillArc(int xc, int yc, int a, int b, float theta1, float theta2) {
-		int r = sqrt(float(a*a + b*b));
-		for (int i = 0; i <r; i++) {
-			Arc(xc, yc, i*a / r, i*b / r, theta1, theta2);
+	//ç”»æ¤­åœ†å¼§[å¡«å……ï¼Œæ•ˆç‡ä¸é«˜]
+	void FillArc(int xc, int yc, int a, int b, float theta1, float theta2)
+	{
+		int r = sqrt(float(a * a + b * b));
+		for (int i = 0; i < r; i++)
+		{
+			Arc(xc, yc, i * a / r, i * b / r, theta1, theta2);
 		}
 		//printf("%d\n", n);
 	}
-	/*ÈıÎ¬²¿·Ö£ºÖ÷ÒªÊÇĞı×ª[ÔİÊ±Ö»¿¼ÂÇÆ½ĞĞÍ¶Ó°]*/
+	/*ä¸‰ç»´éƒ¨åˆ†ï¼šä¸»è¦æ˜¯æ—‹è½¬[æš‚æ—¶åªè€ƒè™‘å¹³è¡ŒæŠ•å½±]*/
 
-
-//»æÖÆÈıÎ¬µãÔÚ¶şÎ¬xOyÆ½ÃæµÄ·â±Õ¶à±ßĞÎ
-	void DrawArray(PointArray r) {
-		for (int i = 0; i < r.length - 1; i++) {
+	//ç»˜åˆ¶ä¸‰ç»´ç‚¹åœ¨äºŒç»´xOyå¹³é¢çš„å°é—­å¤šè¾¹å½¢
+	void DrawArray(PointArray r)
+	{
+		for (int i = 0; i < r.length - 1; i++)
+		{
 			BresenhamLine(r.x[i], r.y[i], r.x[i + 1], r.y[i + 1]);
 		}
 		BresenhamLine(r.x[r.length - 1], r.y[r.length - 1], r.x[0], r.y[0]);
 	}
-//»æÖÆÁ½×éÈıÎ¬µã¶ÔÓ¦Á¬ÏßÔÚ¶şÎ¬xOyÆ½ÃæµÄÍ¶Ó°
-	void Line3d(PointArray a, PointArray b) {
+	//ç»˜åˆ¶ä¸¤ç»„ä¸‰ç»´ç‚¹å¯¹åº”è¿çº¿åœ¨äºŒç»´xOyå¹³é¢çš„æŠ•å½±
+	void Line3d(PointArray a, PointArray b)
+	{
 		int n = a.length;
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++)
+		{
 			BresenhamLine(a.x[i], a.y[i], b.x[i], b.y[i]);
 		}
 	}
 	//
-	void FillTriangle3d(PointArray a) {
-		FillTriangle(a.x[0],a.y[0],a.x[1],a.y[1],a.x[2],a.y[2]);
+	void FillTriangle3d(PointArray a)
+	{
+		FillTriangle(a.x[0], a.y[0], a.x[1], a.y[1], a.x[2], a.y[2]);
 	}
 	//
-	void Triangle3d(PointArray a) {
-		Triangle(a.x[0],a.y[0],a.x[1],a.y[1],a.x[2],a.y[2]);
+	void Triangle3d(PointArray a)
+	{
+		Triangle(a.x[0], a.y[0], a.x[1], a.y[1], a.x[2], a.y[2]);
 	}
 	//
-	void FillRect3d(PointArray a) {
-		FillTriangle(a.x[0],a.y[0],a.x[1],a.y[1],a.x[2],a.y[2]);
-		FillTriangle(a.x[0],a.y[0],a.x[3],a.y[3],a.x[2],a.y[2]);
+	void FillRect3d(PointArray a)
+	{
+		FillTriangle(a.x[0], a.y[0], a.x[1], a.y[1], a.x[2], a.y[2]);
+		FillTriangle(a.x[0], a.y[0], a.x[3], a.y[3], a.x[2], a.y[2]);
 	}
 	//
-	//·â±Õ¶à±ßĞÎ
-	void Rect3d(PointArray a) {
-		for (int i = 0; i < 3; i++) {
+	//å°é—­å¤šè¾¹å½¢
+	void Rect3d(PointArray a)
+	{
+		for (int i = 0; i < 3; i++)
+		{
 			BresenhamLine(a.x[i], a.y[i], a.x[i + 1], a.y[i + 1]);
 		}
 		BresenhamLine(a.x[3], a.y[3], a.x[0], a.y[0]);
 	}
 	//
-	void initgraph() {
-		iWidth=this->Width;
-		iHeight=this->Height;
-		int size=iWidth*iHeight*3;
-		PImage=new BYTE[size];
-		this->Data=PImage;
+	void initgraph()
+	{
+		iWidth = this->Width;
+		iHeight = this->Height;
+		int size = iWidth * iHeight * 3;
+		PImage = new BYTE[size];
+		this->Data = PImage;
 		//
 		ZeroMemory(&bmi, sizeof(BITMAPINFO));
 		bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
@@ -615,13 +767,12 @@ public:
 		bmi.bmiHeader.biBitCount = 24;
 		bmi.bmiHeader.biCompression = BI_RGB;
 		//
-		CreateThread(0,0,(LPTHREAD_START_ROUTINE)ImageShow,(void*)1,0,0);
+		CreateThread(0, 0, (LPTHREAD_START_ROUTINE)ImageShow, (void *)1, 0, 0);
 	}
-
 };
 
 //
-//ÈıÎ¬µã³õÊ¼»¯
+//ä¸‰ç»´ç‚¹åˆå§‹åŒ–
 PointArray Array3d(int n)
 {
 	PointArray r;
@@ -629,12 +780,13 @@ PointArray Array3d(int n)
 	r.x = new float[n];
 	r.y = new float[n];
 	r.z = new float[n];
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++)
+	{
 		r.x[i] = r.y[i] = r.z[i] = 0.0;
 	}
 	return r;
 }
-//ÈıÎ¬µãÍ¨¹ıÊı×é¸³Öµ
+//ä¸‰ç»´ç‚¹é€šè¿‡æ•°ç»„èµ‹å€¼
 PointArray eval(float *a, int n)
 {
 	PointArray r;
@@ -642,146 +794,149 @@ PointArray eval(float *a, int n)
 	r.x = new float[n];
 	r.y = new float[n];
 	r.z = new float[n];
-	for (int i = 0; i < n; i++) {
-		r.x[i] = a[3*i];
-		r.y[i] = a[3*i + 1];
-		r.z[i] = a[3*i + 2];
+	for (int i = 0; i < n; i++)
+	{
+		r.x[i] = a[3 * i];
+		r.y[i] = a[3 * i + 1];
+		r.z[i] = a[3 * i + 2];
 	}
 	return r;
 }
-//Êä³öÈıÎ¬µãÊı×éµÄÊı¾İ
+//è¾“å‡ºä¸‰ç»´ç‚¹æ•°ç»„çš„æ•°æ®
 void print(PointArray r)
 {
-	for (int i = 0; i < r.length; i++) {
+	for (int i = 0; i < r.length; i++)
+	{
 		printf("%f %f %f\n", r.x[i], r.y[i], r.z[i]);
 	}
 }
-//¶ÔÈıÎ¬µã½øĞĞĞı×ª
-PointArray Rotate(PointArray pa, vector3 vec,float t)
+//å¯¹ä¸‰ç»´ç‚¹è¿›è¡Œæ—‹è½¬
+PointArray Rotate(PointArray pa, vector3 vec, float t)
 {
 	PointArray r = Array3d(pa.length);
-	float x,y,z,a,b,c;
-	float base=sqrt(vec[0]*vec[0]+vec[1]*vec[1]+vec[2]*vec[2]);
-	a=vec[0]/base,b=vec[1]/base,c=vec[2]/base;
-	for (int i = 0; i < pa.length; i++) {
-		x=pa.x[i],y=pa.y[i],z=pa.z[i];
+	float x, y, z, a, b, c;
+	float base = sqrt(vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2]);
+	a = vec[0] / base, b = vec[1] / base, c = vec[2] / base;
+	for (int i = 0; i < pa.length; i++)
+	{
+		x = pa.x[i], y = pa.y[i], z = pa.z[i];
 		//
-		r.x[i]=(cos(t)+(1-cos(t))*a*a)*x+
-		       ((1-cos(t))*a*b-sin(t)*c)*y+
-		       ((1-cos(t))*a*c+sin(t)*b)*z;
+		r.x[i] = (cos(t) + (1 - cos(t)) * a * a) * x +
+				 ((1 - cos(t)) * a * b - sin(t) * c) * y +
+				 ((1 - cos(t)) * a * c + sin(t) * b) * z;
 		//
-		r.y[i]=((1-cos(t))*b*a+sin(t)*c)*x+
-		       (cos(t)+(1-cos(t))*b*b)*y+
-		       ((1-cos(t))*b*c-sin(t)*a)*z;
+		r.y[i] = ((1 - cos(t)) * b * a + sin(t) * c) * x +
+				 (cos(t) + (1 - cos(t)) * b * b) * y +
+				 ((1 - cos(t)) * b * c - sin(t) * a) * z;
 		//
-		r.z[i]=((1-cos(t))*c*a-sin(t)*b)*x+
-		       ((1-cos(t))*c*b+sin(t)*a)*y+
-		       (cos(t)+(1-cos(t))*c*c)*z;
+		r.z[i] = ((1 - cos(t)) * c * a - sin(t) * b) * x +
+				 ((1 - cos(t)) * c * b + sin(t) * a) * y +
+				 (cos(t) + (1 - cos(t)) * c * c) * z;
 		//
 	}
 	return r;
 }
 //
-PointArray RotateX(PointArray pa,float t)
+PointArray RotateX(PointArray pa, float t)
 {
 	PointArray r = Array3d(pa.length);
-	float x,y,z;
-	
-	for (int i = 0; i < pa.length; i++) {
-		x=pa.x[i],y=pa.y[i],z=pa.z[i];
+	float x, y, z;
+
+	for (int i = 0; i < pa.length; i++)
+	{
+		x = pa.x[i], y = pa.y[i], z = pa.z[i];
 		//
-		r.x[i]=x;
+		r.x[i] = x;
 		//
-		r.y[i]=y*cos(t)-z*sin(t);
+		r.y[i] = y * cos(t) - z * sin(t);
 		//
-		r.z[i]=y*sin(t)+z*cos(t);
+		r.z[i] = y * sin(t) + z * cos(t);
 		//
 	}
 	return r;
 }
 //
 //
-PointArray RotateY(PointArray pa,float t)
+PointArray RotateY(PointArray pa, float t)
 {
 	PointArray r = Array3d(pa.length);
-	float x,y,z;
-	
-	for (int i = 0; i < pa.length; i++) {
-		x=pa.x[i],y=pa.y[i],z=pa.z[i];
+	float x, y, z;
+
+	for (int i = 0; i < pa.length; i++)
+	{
+		x = pa.x[i], y = pa.y[i], z = pa.z[i];
 		//
-		r.x[i]=z*sin(t)+x*cos(t);
+		r.x[i] = z * sin(t) + x * cos(t);
 		//
-		r.y[i]=y;
+		r.y[i] = y;
 		//
-		r.z[i]=z*cos(t)-x*sin(t);
+		r.z[i] = z * cos(t) - x * sin(t);
 		//
 	}
 	return r;
 }
 //
-PointArray RotateZ(PointArray pa,float t)
+PointArray RotateZ(PointArray pa, float t)
 {
 	PointArray r = Array3d(pa.length);
-	float x,y,z;
-	
-	for (int i = 0; i < pa.length; i++) {
-		x=pa.x[i],y=pa.y[i],z=pa.z[i];
+	float x, y, z;
+
+	for (int i = 0; i < pa.length; i++)
+	{
+		x = pa.x[i], y = pa.y[i], z = pa.z[i];
 		//
-		r.x[i]=x*cos(t)-y*sin(t);
+		r.x[i] = x * cos(t) - y * sin(t);
 		//
-		r.y[i]=x*sin(t)+y*cos(t);
+		r.y[i] = x * sin(t) + y * cos(t);
 		//
-		r.z[i]=z;
+		r.z[i] = z;
 		//
 	}
 	return r;
 }
-//Í¸ÊÓÍ¶Ó°
-PointArray Perspective(PointArray pa,float ez,float n,float f){
+//é€è§†æŠ•å½±
+PointArray Perspective(PointArray pa, float ez, float n, float f)
+{
 	PointArray rr = Array3d(pa.length);
-	float x,y,z;
-	for (int i = 0; i < pa.length; i++) {
-		x=pa.x[i],y=pa.y[i],z=pa.z[i];
-		rr.x[i]=(ez-z)/(n-f)*x;
-		rr.y[i]=(ez-z)/(n-f)*y;
-		rr.z[i]=z;
+	float x, y, z;
+	for (int i = 0; i < pa.length; i++)
+	{
+		x = pa.x[i], y = pa.y[i], z = pa.z[i];
+		rr.x[i] = (ez - z) / (n - f) * x;
+		rr.y[i] = (ez - z) / (n - f) * y;
+		rr.z[i] = z;
 	}
 	return rr;
 }
 
 //
-Image ReadBMP(const char* filename)
+Image ReadBMP(const char *filename)
 {
 	FILE *fpBmp;
 	BITMAPFILEHEADER bmf;
 	BITMAPINFO bmi;
-	fpBmp = fopen(filename,"rb");
-	fread(&bmf,14,1,fpBmp);
-	fread(&bmi.bmiHeader,40,1,fpBmp);
-	Image img=Image(bmi.bmiHeader.biWidth,bmi.bmiHeader.biHeight);
+	fpBmp = fopen(filename, "rb");
+	fread(&bmf, 14, 1, fpBmp);
+	fread(&bmi.bmiHeader, 40, 1, fpBmp);
+	Image img = Image(bmi.bmiHeader.biWidth, bmi.bmiHeader.biHeight);
 	//img.Data = new byte[img.Width*img.Height * 3];
-	fread(img.Data,1,bmf.bfSize,fpBmp);
+	fread(img.Data, 1, bmf.bfSize, fpBmp);
 	fclose(fpBmp);
 	return img;
 }
 
-void WriteBMP(Image img,const char* filename)
+void WriteBMP(Image img, const char *filename)
 {
 	FILE *fpBmp;
-	int line=(img.Width*3%4==0)?(img.Width*3):(img.Width*3/4+1)*4;
-	printf("%d\n",line);
-	BITMAPFILEHEADER bmf= {
-		0x4d42,img.Height*line+54,0,0,54
-	};
-	BITMAPINFO bmi= {
-		40,img.Width,img.Height,1,3*8,0,img.Width*line,0,0,100,0
-	};
-	fpBmp = fopen(filename,"wb");
-	fwrite(&bmf,14,1,fpBmp);
-	fwrite(&bmi.bmiHeader,40,1,fpBmp);
-	fwrite(img.Data,1,bmf.bfSize,fpBmp);
+	int line = (img.Width * 3 % 4 == 0) ? (img.Width * 3) : (img.Width * 3 / 4 + 1) * 4;
+	printf("%d\n", line);
+	BITMAPFILEHEADER bmf = {
+		0x4d42, img.Height * line + 54, 0, 0, 54};
+	BITMAPINFO bmi = {
+		40, img.Width, img.Height, 1, 3 * 8, 0, img.Width * line, 0, 0, 100, 0};
+	fpBmp = fopen(filename, "wb");
+	fwrite(&bmf, 14, 1, fpBmp);
+	fwrite(&bmi.bmiHeader, 40, 1, fpBmp);
+	fwrite(img.Data, 1, bmf.bfSize, fpBmp);
 	fclose(fpBmp);
 }
-
-
-

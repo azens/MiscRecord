@@ -1,32 +1,4 @@
-/***************************************************************************
-*                                  _   _ ____  _
-*  Project                     ___| | | |  _ \| |
-*                             / __| | | | |_) | |
-*                            | (__| |_| |  _ <| |___
-*                             \___|\___/|_| \_\_____|
-*
-* Copyright (C) 1998 - 2017, Daniel Stenberg, <daniel@haxx.se>, et al.
-*
-* This software is licensed as described in the file COPYING, which
-* you should have received as part of this distribution. The terms
-* are also available at https://curl.haxx.se/docs/copyright.html.
-*
-* You may opt to use, copy, modify, merge, publish, distribute and/or sell
-* copies of the Software, and permit persons to whom the Software is
-* furnished to do so, under the terms of the COPYING file.
-*
-* This software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY
-* KIND, either express or implied.
-*
-***************************************************************************/
-/* <DESC>
-* Get a web page, extract the title with libxml.
-* </DESC>
-
-Written by Lars Nilsson
-
-GNU C++ compile command line suggestion (edit paths accordingly):
-
+/*
 g++ -Wall -I/opt/curl/include -I/opt/libxml/include/libxml2 htmltitle.cpp \
 -o htmltitle -L/opt/curl/lib -L/opt/libxml/lib -lcurl -lxml2
 */
@@ -286,7 +258,7 @@ std::wstring s2ws(const std::string& s)
 	return result;
 }
 
-// 1、将GBK转换成UTF8
+// 1銆佸皢GBK杞崲鎴怳TF8
 
 std::string GBKToUTF8(const std::string& strGBK)
 {
@@ -306,7 +278,7 @@ std::string GBKToUTF8(const std::string& strGBK)
 	return strOutUTF8;
 }
 
-// 2、将UTF8转换成GBK
+// 2銆佸皢UTF8杞崲鎴怗BK
 
 std::string UTF8ToGBK(const std::string& strUTF8)
 {

@@ -1,5 +1,5 @@
-//N=7500½×£¬dgemmºÄÊ±90.325000 seconds
-//N=7500½×£¬sgemmºÄÊ±55.952999 seconds 
+//N=7500é˜¶ï¼Œdgemmè€—æ—¶90.325000 seconds
+//N=7500é˜¶ï¼Œsgemmè€—æ—¶55.952999 seconds 
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,14 +11,14 @@ int main()
 	const enum CBLAS_ORDER Order = CblasRowMajor;
 	const enum CBLAS_TRANSPOSE TransA = CblasNoTrans;
 	const enum CBLAS_TRANSPOSE TransB = CblasNoTrans;
-	const int M = 5000;//AµÄÐÐÊý£¬CµÄÐÐÊý
-	const int N = 5000;//BµÄÁÐÊý£¬CµÄÁÐÊý
-	const int K = 5000;//AµÄÁÐÊý£¬BµÄÐÐÊý
+	const int M = 5000;//Açš„è¡Œæ•°ï¼ŒCçš„è¡Œæ•°
+	const int N = 5000;//Bçš„åˆ—æ•°ï¼ŒCçš„åˆ—æ•°
+	const int K = 5000;//Açš„åˆ—æ•°ï¼ŒBçš„è¡Œæ•°
 	const double alpha = 1;
 	const double beta = 0;
-	const int lda = K;//AµÄÁÐ
-	const int ldb = N;//BµÄÁÐ
-	const int ldc = N;//CµÄÁÐ
+	const int lda = K;//Açš„åˆ—
+	const int ldb = N;//Bçš„åˆ—
+	const int ldc = N;//Cçš„åˆ—
 	double *A = new double[M*K];// = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6 };
 	double *B = new double[K*N];// = { 5, 4, 3, 2, 1, 0 };
 	double *C = new double[M*N];
