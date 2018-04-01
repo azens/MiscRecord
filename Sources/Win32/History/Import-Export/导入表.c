@@ -2,34 +2,37 @@
 #include <windows.h>
 #include <Dbghelp.h> //ImageRvaToVa
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	int i, j;
 	HANDLE hFile = CreateFile(
-	                   argv[1], //PEÎÄ¼şÃû
-	                   GENERIC_READ,
-	                   FILE_SHARE_READ,
-	                   NULL,
-	                   OPEN_EXISTING,
-	                   FILE_ATTRIBUTE_NORMAL,
-	                   NULL);
+		argv[1], //PEæ–‡ä»¶å
+		GENERIC_READ,
+		FILE_SHARE_READ,
+		NULL,
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
 
-	if(hFile == INVALID_HANDLE_VALUE) {
+	if (hFile == INVALID_HANDLE_VALUE)
+	{
 		printf("Create File Failed.\n");
 		return 0;
 	}
 
-	HANDLE hFileMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY,    0, 0, NULL);
+	HANDLE hFileMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY, 0, 0, NULL);
 
-	if (hFileMapping == NULL || hFileMapping == INVALID_HANDLE_VALUE) {
+	if (hFileMapping == NULL || hFileMapping == INVALID_HANDLE_VALUE)
+	{
 		printf("Could not create file mapping object (%d).\n", GetLastError());
 		return 0;
 	}
 
-	LPBYTE lpBaseAddress = (LPBYTE)MapViewOfFile(hFileMapping,   // handle to map object
-	                       FILE_MAP_READ, 0, 0, 0);
+	LPBYTE lpBaseAddress = (LPBYTE)MapViewOfFile(hFileMapping, // handle to map object
+												 FILE_MAP_READ, 0, 0, 0);
 
-	if (lpBaseAddress == NULL) {
+	if (lpBaseAddress == NULL)
+	{
 		printf("Could not map view of file (%d).\n", GetLastError());
 		return 0;
 	}
@@ -37,75 +40,79 @@ int main(int argc, char* argv[])
 	PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)lpBaseAddress;
 	PIMAGE_NT_HEADERS pNtHeaders = (PIMAGE_NT_HEADERS)(lpBaseAddress + pDosHeader->e_lfanew);
 
-	//µ¼Èë±íµÄrva£º0x2a000;
+	//å¯¼å…¥è¡¨çš„rvaï¼š0x2a000;
 	DWORD Rva_import_table = pNtHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress;
 
-	if(Rva_import_table == 0) {
+	if (Rva_import_table == 0)
+	{
 		printf("no import table!");
 		goto UNMAP_AND_EXIT;
 	}
 
-	//Õâ¸öËäÈ»ÊÇÄÚ´æµØÖ·£¬µ«ÊÇ¼õÈ¥ÎÄ¼ş¿ªÍ·µÄµØÖ·£¬¾ÍÊÇÎÄ¼şµØÖ·ÁË
-	//Õâ¸öµØÖ·¿ÉÒÔÖ±½Ó´ÓÀïÃæ¶ÁÈ¡ÄãÏëÒªµÄ¶«Î÷ÁË
+	//è¿™ä¸ªè™½ç„¶æ˜¯å†…å­˜åœ°å€ï¼Œä½†æ˜¯å‡å»æ–‡ä»¶å¼€å¤´çš„åœ°å€ï¼Œå°±æ˜¯æ–‡ä»¶åœ°å€äº†
+	//è¿™ä¸ªåœ°å€å¯ä»¥ç›´æ¥ä»é‡Œé¢è¯»å–ä½ æƒ³è¦çš„ä¸œè¥¿äº†
 	PIMAGE_IMPORT_DESCRIPTOR pImportTable = (PIMAGE_IMPORT_DESCRIPTOR)ImageRvaToVa(
-	        pNtHeaders,
-	        lpBaseAddress,
-	        Rva_import_table,
-	        NULL
-	                                        );
+		pNtHeaders,
+		lpBaseAddress,
+		Rva_import_table,
+		NULL);
 
-	//¼õÈ¥ÄÚ´æÓ³ÉäµÄÊ×µØÖ·£¬¾ÍÊÇÎÄ¼şµØÖ·ÁË¡£¡££¨ºÜ¼òµ¥°É£©
+	//å‡å»å†…å­˜æ˜ å°„çš„é¦–åœ°å€ï¼Œå°±æ˜¯æ–‡ä»¶åœ°å€äº†ã€‚ã€‚ï¼ˆå¾ˆç®€å•å§ï¼‰
 	printf("FileAddress Of ImportTable: %p\n", ((DWORD)pImportTable - (DWORD)lpBaseAddress));
 
-	//ÏÖÔÚÀ´µ½ÁËµ¼Èë±íµÄÃæÇ°£ºIMAGE_IMPORT_DESCRIPTOR Êı×é£¨ÒÔ0ÔªËØÎªÖÕÖ¹£©
-	//¶¨Òå±íÊ¾Êı×é½áÎ²µÄnullÔªËØ£¡
+	//ç°åœ¨æ¥åˆ°äº†å¯¼å…¥è¡¨çš„é¢å‰ï¼šIMAGE_IMPORT_DESCRIPTOR æ•°ç»„ï¼ˆä»¥0å…ƒç´ ä¸ºç»ˆæ­¢ï¼‰
+	//å®šä¹‰è¡¨ç¤ºæ•°ç»„ç»“å°¾çš„nullå…ƒç´ ï¼
 	IMAGE_IMPORT_DESCRIPTOR null_iid;
 	IMAGE_THUNK_DATA null_thunk;
 	memset(&null_iid, 0, sizeof(null_iid));
 	memset(&null_thunk, 0, sizeof(null_thunk));
 
-	//Ã¿¸öÔªËØ´ú±íÁËÒ»¸öÒıÈëµÄDLL¡£
-	for(i=0; memcmp(pImportTable + i, &null_iid, sizeof(null_iid))!=0; i++) {
-		//LPCSTR: ¾ÍÊÇ const char*
+	//æ¯ä¸ªå…ƒç´ ä»£è¡¨äº†ä¸€ä¸ªå¼•å…¥çš„DLLã€‚
+	for (i = 0; memcmp(pImportTable + i, &null_iid, sizeof(null_iid)) != 0; i++)
+	{
+		//LPCSTR: å°±æ˜¯ const char*
 		LPCSTR szDllName = (LPCSTR)ImageRvaToVa(
-		                       pNtHeaders, lpBaseAddress,
-		                       pImportTable[i].Name, //DLLÃû³ÆµÄRVA
-		                       NULL);
+			pNtHeaders, lpBaseAddress,
+			pImportTable[i].Name, //DLLåç§°çš„RVA
+			NULL);
 
-		//ÄÃµ½ÁËDLLµÄÃû×Ö
+		//æ‹¿åˆ°äº†DLLçš„åå­—
 		printf("-----------------------------------------\n");
 		printf("[%d]: %s\n", i, szDllName);
 		printf("-----------------------------------------\n");
 
-		//ÏÖÔÚÈ¥¿´¿´´Ó¸ÃDLLÖĞÒıÈëÁËÄÄĞ©º¯Êı
-		//ÎÒÃÇÀ´µ½¸ÃDLLµÄ IMAGE_TRUNK_DATA Êı×é£¨IAT£ºµ¼ÈëµØÖ·±í£©Ç°Ãæ
+		//ç°åœ¨å»çœ‹çœ‹ä»è¯¥DLLä¸­å¼•å…¥äº†å“ªäº›å‡½æ•°
+		//æˆ‘ä»¬æ¥åˆ°è¯¥DLLçš„ IMAGE_TRUNK_DATA æ•°ç»„ï¼ˆIATï¼šå¯¼å…¥åœ°å€è¡¨ï¼‰å‰é¢
 		PIMAGE_THUNK_DATA32 pThunk = (PIMAGE_THUNK_DATA32)ImageRvaToVa(
-		                                 pNtHeaders, lpBaseAddress,
-		                                 pImportTable[i].OriginalFirstThunk, //¡¾×¢Òâ¡¿ÕâÀïÊ¹ÓÃµÄÊÇOriginalFirstThunk
-		                                 NULL);
+			pNtHeaders, lpBaseAddress,
+			pImportTable[i].OriginalFirstThunk, //ã€æ³¨æ„ã€‘è¿™é‡Œä½¿ç”¨çš„æ˜¯OriginalFirstThunk
+			NULL);
 
-		for(j=0; memcmp(pThunk+j, &null_thunk, sizeof(null_thunk))!=0; j++) {
-			//ÕâÀïÍ¨¹ıRVAµÄ×î¸ßÎ»ÅĞ¶Ïº¯ÊıµÄµ¼Èë·½Ê½£¬
-			//Èç¹û×î¸ßÎ»Îª1£¬°´ĞòºÅµ¼Èë£¬·ñÔò°´Ãû³Æµ¼Èë
-			if(pThunk[j].u1.AddressOfData & IMAGE_ORDINAL_FLAG32) {
-				printf("\t [%d] \t %ld \t °´ĞòºÅµ¼Èë\n", j, pThunk[j].u1.AddressOfData & 0xffff);
-			} else {
-				//°´Ãû³Æµ¼Èë£¬ÎÒÃÇÔÙ´Î¶¨Ïòµ½º¯ÊıĞòºÅºÍÃû³Æ
-				//×¢ÒâÆäµØÖ·²»ÄÜÖ±½ÓÓÃ£¬ÒòÎªÈÔÈ»ÊÇRVA£¡
+		for (j = 0; memcmp(pThunk + j, &null_thunk, sizeof(null_thunk)) != 0; j++)
+		{
+			//è¿™é‡Œé€šè¿‡RVAçš„æœ€é«˜ä½åˆ¤æ–­å‡½æ•°çš„å¯¼å…¥æ–¹å¼ï¼Œ
+			//å¦‚æœæœ€é«˜ä½ä¸º1ï¼ŒæŒ‰åºå·å¯¼å…¥ï¼Œå¦åˆ™æŒ‰åç§°å¯¼å…¥
+			if (pThunk[j].u1.AddressOfData & IMAGE_ORDINAL_FLAG32)
+			{
+				printf("\t [%d] \t %ld \t æŒ‰åºå·å¯¼å…¥\n", j, pThunk[j].u1.AddressOfData & 0xffff);
+			}
+			else
+			{
+				//æŒ‰åç§°å¯¼å…¥ï¼Œæˆ‘ä»¬å†æ¬¡å®šå‘åˆ°å‡½æ•°åºå·å’Œåç§°
+				//æ³¨æ„å…¶åœ°å€ä¸èƒ½ç›´æ¥ç”¨ï¼Œå› ä¸ºä»ç„¶æ˜¯RVAï¼
 				PIMAGE_IMPORT_BY_NAME pFuncName = (PIMAGE_IMPORT_BY_NAME)ImageRvaToVa(
-				                                      pNtHeaders,    lpBaseAddress,
-				                                      pThunk[j].u1.AddressOfData,
-				                                      NULL);
+					pNtHeaders, lpBaseAddress,
+					pThunk[j].u1.AddressOfData,
+					NULL);
 
 				printf("\t [%d] \t %ld \t %s\n", j, pFuncName->Hint, pFuncName->Name);
 			}
 		}
 	}
 
-
 UNMAP_AND_EXIT:
 
-	//¹Ø±ÕÎÄ¼ş£¬¾ä±ú¡£¡£
+	//å…³é—­æ–‡ä»¶ï¼Œå¥æŸ„ã€‚ã€‚
 	UnmapViewOfFile(lpBaseAddress);
 	CloseHandle(hFileMapping);
 	CloseHandle(hFile);

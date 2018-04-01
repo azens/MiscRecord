@@ -16,14 +16,14 @@ subroutine tohex(num)
 end
 
 
-!二进制Stream读写
+!浜岃繘鍒禨tream璇诲啓
 CHARACTER,allocatable::str(:)
 integer file_size
 INQUIRE(FILE='test.bmp', SIZE=file_size)
 allocate(str(file_size))
 OPEN(10,file='test.bmp', ACCESS='STREAM', FORM='UNFORMATTED')
 read (10) str
-!输出数据
+!杈撳嚭鏁版嵁
 !print *,ichar(str)
 do I=1,file_size
 call tohex(ichar(str(I)))

@@ -1,7 +1,7 @@
-local testlib = package.loadlib("opendll.dll","luaopen_MyLuaDLL");   --»ñÈ¡DLLÖĞÅ×³öº¯ÊıµØÖ·
+local testlib = package.loadlib("opendll.dll","luaopen_MyLuaDLL");   --è·å–DLLä¸­æŠ›å‡ºå‡½æ•°åœ°å€
 print (testlib) 
 if(testlib)then
-    testlib();  --µ÷ÓÃDLLÖĞÅ×³öº¯Êı
+    testlib();  --è°ƒç”¨DLLä¸­æŠ›å‡ºå‡½æ•°
 else
     -- Error
 end

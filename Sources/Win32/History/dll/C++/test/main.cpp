@@ -1,9 +1,9 @@
 #include <windows.h>
 #include <stdio.h>
 #include "tool.h"
-/** ÒşÊ½Á´½Ó,µ¼ÈëlibÊÇ±ØĞëµÄ*/
+/** éšå¼é“¾æ¥,å¯¼å…¥libæ˜¯å¿…é¡»çš„*/
 //#pragma comment(lib,"tool.lib")
-//ÒªÃ´×Ô¼ºÊ¹ÓÃÍ·ÎÄ¼ş
+//è¦ä¹ˆè‡ªå·±ä½¿ç”¨å¤´æ–‡ä»¶
 //extern int add(int a,int b);
 
 //_declspec(dllimport) int mul(int a,int b);
@@ -11,7 +11,7 @@
 
 int main()
 {
-	//¶¯Ì¬¼ÓÔØ
+	//åŠ¨æ€åŠ è½½
 	HINSTANCE hInst;
 	hInst=LoadLibrary("tool.dll");
 	typedef int (*ADDPROC)(int a,int b);
@@ -22,7 +22,7 @@ int main()
 
 	printf("5+3=%d",Add(5,3));
 	
-	//Í¨¹ıĞòºÅ·ÃÎÊ
+	//é€šè¿‡åºå·è®¿é—®
 	typedef int (*MULPROC)(int a,int b);
 	MULPROC Mul=(MULPROC)GetProcAddress(hInst,reinterpret_cast<LPCSTR>(MAKEINTRESOURCE(6)));
 	if(!Mul) {
@@ -30,9 +30,9 @@ int main()
 
 	}
 	printf("5*3=%d",Mul(5,3));
-	//·ÃÎÊc++ÀàÖĞ³ÉÔ±,dllµ½´¦Àà²»ÄÜÏÔÊ¾Á´½Ó£¬ÒªÊ¹ÓÃÒşÊ½µ÷ÓÃ
+	//è®¿é—®c++ç±»ä¸­æˆå‘˜,dllåˆ°å¤„ç±»ä¸èƒ½æ˜¾ç¤ºé“¾æ¥ï¼Œè¦ä½¿ç”¨éšå¼è°ƒç”¨
 	//http://blog.csdn.net/l460602540/article/details/7394593
-	typedef Ctool * (*GetCTool)();//¶¨Òåº¯ÊıÖ¸Õë,»ñÈ¡ÀàTestDLL¶ÔÏó
+	typedef Ctool * (*GetCTool)();//å®šä¹‰å‡½æ•°æŒ‡é’ˆ,è·å–ç±»TestDLLå¯¹è±¡
 	GetCTool getCtool=(GetCTool)GetProcAddress(hInst,"GetCTool");
 	if(!getCtool) {
 		return 0;

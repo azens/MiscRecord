@@ -3,39 +3,42 @@
 int main()
 {
 	SECURITY_ATTRIBUTES sa;
-	HANDLE hRead,hWrite;
+	HANDLE hRead, hWrite;
 	sa.nLength = sizeof(SECURITY_ATTRIBUTES);
 	sa.lpSecurityDescriptor = NULL;
 	sa.bInheritHandle = TRUE;
-	if (!CreatePipe(&hRead,&hWrite,&sa,0)) {
+	if (!CreatePipe(&hRead, &hWrite, &sa, 0))
+	{
 		return;
 	}
-	char command[1024]; //³¤´ï1KµÄÃüÁîĞĞ£¬¹»ÓÃÁË°É
-	strcpy(command,"cmd /c dir /b"); //×¢Òâdir²»ÊÇÒ»¸ö¿ÉÖ´ĞĞÎÄ¼ş
+	char command[1024];				  //é•¿è¾¾1Kçš„å‘½ä»¤è¡Œï¼Œå¤Ÿç”¨äº†å§
+	strcpy(command, "cmd /c dir /b"); //æ³¨æ„dirä¸æ˜¯ä¸€ä¸ªå¯æ‰§è¡Œæ–‡ä»¶
 	// strcpy(command,"cmd /c dir /b");
 	// strcat(command,para_sys);
 	STARTUPINFO si;
 	PROCESS_INFORMATION pi;
 	si.cb = sizeof(STARTUPINFO);
 	GetStartupInfo(&si);
-	si.hStdError = hWrite; //°Ñ´´½¨½ø³ÌµÄ±ê×¼´íÎóÊä³öÖØ¶¨Ïòµ½¹ÜµÀÊäÈë
-	si.hStdOutput = hWrite; //°Ñ´´½¨½ø³ÌµÄ±ê×¼Êä³öÖØ¶¨Ïòµ½¹ÜµÀÊäÈë
+	si.hStdError = hWrite;  //æŠŠåˆ›å»ºè¿›ç¨‹çš„æ ‡å‡†é”™è¯¯è¾“å‡ºé‡å®šå‘åˆ°ç®¡é“è¾“å…¥
+	si.hStdOutput = hWrite; //æŠŠåˆ›å»ºè¿›ç¨‹çš„æ ‡å‡†è¾“å‡ºé‡å®šå‘åˆ°ç®¡é“è¾“å…¥
 	si.wShowWindow = SW_HIDE;
 	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-	//¹Ø¼ü²½Öè£¬CreateProcessº¯Êı²ÎÊıÒâÒåÇë²éÔÄMSDN
-	if (!CreateProcess(NULL,command,NULL,NULL,TRUE,CREATE_NEW_CONSOLE,NULL,NULL,&si,&pi)) {
+	//å…³é”®æ­¥éª¤ï¼ŒCreateProcesså‡½æ•°å‚æ•°æ„ä¹‰è¯·æŸ¥é˜…MSDN
+	if (!CreateProcess(NULL, command, NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi))
+	{
 		CloseHandle(hWrite);
 		CloseHandle(hRead);
-		MessageBox(0,0,"Feature Detection Failed!",0);
+		MessageBox(0, 0, "Feature Detection Failed!", 0);
 		return;
 	}
 	CloseHandle(hWrite);
-	char buffer[4096] = {0}; //ÓÃ4KµÄ¿Õ¼äÀ´´æ´¢Êä³öµÄÄÚÈİ£¬Ö»Òª²»ÊÇÏÔÊ¾ÎÄ¼şÄÚÈİ£¬Ò»°ãÇé¿öÏÂÊÇ¹»ÓÃÁË¡£
+	char buffer[4096] = {0}; //ç”¨4Kçš„ç©ºé—´æ¥å­˜å‚¨è¾“å‡ºçš„å†…å®¹ï¼Œåªè¦ä¸æ˜¯æ˜¾ç¤ºæ–‡ä»¶å†…å®¹ï¼Œä¸€èˆ¬æƒ…å†µä¸‹æ˜¯å¤Ÿç”¨äº†ã€‚
 	DWORD bytesRead;
-	while (1) {
-		if (ReadFile(hRead,buffer,4095,&bytesRead,NULL) == NULL)
+	while (1)
+	{
+		if (ReadFile(hRead, buffer, 4095, &bytesRead, NULL) == NULL)
 			break;
-		//bufferÖĞ¾ÍÊÇÖ´ĞĞµÄ½á¹û£¬¿ÉÒÔ±£´æµ½ÎÄ±¾£¬Ò²¿ÉÒÔÖ±½ÓÊä³ö
+		//bufferä¸­å°±æ˜¯æ‰§è¡Œçš„ç»“æœï¼Œå¯ä»¥ä¿å­˜åˆ°æ–‡æœ¬ï¼Œä¹Ÿå¯ä»¥ç›´æ¥è¾“å‡º
 		printf(buffer);
 	}
 	CloseHandle(hRead);

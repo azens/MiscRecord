@@ -1,77 +1,76 @@
-#include<windows.h>
-#include<math.h>
-LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM ) ;            //ÉùÃ÷´°¿Ú¹ı³Ìº¯Êı
+#include <windows.h>
+#include <math.h>
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM); //å£°æ˜çª—å£è¿‡ç¨‹å‡½æ•°
 
-
-
-int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow )
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
 {
-    static TCHAR szAppName[] = TEXT("PrintText") ;
-    HWND hwnd ;
-    MSG msg ;
+    static TCHAR szAppName[] = TEXT("PrintText");
+    HWND hwnd;
+    MSG msg;
     WNDCLASS wndclass;
 
-    //´°¿ÚÀà³ÉÔ±ÊôĞÔ
-    wndclass.lpfnWndProc = WndProc ;
-    wndclass.lpszClassName = szAppName ;
-    wndclass.hInstance = hInstance ;
-    wndclass.style = CS_HREDRAW | CS_VREDRAW ;
-    wndclass.hbrBackground = (HBRUSH) GetStockObject(WHITE_BRUSH) ;
-    wndclass.hCursor = LoadCursor( NULL, IDC_ARROW ) ;
-    wndclass.hIcon = LoadIcon( NULL, IDI_APPLICATION ) ;
-    wndclass.cbClsExtra = 0 ;
-    wndclass.cbWndExtra = 0 ;
-    wndclass.lpszMenuName = NULL ;
+    //çª—å£ç±»æˆå‘˜å±æ€§
+    wndclass.lpfnWndProc = WndProc;
+    wndclass.lpszClassName = szAppName;
+    wndclass.hInstance = hInstance;
+    wndclass.style = CS_HREDRAW | CS_VREDRAW;
+    wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+    wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+    wndclass.cbClsExtra = 0;
+    wndclass.cbWndExtra = 0;
+    wndclass.lpszMenuName = NULL;
 
-    //×¢²á´°¿ÚÀà
-    if( !RegisterClass( &wndclass ) )
+    //æ³¨å†Œçª—å£ç±»
+    if (!RegisterClass(&wndclass))
     {
-        MessageBox( NULL, TEXT("´íÎó, ´°¿Ú×¢²áÊ§°Ü!"), TEXT("´íÎó"), MB_OK | MB_ICONERROR ) ;
-        return 0 ;
+        MessageBox(NULL, TEXT("é”™è¯¯, çª—å£æ³¨å†Œå¤±è´¥!"), TEXT("é”™è¯¯"), MB_OK | MB_ICONERROR);
+        return 0;
     }
-    
-    //´´½¨´°¿Ú
-    hwnd = CreateWindow(szAppName, TEXT("´°ÌåÕñ¶¯"),
-        WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 
-        CW_USEDEFAULT, CW_USEDEFAULT,
-        NULL, NULL, hInstance, NULL );
 
-    //ÏÔÊ¾´°¿Ú
-    ShowWindow( hwnd, iCmdShow ) ;
-    UpdateWindow( hwnd ) ;
+    //åˆ›å»ºçª—å£
+    hwnd = CreateWindow(szAppName, TEXT("çª—ä½“æŒ¯åŠ¨"),
+                        WS_OVERLAPPEDWINDOW,
+                        CW_USEDEFAULT, CW_USEDEFAULT,
+                        CW_USEDEFAULT, CW_USEDEFAULT,
+                        NULL, NULL, hInstance, NULL);
 
-    //»ñÈ¡¡¢·­Òë¡¢·Ö·¢ÏûÏ¢
-    while( GetMessage( &msg, NULL, 0, 0 ) )
+    //æ˜¾ç¤ºçª—å£
+    ShowWindow(hwnd, iCmdShow);
+    UpdateWindow(hwnd);
+
+    //è·å–ã€ç¿»è¯‘ã€åˆ†å‘æ¶ˆæ¯
+    while (GetMessage(&msg, NULL, 0, 0))
     {
-        TranslateMessage( &msg ) ;
-        DispatchMessage( &msg ) ;
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
     }
-    return msg.wParam ;
+    return msg.wParam;
 }
 
-LRESULT CALLBACK WndProc( HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    HDC hdc ;
-    PAINTSTRUCT ps ;
-	static int inc=0;
+    HDC hdc;
+    PAINTSTRUCT ps;
+    static int inc = 0;
 
-    switch(message)
+    switch (message)
     {
-	case WM_CREATE:
-		//MoveWindow(hwnd,0,100,500,500,0);
-		SetTimer(hwnd,1,10,0);
-		break;
-    case WM_TIMER:    //´¦ÀíWM_PAINTÏûÏ¢
-		if(inc>320)break;
-		inc+=10;
-		MoveWindow(hwnd,400+3*sin(inc),100+3*cos(inc),500,500,0);
-		MessageBeep(0);
-		break;
-    case WM_DESTROY:    //´¦ÀíWM_DESTROYÏûÏ¢
-        PostQuitMessage(0) ;
-        return 0 ;
+    case WM_CREATE:
+        //MoveWindow(hwnd,0,100,500,500,0);
+        SetTimer(hwnd, 1, 10, 0);
+        break;
+    case WM_TIMER: //å¤„ç†WM_PAINTæ¶ˆæ¯
+        if (inc > 320)
+            break;
+        inc += 10;
+        MoveWindow(hwnd, 400 + 3 * sin(inc), 100 + 3 * cos(inc), 500, 500, 0);
+        MessageBeep(0);
+        break;
+    case WM_DESTROY: //å¤„ç†WM_DESTROYæ¶ˆæ¯
+        PostQuitMessage(0);
+        return 0;
     }
 
-    return DefWindowProc( hwnd, message, wParam, lParam ) ;
+    return DefWindowProc(hwnd, message, wParam, lParam);
 }

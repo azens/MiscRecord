@@ -4,52 +4,53 @@
 #include <windows.h>
 
 typedef unsigned char byte;
-typedef struct tagImage {
-	int Width,Height;
+typedef struct tagImage
+{
+	int Width, Height;
 	byte *Data;
-}Image;
-void WriteBMP(Image img,const char* filename)
+} Image;
+
+void WriteBMP(Image img, const char *filename)
 {
 	FILE *fpBmp;
-	int line=(img.Width*3%4==0)?(img.Width*3):(img.Width*3/4+1)*4;
-	printf("%d\n",line);
-	BITMAPFILEHEADER bmf= {
-		0x4d42,img.Height*line+54,0,0,54
-	};
-	BITMAPINFO bmi= {40,img.Width,img.Height,1,3*8,0,
-	                 img.Height*line,0,0,100,0
-	                };
-	fpBmp = fopen(filename,"wb");
-	fwrite(&bmf,14,1,fpBmp);
-	fwrite(&bmi.bmiHeader,40,1,fpBmp);
-	fwrite(img.Data,1,bmf.bfSize,fpBmp);
+	int line = (img.Width * 3 % 4 == 0) ? (img.Width * 3) : (img.Width * 3 / 4 + 1) * 4;
+	printf("%d\n", line);
+	BITMAPFILEHEADER bmf = {
+		0x4d42, img.Height * line + 54, 0, 0, 54};
+	BITMAPINFO bmi = {40, img.Width, img.Height, 1, 3 * 8, 0,
+					  img.Height * line, 0, 0, 100, 0};
+	fpBmp = fopen(filename, "wb");
+	fwrite(&bmf, 14, 1, fpBmp);
+	fwrite(&bmi.bmiHeader, 40, 1, fpBmp);
+	fwrite(img.Data, 1, bmf.bfSize, fpBmp);
 	fclose(fpBmp);
 }
 void Save(HWND hWnd)
 {
-	if (hWnd == NULL) return;
+	if (hWnd == NULL)
+		return;
 
 	RECT rectClient;
 	GetClientRect(hWnd, &rectClient);
 	int width = rectClient.right - rectClient.left;
 	int height = rectClient.bottom - rectClient.top;
 
-	// Õ®π˝ƒ⁄¥ÊDC∏¥÷∆øÕªß«¯µΩDDBŒªÕº
+	// ÈÄöËøáÂÜÖÂ≠òDCÂ§çÂà∂ÂÆ¢Êà∑Âå∫Âà∞DDB‰ΩçÂõæ
 	HDC hdcWnd = GetDC(hWnd);
 	HBITMAP hbmWnd = CreateCompatibleBitmap(hdcWnd, width, height);
 	HDC hdcMem = CreateCompatibleDC(hdcWnd);
 	SelectObject(hdcMem, hbmWnd);
 	BitBlt(hdcMem, 0, 0, width, height, hdcWnd, 0, 0, SRCCOPY);
 
-	// ∞—¥∞ø⁄DDB◊™Œ™DIB
+	// ÊääÁ™óÂè£DDBËΩ¨‰∏∫DIB
 	BITMAP bmpWnd;
 	GetObject(hbmWnd, sizeof(BITMAP), &bmpWnd);
-	BITMAPINFOHEADER bi; // –≈œ¢Õ∑
+	BITMAPINFOHEADER bi; // ‰ø°ÊÅØÂ§¥
 	bi.biSize = sizeof(BITMAPINFOHEADER);
 	bi.biWidth = bmpWnd.bmWidth;
 	bi.biHeight = bmpWnd.bmHeight;
 	bi.biPlanes = 1;
-	bi.biBitCount = 24; // ∞¥’’√ø∏ˆœÒÀÿ”√32bits±Ì æ◊™ªª
+	bi.biBitCount = 24; // ÊåâÁÖßÊØè‰∏™ÂÉèÁ¥†Áî®32bitsË°®Á§∫ËΩ¨Êç¢
 	bi.biCompression = BI_RGB;
 	bi.biSizeImage = 0;
 	bi.biXPelsPerMeter = 0;
@@ -57,38 +58,39 @@ void Save(HWND hWnd)
 	bi.biClrUsed = 0;
 	bi.biClrImportant = 0;
 
-	DWORD dwBmpSize = ((bmpWnd.bmWidth * bi.biBitCount + 31) / 32) * 4 * bmpWnd.bmHeight; // √ø“ª––œÒÀÿŒª32∂‘∆Î
-	char *lpbitmap = (char*)malloc(dwBmpSize); // œÒÀÿŒª÷∏’Î
+	DWORD dwBmpSize = ((bmpWnd.bmWidth * bi.biBitCount + 31) / 32) * 4 * bmpWnd.bmHeight; // ÊØè‰∏ÄË°åÂÉèÁ¥†‰Ωç32ÂØπÈΩê
+	char *lpbitmap = (char *)malloc(dwBmpSize);											  // ÂÉèÁ¥†‰ΩçÊåáÈíà
 	GetDIBits(hdcMem, hbmWnd, 0, (UINT)bmpWnd.bmHeight,
-	          lpbitmap,
-	          (BITMAPINFO*)&bi,
-	          DIB_RGB_COLORS);
+			  lpbitmap,
+			  (BITMAPINFO *)&bi,
+			  DIB_RGB_COLORS);
 
 	DeleteDC(hdcMem);
 	DeleteObject(hbmWnd);
 	ReleaseDC(hWnd, hdcWnd);
 	Image img;
-	img.Data=lpbitmap;
-	img.Width=bi.biWidth;
-	img.Height=bi.biHeight;
-	WriteBMP(img,"test.bmp");
+	img.Data = lpbitmap;
+	img.Width = bi.biWidth;
+	img.Height = bi.biHeight;
+	WriteBMP(img, "test.bmp");
 }
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM w, LPARAM l)
 {
-	HDC hdc;// = GetDC(hwnd);
+	HDC hdc; // = GetDC(hwnd);
 	PAINTSTRUCT ps;
-	switch (msg) {
+	switch (msg)
+	{
 	case WM_DESTROY:
 		PostQuitMessage(1);
 		break;
 	case WM_PAINT:
-		hdc=BeginPaint(hwnd,&ps);
+		hdc = BeginPaint(hwnd, &ps);
 		//BitBlt(hdc,0,0,1366,768,GetDC(GetDesktopWindow()),0,0,SRCCOPY);
 		// Save(GetDesktopWindow());
-		SetStretchBltMode(hdc,STRETCH_HALFTONE);
-		StretchBlt(hdc,0,0,400,400,GetDC(GetDesktopWindow()),0,0,1366,768,SRCCOPY);
-		
-		EndPaint(hwnd,&ps);
+		SetStretchBltMode(hdc, STRETCH_HALFTONE);
+		StretchBlt(hdc, 0, 0, 400, 400, GetDC(GetDesktopWindow()), 0, 0, 1366, 768, SRCCOPY);
+
+		EndPaint(hwnd, &ps);
 		break;
 	default:
 		return DefWindowProc(hwnd, msg, w, l);
@@ -98,16 +100,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM w, LPARAM l)
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR lp, int n)
 {
 	MSG msg;
-	WNDCLASS wc = { sizeof(WNDCLASS) };
+	WNDCLASS wc = {sizeof(WNDCLASS)};
 	char c[] = "theclass", t[] = "test";
 	wc.lpszClassName = c;
 	wc.lpfnWndProc = WndProc;
 	wc.hCursor = LoadCursor(0, IDC_ARROW);
 	RegisterClass(&wc);
-	HWND hwnd = CreateWindow(c, t, WS_SYSMENU, 350, 120, 500, 500,0, 0, hInst, 0);
-	ShowWindow(hwnd,SW_SHOW);
+	HWND hwnd = CreateWindow(c, t, WS_SYSMENU, 350, 120, 500, 500, 0, 0, hInst, 0);
+	ShowWindow(hwnd, SW_SHOW);
 	UpdateWindow(hwnd);
-	while (GetMessage(&msg, 0, 0, 0)) {
+	while (GetMessage(&msg, 0, 0, 0))
+	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}

@@ -1,21 +1,21 @@
 #include <Windows.h>
 // #include <WindowsX.h>
-#include <CommCtrl.h> //°üº¬Í·ÎÄ¼ş
-// µ¼Èë¾²Ì¬¿â
+#include <CommCtrl.h> //åŒ…å«å¤´æ–‡ä»¶
+// å¯¼å…¥é™æ€åº“
 #pragma comment(lib, "Comctl32.lib")
-// ¿ªÆôÊÓ¾õĞ§¹û Copy from MSDN
+// å¼€å¯è§†è§‰æ•ˆæœ Copy from MSDN
 #pragma comment(linker,"\"/manifestdependency:type='win32' \
 name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
 processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
-// ÏÈÉùÃ÷Ò»¸öWindowProc»Øµ÷
+// å…ˆå£°æ˜ä¸€ä¸ªWindowProcå›è°ƒ
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-// Èë¿Úµã
+// å…¥å£ç‚¹
 int WINAPI wWinMain(HINSTANCE hTheApp, HINSTANCE hPrevApp, LPWSTR lpCmd, int nShow)
 {
-    PCWSTR cn = L"My"; // ´°¿ÚÃû
-    PCWSTR tt = L"Ó¦ÓÃ³ÌĞò"; // ´°¿Ú±êÌâ
-                         // Éè¼Æ´°¿ÚÀà
+    PCWSTR cn = L"My"; // çª—å£å
+    PCWSTR tt = L"åº”ç”¨ç¨‹åº"; // çª—å£æ ‡é¢˜
+                         // è®¾è®¡çª—å£ç±»
     WNDCLASS wc = { sizeof(WNDCLASS) };
     wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
     wc.lpfnWndProc = WindowProc;
@@ -23,97 +23,97 @@ int WINAPI wWinMain(HINSTANCE hTheApp, HINSTANCE hPrevApp, LPWSTR lpCmd, int nSh
     LoadIconMetric(hTheApp, IDI_APPLICATION, LIM_SMALL, &wc.hIcon);
     wc.lpszClassName = cn;
     wc.hInstance = hTheApp;
-    RegisterClass(&wc); // ×¢²á´°¿ÚÀà
-                        // ´´½¨´°¿Ú
+    RegisterClass(&wc); // æ³¨å†Œçª—å£ç±»
+                        // åˆ›å»ºçª—å£
     HWND hwnd = CreateWindow(cn, tt, WS_OVERLAPPEDWINDOW,
         28, 34, 400, 330, NULL, NULL, hTheApp, NULL);
     if (!hwnd)
-    { /* Èç¹û´°¿Ú´´½¨Ê§°Ü£¬
-      ÄÇ¼ÌĞøÖ´ĞĞÒ²Ã»ÓĞÒâÒå
-      ³¤Í´²»Èç¶ÌÍ´£¬½áÊø°É¡£
+    { /* å¦‚æœçª—å£åˆ›å»ºå¤±è´¥ï¼Œ
+      é‚£ç»§ç»­æ‰§è¡Œä¹Ÿæ²¡æœ‰æ„ä¹‰
+      é•¿ç—›ä¸å¦‚çŸ­ç—›ï¼Œç»“æŸå§ã€‚
       */
         return 0;
     }
-    ShowWindow(hwnd, nShow); //ÏÔÊ¾´°¿Ú
-    UpdateWindow(hwnd); //¸üĞÂ´°¿Ú
-                        // ÏûÏ¢Ñ­»·
+    ShowWindow(hwnd, nShow); //æ˜¾ç¤ºçª—å£
+    UpdateWindow(hwnd); //æ›´æ–°çª—å£
+                        // æ¶ˆæ¯å¾ªç¯
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0))
     {
         TranslateMessage(&msg);
-        DispatchMessage(&msg); //µ÷¶ÈÏûÏ¢µ½WindowProc»Øµ÷
+        DispatchMessage(&msg); //è°ƒåº¦æ¶ˆæ¯åˆ°WindowProcå›è°ƒ
     }
     return 0;
 }
 
 /*-----------------------------------------------------------------*/
-//¿Ø¼şID
+//æ§ä»¶ID
 #define IDC_RADBTN1			50001
 #define IDC_RADBTN2			50002
 #define IDC_RADBTN3			50003
 #define IDC_RADBTNBLUE		51001
 #define IDC_RADBTNRED		51002
 #define IDC_RADBTNGREEN		51003
-#define IDC_BTN_OK			1107 //È·¶¨°´Å¥ID
+#define IDC_BTN_OK			1107 //ç¡®å®šæŒ‰é’®ID
 /*-----------------------------------------------------------------*/
-// ÏûÏ¢´¦Àíº¯Êı
+// æ¶ˆæ¯å¤„ç†å‡½æ•°
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     switch (msg)
     {
     case WM_CREATE:
     {
-        // »ñÈ¡µ±Ç°ÊµÀı¾ä±ú
+        // è·å–å½“å‰å®ä¾‹å¥æŸ„
         HINSTANCE hthisapp = (HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE);
-        // ×İ×ø±ê£¬¿Ø¼ş½«ÒÔ´Ë×÷Îª»ù×¼£¬
-        // ÅÅÁĞÊ±ÒÀ´ÎÔö¼Ó
+        // çºµåæ ‡ï¼Œæ§ä»¶å°†ä»¥æ­¤ä½œä¸ºåŸºå‡†ï¼Œ
+        // æ’åˆ—æ—¶ä¾æ¬¡å¢åŠ 
         int yLoc = 0;
-        // ÓÃÀ´ÏÔÊ¾ÎÄ±¾
+        // ç”¨æ¥æ˜¾ç¤ºæ–‡æœ¬
         yLoc += 10;
-        CreateWindow(L"Static", L"ÇëÎÊÄãµÄĞÔ±ğÊÇ£º",
+        CreateWindow(L"Static", L"è¯·é—®ä½ çš„æ€§åˆ«æ˜¯ï¼š",
             SS_SIMPLE | WS_CHILD | WS_VISIBLE,
             10, yLoc, 160, 18,
             hwnd, NULL,
             hthisapp,
             NULL);
-        // µÚÒ»×éµ¥Ñ¡°´Å¥
+        // ç¬¬ä¸€ç»„å•é€‰æŒ‰é’®
         yLoc += 22;
-        CreateWindow(L"Button", L"ÄĞ",
+        CreateWindow(L"Button", L"ç”·",
             WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON | WS_GROUP,
             12, yLoc, 60, 16,
             hwnd,
             (HMENU)IDC_RADBTN1,
             hthisapp, NULL);
         yLoc += 20;
-        CreateWindow(L"Button", L"Å®",
+        CreateWindow(L"Button", L"å¥³",
             WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
             12, yLoc, 60, 16,
             hwnd, (HMENU)IDC_RADBTN2, hthisapp, NULL);
         yLoc += 20;
-        CreateWindow(L"Button", L"ÈËÑı", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
+        CreateWindow(L"Button", L"äººå¦–", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
             12, yLoc, 60, 16, hwnd, (HMENU)IDC_RADBTN3, hthisapp, NULL);
-        // ÏÔÊ¾ÎÄ±¾
+        // æ˜¾ç¤ºæ–‡æœ¬
         yLoc += 38;
-        CreateWindow(L"Static", L"ÄãÏ²»¶ÄÄÒ»ÖÖÑÕÉ«£¿",
+        CreateWindow(L"Static", L"ä½ å–œæ¬¢å“ªä¸€ç§é¢œè‰²ï¼Ÿ",
             WS_CHILD | WS_VISIBLE | SS_SIMPLE,
             10, yLoc, 150, 18, hwnd, NULL, hthisapp, NULL);
-        //µÚ¶ş×éµ¥Ñ¡°´Å¥
+        //ç¬¬äºŒç»„å•é€‰æŒ‰é’®
         yLoc += 22;
-        CreateWindow(L"Button", L"À¶É«", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON | WS_GROUP,
+        CreateWindow(L"Button", L"è“è‰²", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON | WS_GROUP,
             12, yLoc, 60, 16, hwnd, (HMENU)IDC_RADBTNBLUE, hthisapp, NULL);
         yLoc += 20;
-        CreateWindow(L"Button", L"ºìÉ«", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
+        CreateWindow(L"Button", L"çº¢è‰²", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
             12, yLoc, 60, 16, hwnd, (HMENU)IDC_RADBTNRED, hthisapp, NULL);
         yLoc += 20;
-        CreateWindow(L"Button", L"ÂÌÉ«", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
+        CreateWindow(L"Button", L"ç»¿è‰²", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
             12, yLoc, 60, 16, hwnd, (HMENU)IDC_RADBTNGREEN, hthisapp, NULL);
-        // ´´½¨Ò»¸öÈ·¶¨°´Å¥
-        CreateWindow(L"Button", L"È·¶¨", WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+        // åˆ›å»ºä¸€ä¸ªç¡®å®šæŒ‰é’®
+        CreateWindow(L"Button", L"ç¡®å®š", WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
             230, 180, 80, 27, hwnd, (HMENU)IDC_BTN_OK, hthisapp, NULL);
     }
     return 0;
     case WM_DESTROY:
-        PostQuitMessage(0); //Æ½°²ÍË³ö
+        PostQuitMessage(0); //å¹³å®‰é€€å‡º
         return 0;
     default:
         return DefWindowProc(hwnd, msg, wParam, lParam);

@@ -1,49 +1,47 @@
 
 #pragma warning(disable : 4786)
-#pragma  comment(lib,"GdiPlus.lib")
+#pragma comment(lib, "GdiPlus.lib")
 #include <windows.h>
 #include <stdio.h>
 #include <iostream>
 #include <vector>
 #include <string>
-#define ULONG_PTR void*
-#include <GdiPlus.h>			/*ÓÃÓÚÏÔÊ¾BMP¡¢JPGÎÄ¼şµÄ¿â*/
-const int KEY_VALUE_B = 66;		/*B¼üÖµ*/
-const int KEY_VALUE_S = 83;		/*S¼üÖµ*/
-const int RANGE_MAX = 100;		/*¹ö¶¯Ìõ·¶Î§*/
+#define ULONG_PTR void *
+#include <GdiPlus.h>		/*ç”¨äºæ˜¾ç¤ºBMPã€JPGæ–‡ä»¶çš„åº“*/
+const int KEY_VALUE_B = 66; /*Bé”®å€¼*/
+const int KEY_VALUE_S = 83; /*Sé”®å€¼*/
+const int RANGE_MAX = 100;  /*æ»šåŠ¨æ¡èŒƒå›´*/
 using namespace std;
 using namespace Gdiplus;
 
-
 // Global Variables:
-static int iAllBmpJpg = 0;				/*µ±Ç°Ä¿Â¼ÏÂËùÓĞBMP¡¢JPGÎÄ¼şÊı*/
-static int iCurBmpJpg = 0;				/*µ±Ç°ÎÄ¼şÊı*/
-static double fMultiple = 1.0;			/*Ä¬ÈÏ·Å´ó±¶ÊıÎª1*/
-static const double fEnlarge = 1.2;		/*Ã¿´Î·Å´ó 20% */
+static int iAllBmpJpg = 0;			/*å½“å‰ç›®å½•ä¸‹æ‰€æœ‰BMPã€JPGæ–‡ä»¶æ•°*/
+static int iCurBmpJpg = 0;			/*å½“å‰æ–‡ä»¶æ•°*/
+static double fMultiple = 1.0;		/*é»˜è®¤æ”¾å¤§å€æ•°ä¸º1*/
+static const double fEnlarge = 1.2; /*æ¯æ¬¡æ”¾å¤§ 20% */
 
-										// Foward declarations of functions included in this code module:
-LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
-int GetBmpJpg(std::vector<std::string>& oBJPicture);
-wchar_t* ChrToWChr(const char* buffer);
-
+// Foward declarations of functions included in this code module:
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+int GetBmpJpg(std::vector<std::string> &oBJPicture);
+wchar_t *ChrToWChr(const char *buffer);
 
 /*
-¹¦ÄÜËµÃ÷£º		Ö÷º¯Êı£¬Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã£¬³õÊ¼»¯Ó¦ÓÃ³ÌĞò£¬ÏÔÊ¾Ö÷´°¿Ú£¬½øÈëÒ»¸öÏûÏ¢½ÓÊÕÒ»·¢ËÍÑ­»·
-ÊäÈç²ÎÊıËµÃ÷£º
-Êä³ö²ÎÊıËµÃ÷£º
-·µ»ØÖµËµÃ÷£º
-±¸×¢£º
+åŠŸèƒ½è¯´æ˜ï¼š		ä¸»å‡½æ•°ï¼Œåº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ï¼Œåˆå§‹åŒ–åº”ç”¨ç¨‹åºï¼Œæ˜¾ç¤ºä¸»çª—å£ï¼Œè¿›å…¥ä¸€ä¸ªæ¶ˆæ¯æ¥æ”¶ä¸€å‘é€å¾ªç¯
+è¾“å¦‚å‚æ•°è¯´æ˜ï¼š
+è¾“å‡ºå‚æ•°è¯´æ˜ï¼š
+è¿”å›å€¼è¯´æ˜ï¼š
+å¤‡æ³¨ï¼š
 */
 
 int main()
 {
-	HINSTANCE hInstance=NULL;
+	HINSTANCE hInstance = NULL;
 	PSTR szCmdLine;
 	int iCmdShow;
 	static TCHAR szAppName[] = TEXT("Bricks1");
-	HWND                         hwnd;
-	MSG                           msg;
-	WNDCLASS                      wndclass;
+	HWND hwnd;
+	MSG msg;
+	WNDCLASS wndclass;
 	wndclass.style = CS_HREDRAW | CS_VREDRAW;
 	wndclass.lpfnWndProc = WndProc;
 	wndclass.cbClsExtra = 0;
@@ -55,24 +53,26 @@ int main()
 	wndclass.lpszMenuName = NULL;
 	wndclass.lpszClassName = szAppName;
 
-	if (!RegisterClass(&wndclass)) {
+	if (!RegisterClass(&wndclass))
+	{
 		MessageBox(NULL, TEXT("This program requires Windows NT!"),
-			szAppName, MB_ICONERROR);
+				   szAppName, MB_ICONERROR);
 		return 0;
 	}
 
 	hwnd = CreateWindow(szAppName, TEXT("LoadBitmap Demo"),
-		WS_OVERLAPPEDWINDOW | WS_HSCROLL | WS_VSCROLL,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		NULL, NULL, hInstance, NULL);
+						WS_OVERLAPPEDWINDOW | WS_HSCROLL | WS_VSCROLL,
+						CW_USEDEFAULT, CW_USEDEFAULT,
+						CW_USEDEFAULT, CW_USEDEFAULT,
+						NULL, NULL, hInstance, NULL);
 
-	iCmdShow = SW_SHOWMAXIMIZED;	/*Ä¬ÈÏ×î´ó»¯´°¿Ú*/
+	iCmdShow = SW_SHOWMAXIMIZED; /*é»˜è®¤æœ€å¤§åŒ–çª—å£*/
 	ShowWindow(hwnd, iCmdShow);
 
 	UpdateWindow(hwnd);
 
-	while (GetMessage(&msg, NULL, 0, 0)) {
+	while (GetMessage(&msg, NULL, 0, 0))
+	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
@@ -80,52 +80,54 @@ int main()
 	return msg.wParam;
 }
 
-
-
 /*
-¹¦ÄÜËµÃ÷£º		Processes messages for the main window
+åŠŸèƒ½è¯´æ˜ï¼š		Processes messages for the main window
 WM_PAINT	- Paint the main window
 WM_DESTROY	- post a quit message and return
-ÊäÈç²ÎÊıËµÃ÷£º
-Êä³ö²ÎÊıËµÃ÷£º
-·µ»ØÖµËµÃ÷£º
-±¸×¢£º
+è¾“å¦‚å‚æ•°è¯´æ˜ï¼š
+è¾“å‡ºå‚æ•°è¯´æ˜ï¼š
+è¿”å›å€¼è¯´æ˜ï¼š
+å¤‡æ³¨ï¼š
 */
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT ps;
 	HDC hdc;
 	static POINT pt;
-	int iXSource = 0;						/*¼ÓÔØµÄÍ¼Æ¬¿í*/
-	int iYSource = 0;						/*¼ÓÔØµÄÍ¼Æ¬¸ß*/
-	char szCur[50] = { 0 };					/*´æ´¢ÕûĞÍiCurBmpJpg×ª»»³ÉµÄ×Ö·û´®*/
-	char szAll[50] = { 0 };					/*´æ´¢ÕûĞÍiAllBmpJpg×ª»»³ÉµÄ×Ö·û´®*/
-	std::string oShow;						/*ÏÔÊ¾Í¼Æ¬ĞÅÏ¢*/
-	std::vector<std::string> oPicture;		/*´æ·Åµ±Ç°Ä¿Â¼ÏÂBMP¡¢JPGÍ¼Æ¬ÎÄ¼şÃû*/
+	int iXSource = 0;				   /*åŠ è½½çš„å›¾ç‰‡å®½*/
+	int iYSource = 0;				   /*åŠ è½½çš„å›¾ç‰‡é«˜*/
+	char szCur[50] = {0};			   /*å­˜å‚¨æ•´å‹iCurBmpJpgè½¬æ¢æˆçš„å­—ç¬¦ä¸²*/
+	char szAll[50] = {0};			   /*å­˜å‚¨æ•´å‹iAllBmpJpgè½¬æ¢æˆçš„å­—ç¬¦ä¸²*/
+	std::string oShow;				   /*æ˜¾ç¤ºå›¾ç‰‡ä¿¡æ¯*/
+	std::vector<std::string> oPicture; /*å­˜æ”¾å½“å‰ç›®å½•ä¸‹BMPã€JPGå›¾ç‰‡æ–‡ä»¶å*/
 	SCROLLINFO si;
-	static int iVertPos = 0;				/*´¹Ö±¹ö¶¯ÌõµÄÎ»ÖÃ*/
-	static int iHorzPos = 0;				/*Ë®Æ½¹ö¶¯ÌõµÄÎ»ÖÃ*/
+	static int iVertPos = 0; /*å‚ç›´æ»šåŠ¨æ¡çš„ä½ç½®*/
+	static int iHorzPos = 0; /*æ°´å¹³æ»šåŠ¨æ¡çš„ä½ç½®*/
 
-	switch (message) {
-	case WM_SIZE: {					/*µ±È»¸Ã´°¿ÚµÚÒ»´ÎÏÔÊ¾Ê±£¬½«½ÓÊÕµ½¸ÃÏûÏ¢*/
+	switch (message)
+	{
+	case WM_SIZE:
+	{ /*å½“ç„¶è¯¥çª—å£ç¬¬ä¸€æ¬¡æ˜¾ç¤ºæ—¶ï¼Œå°†æ¥æ”¶åˆ°è¯¥æ¶ˆæ¯*/
 		si.cbSize = sizeof(SCROLLINFO);
 		si.fMask = SIF_RANGE | SIF_POS;
 		si.nPos = 0;
 		si.nMin = 0;
 		si.nMax = RANGE_MAX;
 
-		SetScrollInfo(hWnd, SB_VERT, &si, TRUE);	/*ÉèÖÃ´¹Ö±¹ö¶¯ÌõµÄ¹ö¶¯·¶Î§ºÍ³õÊ¼Î»ÖÃ*/
-		SetScrollInfo(hWnd, SB_HORZ, &si, TRUE);	/*ÉèÖÃË®Æ½¹ö¶¯ÌõµÄ¹ö¶¯·¶Î§ºÍ³õÊ¼Î»ÖÃ*/
+		SetScrollInfo(hWnd, SB_VERT, &si, TRUE); /*è®¾ç½®å‚ç›´æ»šåŠ¨æ¡çš„æ»šåŠ¨èŒƒå›´å’Œåˆå§‹ä½ç½®*/
+		SetScrollInfo(hWnd, SB_HORZ, &si, TRUE); /*è®¾ç½®æ°´å¹³æ»šåŠ¨æ¡çš„æ»šåŠ¨èŒƒå›´å’Œåˆå§‹ä½ç½®*/
 
 		break;
 	}
-	case WM_VSCROLL: {		/*´¹Ö±¹ö¶¯ÌõµÄÏûÏ¢*/
+	case WM_VSCROLL:
+	{ /*å‚ç›´æ»šåŠ¨æ¡çš„æ¶ˆæ¯*/
 		si.cbSize = sizeof(SCROLLINFO);
 		si.fMask = SIF_ALL;
 		GetScrollInfo(hWnd, SB_VERT, &si);
 		iVertPos = si.nPos;
 
-		switch (LOWORD(wParam)) {
+		switch (LOWORD(wParam))
+		{
 		case SB_TOP:
 			si.nPos = si.nMin;
 			break;
@@ -146,22 +148,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 
 		si.fMask = SIF_POS;
-		SetScrollInfo(hWnd, SB_VERT, &si, TRUE);	/*ÉèÖÃ´¹Ö±¹ö¶¯ÌõĞÂµÄÎ»ÖÃ*/
+		SetScrollInfo(hWnd, SB_VERT, &si, TRUE); /*è®¾ç½®å‚ç›´æ»šåŠ¨æ¡æ–°çš„ä½ç½®*/
 		GetScrollInfo(hWnd, SB_VERT, &si);
 
-		if (si.nPos != iVertPos) {	/*Î»ÖÃ·¢Éú¸Ä±äÊ±ÖØ»­*/
+		if (si.nPos != iVertPos)
+		{ /*ä½ç½®å‘ç”Ÿæ”¹å˜æ—¶é‡ç”»*/
 			iVertPos = si.nPos;
 			InvalidateRect(hWnd, NULL, FALSE);
 		}
 		break;
 	}
-	case WM_HSCROLL: {	/*Ë®Æ½¹ö¶¯ÌõµÄÏûÏ¢*/
+	case WM_HSCROLL:
+	{ /*æ°´å¹³æ»šåŠ¨æ¡çš„æ¶ˆæ¯*/
 		si.cbSize = sizeof(SCROLLINFO);
 		si.fMask = SIF_ALL;
 		GetScrollInfo(hWnd, SB_HORZ, &si);
 		iHorzPos = si.nPos;
 
-		switch (LOWORD(wParam)) {
+		switch (LOWORD(wParam))
+		{
 		case SB_LEFT:
 			si.nPos = si.nMin;
 			break;
@@ -181,41 +186,43 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 
 		si.fMask = SIF_POS;
-		SetScrollInfo(hWnd, SB_HORZ, &si, TRUE);	/*ÉèÖÃË®Æ½¹ö¶¯ÌõĞÂµÄÎ»ÖÃ*/
+		SetScrollInfo(hWnd, SB_HORZ, &si, TRUE); /*è®¾ç½®æ°´å¹³æ»šåŠ¨æ¡æ–°çš„ä½ç½®*/
 		GetScrollInfo(hWnd, SB_HORZ, &si);
 
-		if (iHorzPos != si.nPos) {	/*Î»ÖÃ·¢Éú¸Ä±äÊ±ÖØ»­*/
+		if (iHorzPos != si.nPos)
+		{ /*ä½ç½®å‘ç”Ÿæ”¹å˜æ—¶é‡ç”»*/
 			iHorzPos = si.nPos;
 			InvalidateRect(hWnd, NULL, FALSE);
 		}
 		break;
 	}
-	case WM_PAINT: {
+	case WM_PAINT:
+	{
 		hdc = BeginPaint(hWnd, &ps);
 		RECT rect;
 		GetClientRect(hWnd, &rect);
 
-
-#if 0		/*±¾³ÌĞòÓÃµÄÊÇGDI+Ë«»º³å*/
-		/*GDI Ë«»º³å*/
+#if 0 /*æœ¬ç¨‹åºç”¨çš„æ˜¯GDI+åŒç¼“å†²*/
+		/*GDI åŒç¼“å†²*/
 		hdcMem = CreateCompatibleDC(hdc);
 		hMemBitMap = CreateCompatibleBitmap(hdcMem, rect.right - rect.left, rect.bottom - rect.top);
 		SelectObject(hdcMem, hMemBitMap);
 
-		/*Ìî³äÄÚ´æ±³¾°Î»Í¼Îª°×É«*/
+		/*å¡«å……å†…å­˜èƒŒæ™¯ä½å›¾ä¸ºç™½è‰²*/
 		hBrush = CreateSolidBrush(RGB(0xff, 0xff, 0x00));
 		FillRect(hdcMem, &rect, hBrush);
 		//SetBkColor(hdcMem, RGB(0xff, 0x00, 0xff));
 #endif
 
-		/*µÃµ½µ±Ç°Ä¿Â¼ÏÂËùÓĞBMP¡¢JPGÎÄ¼ş*/
+		/*å¾—åˆ°å½“å‰ç›®å½•ä¸‹æ‰€æœ‰BMPã€JPGæ–‡ä»¶*/
 		iAllBmpJpg = GetBmpJpg(oPicture);
-		if (iAllBmpJpg == 0) {
+		if (iAllBmpJpg == 0)
+		{
 			MessageBox(NULL, "there are not bmp jpg picture!", NULL, MB_OK);
 			exit(0);
 		}
 
-		/*Ê¹oShow°üº¬ÕâĞ©ÏÔÊ¾ĞÅÏ¢£ºiCurBmpJpg¡¢iBmpJpg¡¢µ±Ç°ÎÄ¼şÃû*/
+		/*ä½¿oShowåŒ…å«è¿™äº›æ˜¾ç¤ºä¿¡æ¯ï¼šiCurBmpJpgã€iBmpJpgã€å½“å‰æ–‡ä»¶å*/
 		itoa(iCurBmpJpg + 1, szCur, 10);
 		itoa(iAllBmpJpg, szAll, 10);
 		oShow += szCur;
@@ -224,15 +231,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		oShow += "\n";
 		oShow += oPicture[iCurBmpJpg];
 
-		/*°Ñµ±Ç°Í¼Æ¬ÎÄ¼şÃûcharĞÍ×ª»»³ÉWCHARĞÍ*/
+		/*æŠŠå½“å‰å›¾ç‰‡æ–‡ä»¶åcharå‹è½¬æ¢æˆWCHARå‹*/
 		wchar_t *pwFileName = NULL;
 		pwFileName = ChrToWChr(oPicture[iCurBmpJpg].c_str());
-		if (NULL == pwFileName) {
+		if (NULL == pwFileName)
+		{
 			MessageBox(NULL, "pwFileName is NULL!", NULL, MB_OK);
 			exit(0);
 		}
 
-		/*¼ÓÔØÍ¼Æ¬*/
+		/*åŠ è½½å›¾ç‰‡*/
 		Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 		ULONG_PTR gdiplusToken;
 		Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
@@ -240,91 +248,95 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		iXSource = pImage->GetWidth();
 		iYSource = pImage->GetHeight();
 
-		/*Í¼Æ¬Î´³¬¹ı´°¿ÚÊ±Òş²Ø¹ö¶¯Ìõ*/
-		if (iXSource * fMultiple < rect.right - rect.left) {	/*Í¼Æ¬Ë®Æ½·½ÏòÎ´³¬¹ı´°¿ÚÊ±£¬Òş²ØË®Æ½¹ö¶¯Ìõ*/
+		/*å›¾ç‰‡æœªè¶…è¿‡çª—å£æ—¶éšè—æ»šåŠ¨æ¡*/
+		if (iXSource * fMultiple < rect.right - rect.left)
+		{ /*å›¾ç‰‡æ°´å¹³æ–¹å‘æœªè¶…è¿‡çª—å£æ—¶ï¼Œéšè—æ°´å¹³æ»šåŠ¨æ¡*/
 			si.cbSize = sizeof(SCROLLINFO);
 			si.fMask = SIF_PAGE;
-			si.nPage = si.nMax;		/*Ò³Ãæ´óĞ¡´óÓÚµÈÓÚ¹ö¶¯Ìõ·¶Î§£¬WindowsÍ¨³£Òş²Ø¹ö¶¯Ìõ*/
+			si.nPage = si.nMax; /*é¡µé¢å¤§å°å¤§äºç­‰äºæ»šåŠ¨æ¡èŒƒå›´ï¼ŒWindowsé€šå¸¸éšè—æ»šåŠ¨æ¡*/
 			SetScrollInfo(hWnd, SB_HORZ, &si, TRUE);
 		}
-		else {												/*Í¼Æ¬Ë®Æ½·½Ïò³¬¹ı´°¿ÚÊ±£¬ÏÔÊ¾Ë®Æ½¹ö¶¯Ìõ*/
+		else
+		{ /*å›¾ç‰‡æ°´å¹³æ–¹å‘è¶…è¿‡çª—å£æ—¶ï¼Œæ˜¾ç¤ºæ°´å¹³æ»šåŠ¨æ¡*/
 			si.cbSize = sizeof(SCROLLINFO);
 			si.fMask = SIF_PAGE;
-			si.nPage = 0;			/*Ò³Ãæ´óĞ¡Ğ¡ÓÚ¹ö¶¯Ìõ·¶Î§£¬ÏÔÊ¾¹ö¶¯Ìõ*/
+			si.nPage = 0; /*é¡µé¢å¤§å°å°äºæ»šåŠ¨æ¡èŒƒå›´ï¼Œæ˜¾ç¤ºæ»šåŠ¨æ¡*/
 			SetScrollInfo(hWnd, SB_HORZ, &si, TRUE);
 		}
 
-		if (iYSource * fMultiple < rect.bottom - rect.top) {	/*Í¼Æ¬´¹Ö±·½ÏòÎ´³¬¹ı´°¿ÚÊ±£¬Òş²Ø´¹Ö±¹ö¶¯Ìõ*/
+		if (iYSource * fMultiple < rect.bottom - rect.top)
+		{ /*å›¾ç‰‡å‚ç›´æ–¹å‘æœªè¶…è¿‡çª—å£æ—¶ï¼Œéšè—å‚ç›´æ»šåŠ¨æ¡*/
 			si.cbSize = sizeof(SCROLLINFO);
 			si.fMask = SIF_PAGE;
 			si.nPage = si.nMax;
 			SetScrollInfo(hWnd, SB_VERT, &si, TRUE);
 		}
-		else {												/*Í¼Æ¬´¹Ö±·½Ïò³¬¹ı´°¿ÚÊ±£¬ÏÔÊ¾´¹Ö±¹ö¶¯Ìõ*/
+		else
+		{ /*å›¾ç‰‡å‚ç›´æ–¹å‘è¶…è¿‡çª—å£æ—¶ï¼Œæ˜¾ç¤ºå‚ç›´æ»šåŠ¨æ¡*/
 			si.cbSize = sizeof(SCROLLINFO);
 			si.fMask = SIF_PAGE;
 			si.nPage = 0;
 			SetScrollInfo(hWnd, SB_VERT, &si, TRUE);
 		}
 
-		/*´´½¨ÄÚ´æÎ»Í¼,ÓÃÓÚË«»º³å*/
+		/*åˆ›å»ºå†…å­˜ä½å›¾,ç”¨äºåŒç¼“å†²*/
 		Bitmap *pMemBitmap = new Bitmap(rect.right - rect.left, rect.bottom - rect.top);
-		if (NULL == pMemBitmap) {
+		if (NULL == pMemBitmap)
+		{
 			exit(1);
 		}
 		Graphics graphicsMemBitmap(pMemBitmap);
-		// ¼ÆËãÎ»ÖÃ
-		
-		/*ÉèÖÃÄÚ´æÎ»Í¼µÄ±³¾°Îª°×É«*/
+		// è®¡ç®—ä½ç½®
+
+		/*è®¾ç½®å†…å­˜ä½å›¾çš„èƒŒæ™¯ä¸ºç™½è‰²*/
 		graphicsMemBitmap.Clear(Color::White);
 
-
-		/*½«¼ÓÔØµÄÍ¼Æ¬»­µ½ÄÚ´æÎ»Í¼£¬»­ÔÚÖĞ¼ä£¬µ±Í¼Æ¬ºÜ´óÊ±£¬¿ÉÒÔÊµÏÖ¹ö¶¯Ìõ¿´Í¼*/
+		/*å°†åŠ è½½çš„å›¾ç‰‡ç”»åˆ°å†…å­˜ä½å›¾ï¼Œç”»åœ¨ä¸­é—´ï¼Œå½“å›¾ç‰‡å¾ˆå¤§æ—¶ï¼Œå¯ä»¥å®ç°æ»šåŠ¨æ¡çœ‹å›¾*/
 		RectF rectMap(long((iXSource * fMultiple > rect.right - rect.left) ? rect.left : (rect.right - rect.left - iXSource * fMultiple) / 2),
-			long((iYSource * fMultiple > rect.bottom - rect.top) ? rect.top : (rect.bottom - rect.top - iYSource * fMultiple) / 2),
-			long((iXSource * fMultiple > rect.right - rect.left)
-				? rect.right - rect.left : iXSource * fMultiple),
-			long((iYSource * fMultiple > rect.bottom - rect.top)
-				? rect.bottom - rect.top : iYSource * fMultiple));
+					  long((iYSource * fMultiple > rect.bottom - rect.top) ? rect.top : (rect.bottom - rect.top - iYSource * fMultiple) / 2),
+					  long((iXSource * fMultiple > rect.right - rect.left)
+							   ? rect.right - rect.left
+							   : iXSource * fMultiple),
+					  long((iYSource * fMultiple > rect.bottom - rect.top)
+							   ? rect.bottom - rect.top
+							   : iYSource * fMultiple));
 
 		graphicsMemBitmap.DrawImage(pImage,
-			//int((rect.right - rect.left - iXSource * fMultiple) > 0 ? (rect.right - rect.left - iXSource * fMultiple)/2 : 0),
-			//int((rect.bottom - rect.top - iYSource * fMultiple) > 0 ? (rect.bottom - rect.top - iYSource * fMultiple)/2 : 0),
-			rectMap,
-			int((iXSource * fMultiple > rect.right - rect.left)
-				? (float(iHorzPos) / RANGE_MAX * (iXSource * fMultiple - (rect.right - rect.left))) / fMultiple : 0),
-			int((iYSource * fMultiple > rect.bottom - rect.top)
-				? (float(iVertPos) / RANGE_MAX * (iYSource * fMultiple - (rect.bottom - rect.top))) / fMultiple : 0),
-			int((iXSource * fMultiple > rect.right - rect.left) ? (rect.right - rect.left) / fMultiple : iXSource),
-			int((iYSource * fMultiple > rect.bottom - rect.top) ? (rect.bottom - rect.top) / fMultiple : iYSource),
-			UnitPixel);
+									//int((rect.right - rect.left - iXSource * fMultiple) > 0 ? (rect.right - rect.left - iXSource * fMultiple)/2 : 0),
+									//int((rect.bottom - rect.top - iYSource * fMultiple) > 0 ? (rect.bottom - rect.top - iYSource * fMultiple)/2 : 0),
+									rectMap,
+									int((iXSource * fMultiple > rect.right - rect.left)
+											? (float(iHorzPos) / RANGE_MAX * (iXSource * fMultiple - (rect.right - rect.left))) / fMultiple
+											: 0),
+									int((iYSource * fMultiple > rect.bottom - rect.top)
+											? (float(iVertPos) / RANGE_MAX * (iYSource * fMultiple - (rect.bottom - rect.top))) / fMultiple
+											: 0),
+									int((iXSource * fMultiple > rect.right - rect.left) ? (rect.right - rect.left) / fMultiple : iXSource),
+									int((iYSource * fMultiple > rect.bottom - rect.top) ? (rect.bottom - rect.top) / fMultiple : iYSource),
+									UnitPixel);
 
-
-		
-
-		/*ÔÚÄÚ´æÎ»Í¼ÉÏ»­µ±Ç°ÎÄ¼şÊı¡¢×ÜÎÄ¼şÊıºÍÎÄ¼şÃû*/
+		/*åœ¨å†…å­˜ä½å›¾ä¸Šç”»å½“å‰æ–‡ä»¶æ•°ã€æ€»æ–‡ä»¶æ•°å’Œæ–‡ä»¶å*/
 		SolidBrush solidBrush(Color(255, 0, 0, 0));
-	
 
-
-
-		/*½«ÄÚ´æÎ»Í¼»­µ½Éè±¸DC*/
+		/*å°†å†…å­˜ä½å›¾ç”»åˆ°è®¾å¤‡DC*/
 		Graphics graphics(hdc);
 		//graphics.Clear(Color::White);
 		printf("%d\n", pt.x);
-		graphics.DrawImage(pMemBitmap, (int)rect.left+pt.x, (int)rect.top+pt.y, (int)(rect.right - rect.left), (int)(rect.bottom - rect.top));
+		graphics.DrawImage(pMemBitmap, (int)rect.left + pt.x, (int)rect.top + pt.y, (int)(rect.right - rect.left), (int)(rect.bottom - rect.top));
 
-		
-		if (NULL != pwFileName) {
+		if (NULL != pwFileName)
+		{
 			delete[] pwFileName;
 			pwFileName = NULL;
 		}
-		
-		if (NULL != pImage) {
+
+		if (NULL != pImage)
+		{
 			delete pImage;
 			pImage = NULL;
 		}
-		if (NULL != pMemBitmap) {
+		if (NULL != pMemBitmap)
+		{
 			delete pMemBitmap;
 			pMemBitmap = NULL;
 		}
@@ -333,31 +345,42 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		EndPaint(hWnd, &ps);
 		break;
 	}
-				   
-	case WM_KEYDOWN: {	/*¼üÅÌÏûÏ¢*/
-		if (wParam == KEY_VALUE_B) {	/*B¼ü*/
-			if (fMultiple < 10.0) {	/*×î¶à·Å´óÊ®±¶*/
+
+	case WM_KEYDOWN:
+	{ /*é”®ç›˜æ¶ˆæ¯*/
+		if (wParam == KEY_VALUE_B)
+		{ /*Bé”®*/
+			if (fMultiple < 10.0)
+			{ /*æœ€å¤šæ”¾å¤§åå€*/
 				fMultiple *= fEnlarge;
 			}
 		}
-		else if (wParam == KEY_VALUE_S) {	/*S¼ü*/
-			if (fMultiple > 0.1) {	/*×î¶àËõĞ¡Ê®±¶*/
+		else if (wParam == KEY_VALUE_S)
+		{ /*Sé”®*/
+			if (fMultiple > 0.1)
+			{ /*æœ€å¤šç¼©å°åå€*/
 				fMultiple /= fEnlarge;
 			}
 		}
-		else if (wParam == VK_RIGHT) {	/*S¼ü*/
-			if (iCurBmpJpg < iAllBmpJpg - 1) {
+		else if (wParam == VK_RIGHT)
+		{ /*Sé”®*/
+			if (iCurBmpJpg < iAllBmpJpg - 1)
+			{
 				iCurBmpJpg++;
 			}
-			else if (iCurBmpJpg == iAllBmpJpg - 1) {	/*×îºóÒ»ÕÅÍ¼Æ¬£¬Ñ­»·£¬Ìøµ½µÚÒ»ÕÅ*/
+			else if (iCurBmpJpg == iAllBmpJpg - 1)
+			{ /*æœ€åä¸€å¼ å›¾ç‰‡ï¼Œå¾ªç¯ï¼Œè·³åˆ°ç¬¬ä¸€å¼ */
 				iCurBmpJpg = 0;
 			}
 		}
-		else if (wParam == VK_LEFT) {	/*S¼ü*/
-			if (iCurBmpJpg > 0) {
+		else if (wParam == VK_LEFT)
+		{ /*Sé”®*/
+			if (iCurBmpJpg > 0)
+			{
 				iCurBmpJpg--;
 			}
-			else if (iCurBmpJpg == 0) {	/*µÚÒ»ÕÅ£¬Ñ­»·£¬Ìøµ½×îºóÒ»ÕÅ*/
+			else if (iCurBmpJpg == 0)
+			{ /*ç¬¬ä¸€å¼ ï¼Œå¾ªç¯ï¼Œè·³åˆ°æœ€åä¸€å¼ */
 				iCurBmpJpg = iAllBmpJpg - 1;
 			}
 		}
@@ -379,83 +402,91 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		RECT rect;
 		GetClientRect(hWnd, &rect);
 		//cout << pt.x << " " << pt.y << endl;
-		pt.x = LOWORD(lParam) - (rect.left+rect.right)/2;
-		pt.y = HIWORD(lParam) - (rect.top+rect.bottom)/2;
-		cout<< pt.x <<" "<< pt.y <<endl;
+		pt.x = LOWORD(lParam) - (rect.left + rect.right) / 2;
+		pt.y = HIWORD(lParam) - (rect.top + rect.bottom) / 2;
+		cout << pt.x << " " << pt.y << endl;
 		//InvalidateRgn()
 		//SendMessage(hWnd, WM_ERASEBKGND, NULL, NULL);
 		InvalidateRect(hWnd, NULL, FALSE);
-		
+
 		UpdateWindow(hWnd);
 		//SendMessage(hWnd, WM_ERASEBKGND, NULL, NULL);
 		//SendMessage(hWnd, WM_PAINT, NULL, NULL);
 		break;
 	}
-	case WM_DESTROY: {
+	case WM_DESTROY:
+	{
 		PostQuitMessage(0);
 		break;
 	}
-	case WM_ERASEBKGND: {
+	case WM_ERASEBKGND:
+	{
 		break;
 	}
-	default: {
+	default:
+	{
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
-
 	}
 	return 0;
 }
 
 /*
-¹¦ÄÜËµÃ÷£º		µÃµ½µ±Ç°Ä¿Â¼ÏÂËùÓĞµÄBMP¡¢JPGÎÄ¼şÃû
-ÊäÈë²ÎÊıËµÃ÷£º
-Êä³ö²ÎÊıËµÃ÷£º	oBJPicture£º´æ´¢BMP¡¢JPGÎÄ¼şÃû
-·µ»ØÖµËµÃ÷£º	ËùÓĞµÄBMP¡¢JPGÎÄ¼ş¸öÊı
-±¸×¢£º
+åŠŸèƒ½è¯´æ˜ï¼š		å¾—åˆ°å½“å‰ç›®å½•ä¸‹æ‰€æœ‰çš„BMPã€JPGæ–‡ä»¶å
+è¾“å…¥å‚æ•°è¯´æ˜ï¼š
+è¾“å‡ºå‚æ•°è¯´æ˜ï¼š	oBJPictureï¼šå­˜å‚¨BMPã€JPGæ–‡ä»¶å
+è¿”å›å€¼è¯´æ˜ï¼š	æ‰€æœ‰çš„BMPã€JPGæ–‡ä»¶ä¸ªæ•°
+å¤‡æ³¨ï¼š
 */
-int GetBmpJpg(std::vector<std::string>& oBJPicture)
+int GetBmpJpg(std::vector<std::string> &oBJPicture)
 {
 	int iRet = 0;
-	HANDLE	hFile;
+	HANDLE hFile;
 	WIN32_FIND_DATA oFindDate;
 	string path = "D:\\Software\\MSYS2\\home\\user\\opengl\\allimg\\160124\\";
 #if 1
-	/*Ñ°ÕÒ.jpgÎÄ¼ş*/
+	/*å¯»æ‰¾.jpgæ–‡ä»¶*/
 	//cout << path + "*.jpg" << endl;
-	hFile = FindFirstFile((path+"*.jpg").c_str(), &oFindDate);
-	if (hFile == INVALID_HANDLE_VALUE) {
+	hFile = FindFirstFile((path + "*.jpg").c_str(), &oFindDate);
+	if (hFile == INVALID_HANDLE_VALUE)
+	{
 		//MessageBox(NULL, "FindFirstFile() failed!", NULL, MB_OK);
 		//return 0;
 		iRet = 0;
 	}
-	else {
+	else
+	{
 		iRet = 1;
 	}
-	while (iRet) {
-		oBJPicture.push_back(path+oFindDate.cFileName);
+	while (iRet)
+	{
+		oBJPicture.push_back(path + oFindDate.cFileName);
 		iRet = FindNextFile(hFile, &oFindDate);
 	}
 #endif
-	/*Ñ°ÕÒ.bmpÎÄ¼ş*/
-	hFile = FindFirstFile((path+"*.bmp").c_str(), &oFindDate);
-	if (hFile == INVALID_HANDLE_VALUE) {
+	/*å¯»æ‰¾.bmpæ–‡ä»¶*/
+	hFile = FindFirstFile((path + "*.bmp").c_str(), &oFindDate);
+	if (hFile == INVALID_HANDLE_VALUE)
+	{
 		//MessageBox(NULL, "FindFirstFile() failed!", NULL, MB_OK);
 		//return 0;
 		iRet = 0;
 	}
-	else {
+	else
+	{
 		iRet = 1;
 	}
-	while (iRet) {
+	while (iRet)
+	{
 		oBJPicture.push_back(path + oFindDate.cFileName);
 		iRet = FindNextFile(hFile, &oFindDate);
 	}
 
-	/*Ñ°ÕÒÍê±Ï£¬ÊÍ·Å¾ä±ú*/
+	/*å¯»æ‰¾å®Œæ¯•ï¼Œé‡Šæ”¾å¥æŸ„*/
 	FindClose(hFile);
 
 #if 0
-	/*µ÷ÊÔÓÃ*/
+	/*è°ƒè¯•ç”¨*/
 	char szBJSize[10] = { 0 };
 	itoa(oBJPicture.size(), szBJSize, 10);
 	MessageBox(NULL, szBJSize, NULL, NULL);
@@ -464,32 +495,32 @@ int GetBmpJpg(std::vector<std::string>& oBJPicture)
 	}
 #endif
 
-	/*·µ»ØÕÒµ½µÄBMP¡¢JPGÎÄ¼ş¸öÊı*/
+	/*è¿”å›æ‰¾åˆ°çš„BMPã€JPGæ–‡ä»¶ä¸ªæ•°*/
 	return oBJPicture.size();
 }
 
-
 /*
-¹¦ÄÜËµÃ÷£º		°Ñchar×Ö·û´®×ª»»³ÉWCHAR×Ö·û´®
-ÊäÈë²ÎÊıËµÃ÷£º	buffer:×Ö·û´®Ö¸Õë
-Êä³ö²ÎÊıËµÃ÷£º
-·µ»ØÖµËµÃ÷£º	WCHAR×Ö·û´®Ö¸Õë
-±¸×¢£º
+åŠŸèƒ½è¯´æ˜ï¼š		æŠŠcharå­—ç¬¦ä¸²è½¬æ¢æˆWCHARå­—ç¬¦ä¸²
+è¾“å…¥å‚æ•°è¯´æ˜ï¼š	buffer:å­—ç¬¦ä¸²æŒ‡é’ˆ
+è¾“å‡ºå‚æ•°è¯´æ˜ï¼š
+è¿”å›å€¼è¯´æ˜ï¼š	WCHARå­—ç¬¦ä¸²æŒ‡é’ˆ
+å¤‡æ³¨ï¼š
 */
-wchar_t* ChrToWChr(const char* pBuffer)
+wchar_t *ChrToWChr(const char *pBuffer)
 {
-	if (NULL == pBuffer) {
+	if (NULL == pBuffer)
+	{
 		return NULL;
 	}
 	//size_t ilen = strlen(pBuffer) + 1;
 
-	wchar_t* pwBuf;
+	wchar_t *pwBuf;
 
-	size_t iwlen = MultiByteToWideChar(CP_ACP, 0, (const char*)pBuffer, -1, NULL, 0);
+	size_t iwlen = MultiByteToWideChar(CP_ACP, 0, (const char *)pBuffer, -1, NULL, 0);
 
 	pwBuf = new wchar_t[iwlen];
 
-	MultiByteToWideChar(CP_ACP, 0, (const char*)pBuffer, -1, pwBuf, int(iwlen));
+	MultiByteToWideChar(CP_ACP, 0, (const char *)pBuffer, -1, pwBuf, int(iwlen));
 
 	return pwBuf;
 }

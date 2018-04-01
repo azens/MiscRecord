@@ -1,6 +1,6 @@
-# setwd("C://Users//USER//Desktop//Sweave") ### ×ª»»µ½¹¤×÷Ä¿Â¼£¬
+# setwd("C://Users//USER//Desktop//Sweave") ### è½¬æ¢åˆ°å·¥ä½œç›®å½•ï¼Œ
 setwd(getwd())
 
-library(kintr) ###µ¼Èëkintr³ÌĞò°ü
+library(kintr) ###å¯¼å…¥kintrç¨‹åºåŒ…
 
 knit("test.Rnw")

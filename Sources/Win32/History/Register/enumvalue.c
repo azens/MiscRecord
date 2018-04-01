@@ -29,8 +29,8 @@ int main()
 		if((status == ERROR_SUCCESS)) {
 			printf("%s=%s\n",szValueName,szValue);
 		}
-		//ÿ��ȡһ��dwSizeValueName��dwSizeofValue���ᱻ�޸�
-		//ע��һ��Ҫ����,�������ֺ�����Ĵ���,���˾��Թ���û������,���ֶ�����COM����10���ϵĴ���
+		//每读取一次dwSizeValueName和dwSizeofValue都会被修改
+		//注意一定要重置,否则会出现很离奇的错误,本人就试过因没有重置,出现读不了COM大于10以上的串口
 		dwSizeValueName = NAME_LEN;
 		dwSizeofValue = NAME_LEN;
 	} while((status!= ERROR_NO_MORE_ITEMS));

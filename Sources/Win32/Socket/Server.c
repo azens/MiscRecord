@@ -1,26 +1,13 @@
-//-----------------------------------------------------------------------------------
-// °æÈ¨¹éscut4009ËùÓĞ
-//-----------------------------------------------------------------------------------
-// ÎÄ¼şÃû£ºSocketSever.cpp
-// ±àĞ´ÈË£ºZP1015
-// ±àĞ´Ê±¼ä£º2015/04/7
-// ±àÒë¹¤¾ß: Visual Studio 2008
-// ³ÌĞòËµÃ÷: socket¶àÏß³ÌÍ¨ĞÅ,·şÎñÆ÷¶Ë,»ùÓÚTCP
-//------------------------------------------------------------------------------------
-// #include "stdafx.h"
-// #include "Socket.h"
-
 #include <windows.h>
 #include <stdio.h>
 
 #define MaxSize BUFSIZ
 
-
 //********************************************************************************************************/
-//** º¯ÊıÃû ** SocketInit()
-//**  ÊäÈë  ** ÎŞ
-//**  Êä³ö  ** ÎŞ
-//**º¯ÊıÃèÊö** ¼ÓÔØÌ×½Ó×Ö
+//** å‡½æ•°å ** SocketInit()
+//**  è¾“å…¥  ** æ— 
+//**  è¾“å‡º  ** æ— 
+//**å‡½æ•°æè¿°** åŠ è½½å¥—æ¥å­—
 //********************************************************************************************************/
 int SocketInit()
 {
@@ -28,17 +15,17 @@ int SocketInit()
 	WSADATA wsaData;
 	int err;
 
-	wVersionRequested=MAKEWORD(2,2);
-	err = WSAStartup(wVersionRequested,&wsaData); //·µ»Ø0£¬³É¹¦£¬·ñÔò¾ÍÊÇ´íÎóÂë
+	wVersionRequested = MAKEWORD(2, 2);
+	err = WSAStartup(wVersionRequested, &wsaData); //è¿”å›0ï¼ŒæˆåŠŸï¼Œå¦åˆ™å°±æ˜¯é”™è¯¯ç 
 
-	if (err!=0)
+	if (err != 0)
 	{
-		printf("WinSock DLL°æ±¾²»×ãÒªÇón");
+		printf("WinSock DLLç‰ˆæœ¬ä¸è¶³è¦æ±‚n");
 		return 0;
 	}
 
-	if (LOBYTE(wsaData.wVersion)!=2||
-		HIBYTE(wsaData.wVersion)!=2)
+	if (LOBYTE(wsaData.wVersion) != 2 ||
+		HIBYTE(wsaData.wVersion) != 2)
 	{
 		WSACleanup();
 		return 0;
@@ -49,12 +36,12 @@ int SocketInit()
 
 HANDLE hMutex;
 //------------------------------------------------------------------------------------
-//º¯ÊıÃû³Æ:      Send(SOCKET sockClient)
-/*º¯Êı¹¦ÄÜ:      ·¢ËÍÊı¾İ
-/*Èë¿Ú²ÎÊı:      SOCKET sockClient
-//³ö¿Ú²ÎÊı:
-//È«¾Ö±äÁ¿ÒıÓÃ:
-//µ÷ÓÃÄ£¿é:      ÎŞ
+//å‡½æ•°åç§°:      Send(SOCKET sockClient)
+/*å‡½æ•°åŠŸèƒ½:      å‘é€æ•°æ®
+/*å…¥å£å‚æ•°:      SOCKET sockClient
+//å‡ºå£å‚æ•°:
+//å…¨å±€å˜é‡å¼•ç”¨:
+//è°ƒç”¨æ¨¡å—:      æ— 
 //------------------------------------------------------------------------------------*/
 
 void Send(SOCKET sockClient)
@@ -62,56 +49,58 @@ void Send(SOCKET sockClient)
 	char sendBuf[MaxSize];
 	int byte = 0;
 
-	while(1) {
+	while (1)
+	{
 		WaitForSingleObject(hMutex, INFINITE);
 		gets(sendBuf);
-		byte= send(sockClient,sendBuf,strlen(sendBuf)+1,0);;//·şÎñÆ÷´Ó¿Í»§¶Ë½ÓÊÜÊı¾İ
-		if (byte<=0) {
+		byte = send(sockClient, sendBuf, strlen(sendBuf) + 1, 0);
+		; //æœåŠ¡å™¨ä»å®¢æˆ·ç«¯æ¥å—æ•°æ®
+		if (byte <= 0)
+		{
 			break;
 		}
 
 		Sleep(1000);
 		ReleaseMutex(hMutex);
-
 	}
-	closesocket(sockClient);//¹Ø±Õsocket,Ò»´ÎÍ¨ĞÅÍê±Ï
+	closesocket(sockClient); //å…³é—­socket,ä¸€æ¬¡é€šä¿¡å®Œæ¯•
 }
 //------------------------------------------------------------------------------------
-//º¯ÊıÃû³Æ:     Rec()
-/*º¯Êı¹¦ÄÜ:     ½ÓÊÕº¯Êı
-/*Èë¿Ú²ÎÊı:     SOCKET sockClient
-//³ö¿Ú²ÎÊı:
-//È«¾Ö±äÁ¿ÒıÓÃ:
-//µ÷ÓÃÄ£¿é:      ÎŞ
+//å‡½æ•°åç§°:     Rec()
+/*å‡½æ•°åŠŸèƒ½:     æ¥æ”¶å‡½æ•°
+/*å…¥å£å‚æ•°:     SOCKET sockClient
+//å‡ºå£å‚æ•°:
+//å…¨å±€å˜é‡å¼•ç”¨:
+//è°ƒç”¨æ¨¡å—:      æ— 
 //------------------------------------------------------------------------------------*/
 void Rec(SOCKET sockClient)
 {
 	char revBuf[MaxSize];
 	int byte = 0;
 
-	while(1) {
+	while (1)
+	{
 		WaitForSingleObject(hMutex, INFINITE);
 
-		byte= recv(sockClient,revBuf,strlen(revBuf)+1,0);//·şÎñÆ÷´Ó¿Í»§¶Ë½ÓÊÜÊı¾İ
-		if (byte<=0) {
+		byte = recv(sockClient, revBuf, strlen(revBuf) + 1, 0); //æœåŠ¡å™¨ä»å®¢æˆ·ç«¯æ¥å—æ•°æ®
+		if (byte <= 0)
+		{
 			break;
 		}
 
-		printf("%s\n",revBuf);
+		printf("%s\n", revBuf);
 
 		Sleep(1000);
 		ReleaseMutex(hMutex);
-
 	}
-	closesocket(sockClient);//¹Ø±Õsocket,Ò»´ÎÍ¨ĞÅÍê±Ï
+	closesocket(sockClient); //å…³é—­socket,ä¸€æ¬¡é€šä¿¡å®Œæ¯•
 }
 
-
 //********************************************************************************************************/
-//** º¯ÊıÃû ** main()
-//**  ÊäÈë  ** ÎŞ
-//**  Êä³ö  ** ÎŞ
-//**º¯ÊıÃèÊö** Ö÷º¯Êı
+//** å‡½æ•°å ** main()
+//**  è¾“å…¥  ** æ— 
+//**  è¾“å‡º  ** æ— 
+//**å‡½æ•°æè¿°** ä¸»å‡½æ•°
 //********************************************************************************************************/
 int main()
 {
@@ -119,45 +108,47 @@ int main()
 	SOCKADDR_IN addrServer;
 	int sockServer;
 
-
-	if (SOCKET_ERROR ==SocketInit()) {
+	if (SOCKET_ERROR == SocketInit())
+	{
 		return -1;
 	}
 
-	addrServer.sin_addr.S_un.S_addr=htonl(INADDR_ANY);		//htol½«Ö÷»ú×Ö½ÚĞòlongĞÍ×ª»»ÎªÍøÂç×Ö½ÚĞò
-	addrServer.sin_family=AF_INET;
-	addrServer.sin_port=htons(6666);						//htosÓÃÀ´½«¶Ë¿Ú×ª»»³É×Ö·û£¬1024ÒÔÉÏµÄÊı×Ö¼´¿É
+	addrServer.sin_addr.S_un.S_addr = htonl(INADDR_ANY); //htolå°†ä¸»æœºå­—èŠ‚åºlongå‹è½¬æ¢ä¸ºç½‘ç»œå­—èŠ‚åº
+	addrServer.sin_family = AF_INET;
+	addrServer.sin_port = htons(6666); //htosç”¨æ¥å°†ç«¯å£è½¬æ¢æˆå­—ç¬¦ï¼Œ1024ä»¥ä¸Šçš„æ•°å­—å³å¯
 
+	sockServer = socket(AF_INET, SOCK_STREAM, 0);				 //é¢å‘è¿æ¥çš„å¯é æ€§æœåŠ¡SOCK_STRAM
+	bind(sockServer, (SOCKADDR *)&addrServer, sizeof(SOCKADDR)); //å°†socketç»‘å®šåˆ°ç›¸åº”åœ°å€å’Œç«¯å£ä¸Š
+	listen(sockServer, 5);										 //ç­‰å¾…é˜Ÿåˆ—ä¸­çš„æœ€å¤§é•¿åº¦ä¸º5
 
-	sockServer=socket(AF_INET,SOCK_STREAM,0);				//ÃæÏòÁ¬½ÓµÄ¿É¿¿ĞÔ·şÎñSOCK_STRAM
-	bind(sockServer,(SOCKADDR*)&addrServer,sizeof(SOCKADDR));//½«socket°ó¶¨µ½ÏàÓ¦µØÖ·ºÍ¶Ë¿ÚÉÏ
-	listen(sockServer,5);									//µÈ´ı¶ÓÁĞÖĞµÄ×î´ó³¤¶ÈÎª5
+	printf("Welcome,the Host %s is running!Now Wating for someone comes in!\n", inet_ntoa(addrServer.sin_addr));
 
-	printf("Welcome,the Host %s is running!Now Wating for someone comes in!\n",inet_ntoa(addrServer.sin_addr));
-
-
-	int len=sizeof(SOCKADDR);
+	int len = sizeof(SOCKADDR);
 
 	SOCKADDR_IN addrClient;
 
-	while(1) {
-		SOCKET sockClient=accept(sockServer,(SOCKADDR*)&addrClient,&len);//×èÈûµ÷ÓÃ½ø³ÌÖ±ÖÁĞÂµÄÁ¬½Ó³öÏÖ
+	while (1)
+	{
+		SOCKET sockClient = accept(sockServer, (SOCKADDR *)&addrClient, &len); //é˜»å¡è°ƒç”¨è¿›ç¨‹ç›´è‡³æ–°çš„è¿æ¥å‡ºç°
 
-		if(sockClient == INVALID_SOCKET) {
+		if (sockClient == INVALID_SOCKET)
+		{
 			printf("Accept Failed!\n");
-			continue; //¼ÌĞø¼àÌı
+			continue; //ç»§ç»­ç›‘å¬
 		}
-		HANDLE hThread1 = CreateThread(NULL,0,(LPTHREAD_START_ROUTINE)Send,(LPVOID)sockClient,0,0);//·¢ËÍ
+		HANDLE hThread1 = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Send, (LPVOID)sockClient, 0, 0); //å‘é€
 
-		if(hThread1!=NULL) {
+		if (hThread1 != NULL)
+		{
 			CloseHandle(hThread1);
 		}
-		HANDLE hThread2 = CreateThread(NULL,0,(LPTHREAD_START_ROUTINE)Rec,(LPVOID)sockClient,0,0);//½ÓÊÕ
+		HANDLE hThread2 = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Rec, (LPVOID)sockClient, 0, 0); //æ¥æ”¶
 
-		if(hThread2!=NULL) {
+		if (hThread2 != NULL)
+		{
 			CloseHandle(hThread2);
 		}
-		Sleep(1000);	//Ò»¶¨Òª
+		Sleep(1000); //ä¸€å®šè¦
 	}
 
 	getchar();

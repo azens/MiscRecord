@@ -17,13 +17,13 @@ int main()
 	// printf("%d\n",len);
 	// lRet=RegSetValueEx(hKey, "Path",0,REG_EXPAND_SZ,(BYTE *)string,len);
 	if (lRet == ERROR_SUCCESS) {
-	//¶ÁÈ¡¼üÖµ
-	RegQueryValueEx(hKey, Variable, 0, &dwtype, (BYTE*)buffer, &BufferSize);//µÚÒ»´Î»ñÈ¡³¤¶È
+	//è¯»å–é”®å€¼
+	RegQueryValueEx(hKey, Variable, 0, &dwtype, (BYTE*)buffer, &BufferSize);//ç¬¬ä¸€æ¬¡è·å–é•¿åº¦
 	printf("%d\n",BufferSize);
-	buffer=(char*)malloc(BufferSize);//·ÖÅäÄÚ´æ
-	if(RegQueryValueEx(hKey, Variable, 0, &dwtype, (BYTE*)buffer, &BufferSize)==ERROR_SUCCESS)//µÚÒ»´Î»ñÈ¡Öµ
+	buffer=(char*)malloc(BufferSize);//åˆ†é…å†…å­˜
+	if(RegQueryValueEx(hKey, Variable, 0, &dwtype, (BYTE*)buffer, &BufferSize)==ERROR_SUCCESS)//ç¬¬ä¸€æ¬¡è·å–å€¼
 		printf("%s\n",buffer);
-	//¹Ø±Õ¼ü
+	//å…³é—­é”®
 	RegCloseKey(hKey);
 	}
 }

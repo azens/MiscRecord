@@ -23,11 +23,11 @@ int main ()
 	/* create a Postscript Plotter that writes to standard output */
 	if ((plotter = pl newpl r ("ps", stdin, stdout, stderr,
 	                           plotter params)) == NULL) {
-		fprintf (stderr, "Couldn¡¯t create Plotter\n");
+		fprintf (stderr, "Couldnâ€™t create Plotter\n");
 		return 1;
 	}
 	if (pl openpl r (plotter) < 0) { /* open Plotter */
-		fprintf (stderr, "Couldn¡¯t open Plotter\n");
+		fprintf (stderr, "Couldnâ€™t open Plotter\n");
 		return 1;
 	}
 	pl fspace r (plotter, 0.0, 0.0, 1000.0, 1000.0); /* set coor system */
@@ -37,11 +37,11 @@ int main ()
 	pl fmove r (plotter, 600.0, 300.0); /* position the graphics cursor */
 	draw c curve (plotter, 0.0, 400.0, 0);
 	if (pl closepl r (plotter) < 0) { /* close Plotter */
-		fprintf (stderr, "Couldn¡¯t close Plotter\n");
+		fprintf (stderr, "Couldnâ€™t close Plotter\n");
 		return 1;
 	}
 	if (pl deletepl r (plotter) < 0) { /* delete Plotter */
-		fprintf (stderr, "Couldn¡¯t delete Plotter\n");
+		fprintf (stderr, "Couldnâ€™t delete Plotter\n");
 		return 1;
 	}
 	return 0;

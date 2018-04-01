@@ -1,20 +1,20 @@
-// tool.cpp : ¶¨Òå DLL Ó¦ÓÃ³ÌÐòµÄµ¼³öº¯Êý¡£
+// tool.cpp : å®šä¹‰ DLL åº”ç”¨ç¨‹åºçš„å¯¼å‡ºå‡½æ•°ã€‚
 //
 
 #include "tool.h"
 
 
-// ÕâÊÇµ¼³ö±äÁ¿µÄÒ»¸öÊ¾Àý
+// è¿™æ˜¯å¯¼å‡ºå˜é‡çš„ä¸€ä¸ªç¤ºä¾‹
 TOOL_API int ntool=0;
 
-// ÕâÊÇµ¼³öº¯ÊýµÄÒ»¸öÊ¾Àý¡£
+// è¿™æ˜¯å¯¼å‡ºå‡½æ•°çš„ä¸€ä¸ªç¤ºä¾‹ã€‚
 TOOL_API int fntool(void)
 {
 	return 42;
 }
 
-// ÕâÊÇÒÑµ¼³öÀàµÄ¹¹Ôìº¯Êý¡£
-// ÓÐ¹ØÀà¶¨ÒåµÄÐÅÏ¢£¬Çë²ÎÔÄ tool.h
+// è¿™æ˜¯å·²å¯¼å‡ºç±»çš„æž„é€ å‡½æ•°ã€‚
+// æœ‰å…³ç±»å®šä¹‰çš„ä¿¡æ¯ï¼Œè¯·å‚é˜… tool.h
 Ctool::Ctool()
 {
 	return;
@@ -41,7 +41,7 @@ TOOL_API int mul(int a,int b)
 
 	return a*b;
 }
-//³£¹æµÄdllÊÇ²»Ö§³ÖÀàµÄµ¼³öµÄ.Ö»Ö§³Öc·ç¸ñµÄº¯ÊýµÄµ¼³ö.ÒªÅªMFC DLL¹¤³Ì²ÅÐÐ
+//å¸¸è§„çš„dllæ˜¯ä¸æ”¯æŒç±»çš„å¯¼å‡ºçš„.åªæ”¯æŒcé£Žæ ¼çš„å‡½æ•°çš„å¯¼å‡º.è¦å¼„MFC DLLå·¥ç¨‹æ‰è¡Œ
 extern "C" TOOL_API Ctool *GetCTool()
 {
 

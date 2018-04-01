@@ -9,119 +9,135 @@ CvRect rect;
 
 CvPoint g_StartPoint;
 CvPoint g_EndPoint;
-CvPoint p_Start;       //¼ÇÂ¼Êó±êÎ»ÖÃ×óÉÏ·½µã
-CvPoint p_End;          //¼ÇÂ¼Êó±êÎ»ÖÃÓÒÏÂ·½µã
-bool drawing=false;       //ÊÇ·ñ´¦ÓÚ»­Í¼×´Ì¬
-bool erasering=false;    //ÊÇ·ñ´¦ÓÚ²Á³ý×´Ì¬
+CvPoint p_Start;		//è®°å½•é¼ æ ‡ä½ç½®å·¦ä¸Šæ–¹ç‚¹
+CvPoint p_End;			//è®°å½•é¼ æ ‡ä½ç½®å³ä¸‹æ–¹ç‚¹
+bool drawing = false;   //æ˜¯å¦å¤„äºŽç”»å›¾çŠ¶æ€
+bool erasering = false; //æ˜¯å¦å¤„äºŽæ“¦é™¤çŠ¶æ€
 
-void callback(int event,int x,int y,int flags,void* param);
-void DrawLine(IplImage* img);
-//¼òÒ×»æÍ¼¹¤¾ß£¬ÊµÏÖÁË»­ÏßºÍÏðÆ¤²Á¹¦ÄÜ£¬»æÍ¼¹¦ÄÜ»¹ÓÐ´ýÍùÀïÌí¼Ó
-int main(int argc,char** argv)
+void callback(int event, int x, int y, int flags, void *param);
+void DrawLine(IplImage *img);
+//ç®€æ˜“ç»˜å›¾å·¥å…·ï¼Œå®žçŽ°äº†ç”»çº¿å’Œæ©¡çš®æ“¦åŠŸèƒ½ï¼Œç»˜å›¾åŠŸèƒ½è¿˜æœ‰å¾…å¾€é‡Œæ·»åŠ 
+int main(int argc, char **argv)
 {
-	IplImage* img=cvCreateImage(cvSize(512,512),IPL_DEPTH_8U,3);
-	cvSet(img,cvScalar(255,255,255));
+	IplImage *img = cvCreateImage(cvSize(512, 512), IPL_DEPTH_8U, 3);
+	cvSet(img, cvScalar(255, 255, 255));
 
-	IplImage* temp=cvCloneImage(img);
-	cvCopy(img,temp);
+	IplImage *temp = cvCloneImage(img);
+	cvCopy(img, temp);
 
-	cvNamedWindow("¼òÒ×»æÍ¼¹¤¾ß");
+	cvNamedWindow("ç®€æ˜“ç»˜å›¾å·¥å…·");
 
-	cvSetMouseCallback("¼òÒ×»æÍ¼¹¤¾ß",callback,img);
-	printf("Çë¼üÈëÒªÑ¡ÔñÖ´ÐÐµÄ²Ù×÷:¡®l¡¯¡ª¡ª¡±»­Ïß¡°,¡®e¡¯¡ª¡ª¡±ÏðÆ¤¡°\n");
-	char select='l';
+	cvSetMouseCallback("ç®€æ˜“ç»˜å›¾å·¥å…·", callback, img);
+	printf("è¯·é”®å…¥è¦é€‰æ‹©æ‰§è¡Œçš„æ“ä½œ:â€˜lâ€™â€”â€”â€ç”»çº¿â€œ,â€˜eâ€™â€”â€”â€æ©¡çš®â€œ\n");
+	char select = 'l';
 
-	while(1) {
-		cvCopyImage(img,temp);      //Ê¼ÖÕÔÚÔ­Í¼imageÉÏ»­½á¹û(ºÍÊó±êÊÂ¼þ°ó¶¨)£¬ÏÈ½«image¸´ÖÆ¸øtemp,È»ºóÔÚÁÙÊ±Í¼temp»­³ö»­Í¼µÄ¹ý³Ì(ÔÚmainº¯ÊýÖÐ»­¹ý³ÌÍ¼ÐÎ),È»ºóÓÃtempÀ´ÏÔÊ¾Í¼Ïñ
-		switch(select) {
+	while (1)
+	{
+		cvCopyImage(img, temp); //å§‹ç»ˆåœ¨åŽŸå›¾imageä¸Šç”»ç»“æžœ(å’Œé¼ æ ‡äº‹ä»¶ç»‘å®š)ï¼Œå…ˆå°†imageå¤åˆ¶ç»™temp,ç„¶åŽåœ¨ä¸´æ—¶å›¾tempç”»å‡ºç”»å›¾çš„è¿‡ç¨‹(åœ¨mainå‡½æ•°ä¸­ç”»è¿‡ç¨‹å›¾å½¢),ç„¶åŽç”¨tempæ¥æ˜¾ç¤ºå›¾åƒ
+		switch (select)
+		{
 		case 'l':
-			g_style=SHAPE_LINE;
+			g_style = SHAPE_LINE;
 			break;
 		case 'e':
-			g_style=SHAPE_ERASER;
+			g_style = SHAPE_ERASER;
 			break;
 		case 27:
 			return 0;
 		}
-		if(g_style==SHAPE_LINE&&drawing)     //»­Êó±êÔÚ°´×¡ÒÆ¶¯¹ý³ÌÖÐ»­Ïß
-			cvDrawLine(temp,g_StartPoint,g_EndPoint,cvScalar(0,0,0));
-		if(g_style==SHAPE_ERASER) {
-			cvRectangle(temp,p_Start,p_End,cvScalar(0,0,0));  //»­³öÏðÆ¤¾ØÐÎ±ß¿ò
+		if (g_style == SHAPE_LINE && drawing) //ç”»é¼ æ ‡åœ¨æŒ‰ä½ç§»åŠ¨è¿‡ç¨‹ä¸­ç”»çº¿
+			cvDrawLine(temp, g_StartPoint, g_EndPoint, cvScalar(0, 0, 0));
+		if (g_style == SHAPE_ERASER)
+		{
+			cvRectangle(temp, p_Start, p_End, cvScalar(0, 0, 0)); //ç”»å‡ºæ©¡çš®çŸ©å½¢è¾¹æ¡†
 		}
-		cvShowImage("¼òÒ×»æÍ¼¹¤¾ß",temp);
-		select=cvWaitKey(30);
+		cvShowImage("ç®€æ˜“ç»˜å›¾å·¥å…·", temp);
+		select = cvWaitKey(30);
 	}
 	cvReleaseImage(&img);
 	cvReleaseImage(&temp);
-	cvDestroyWindow("¼òÒ×»æÍ¼¹¤¾ß");
+	cvDestroyWindow("ç®€æ˜“ç»˜å›¾å·¥å…·");
 	return 0;
 }
 
-void callback(int event,int x,int y,int flags,void* param)
+void callback(int event, int x, int y, int flags, void *param)
 {
-	IplImage* img=(IplImage*)param;
+	IplImage *img = (IplImage *)param;
 
-	switch(event) {
-	case CV_EVENT_LBUTTONDOWN: {
-		if(SHAPE_LINE==g_style) {
-			drawing=true;
-			g_StartPoint=cvPoint(x,y);
-			g_EndPoint=g_StartPoint;   //´Ë´¦½«ÖÕµã×ø±êÉèÎªÍ¬ÆðÊ¼µã±ÜÃâ¼Ç×¡Ç°Ò»ÌõÖ±ÏßµÄÖÕµã×ø±ê
+	switch (event)
+	{
+	case CV_EVENT_LBUTTONDOWN:
+	{
+		if (SHAPE_LINE == g_style)
+		{
+			drawing = true;
+			g_StartPoint = cvPoint(x, y);
+			g_EndPoint = g_StartPoint; //æ­¤å¤„å°†ç»ˆç‚¹åæ ‡è®¾ä¸ºåŒèµ·å§‹ç‚¹é¿å…è®°ä½å‰ä¸€æ¡ç›´çº¿çš„ç»ˆç‚¹åæ ‡
 		}
-		if(SHAPE_ERASER==g_style) {
-			erasering=true;
-			//×¢Òâ±ß½çÎÊÌâÒªÊÊµ±ÐÞ¸ÄROIÓÐÐ§ÇøÓò
-			rect.x=x-20;
-			rect.y=y-20;      //×¢Òâ×ø±êµÄ¼ÆËã,Ò»°ãÔ­µãÔÚ´°¿ÚµÄ×óÉÏ½Ç(ÕâºÍ²Ù×÷ÏµÍ³µÈÒòËØÓÐ¹Ø,IplImage½á¹¹ÖÐÓÐ¸öoriginÊôÐÔ¿ÉÒÔÉèÖÃÍ¼ÏñµÄÔ­µã)
-			rect.width=40;
-			rect.height=40;
-			p_Start.x=x-20;
-			p_Start.y=y-20;
-			p_End.x=x+20;
-			p_End.y=y+20;
-			if(x>-20&&x<532&&y>-20&&y<532) {
-				cvSetImageROI(img,rect);
-				cvSet(img,cvScalar(255,255,255));
+		if (SHAPE_ERASER == g_style)
+		{
+			erasering = true;
+			//æ³¨æ„è¾¹ç•Œé—®é¢˜è¦é€‚å½“ä¿®æ”¹ROIæœ‰æ•ˆåŒºåŸŸ
+			rect.x = x - 20;
+			rect.y = y - 20; //æ³¨æ„åæ ‡çš„è®¡ç®—,ä¸€èˆ¬åŽŸç‚¹åœ¨çª—å£çš„å·¦ä¸Šè§’(è¿™å’Œæ“ä½œç³»ç»Ÿç­‰å› ç´ æœ‰å…³,IplImageç»“æž„ä¸­æœ‰ä¸ªoriginå±žæ€§å¯ä»¥è®¾ç½®å›¾åƒçš„åŽŸç‚¹)
+			rect.width = 40;
+			rect.height = 40;
+			p_Start.x = x - 20;
+			p_Start.y = y - 20;
+			p_End.x = x + 20;
+			p_End.y = y + 20;
+			if (x > -20 && x < 532 && y > -20 && y < 532)
+			{
+				cvSetImageROI(img, rect);
+				cvSet(img, cvScalar(255, 255, 255));
 				cvResetImageROI(img);
 			}
 		}
 	}
 	break;
-	case CV_EVENT_MOUSEMOVE: {
-		p_Start.x=x-20;
-		p_Start.y=y-20;      //ËæÊ±¶¨Î»Êó±êÎ»ÖÃ»­ÏðÆ¤¾ØÐÎ
-		p_End.x=x+20;
-		p_End.y=y+20;
-		if(SHAPE_LINE==g_style) {
-			if(drawing) {
-				g_EndPoint=cvPoint(x,y);
+	case CV_EVENT_MOUSEMOVE:
+	{
+		p_Start.x = x - 20;
+		p_Start.y = y - 20; //éšæ—¶å®šä½é¼ æ ‡ä½ç½®ç”»æ©¡çš®çŸ©å½¢
+		p_End.x = x + 20;
+		p_End.y = y + 20;
+		if (SHAPE_LINE == g_style)
+		{
+			if (drawing)
+			{
+				g_EndPoint = cvPoint(x, y);
 			}
 		}
 
-		if(SHAPE_ERASER==g_style) {
-			rect.x=x-20;
-			rect.y=y-20;
-			rect.width=40;
-			rect.height=40;
-			if(erasering) {
-				if(x>-20&&x<532&&y>-20&&y<532) {
-					cvSetImageROI(img,rect);
-					cvSet(img,cvScalar(255,255,255));
+		if (SHAPE_ERASER == g_style)
+		{
+			rect.x = x - 20;
+			rect.y = y - 20;
+			rect.width = 40;
+			rect.height = 40;
+			if (erasering)
+			{
+				if (x > -20 && x < 532 && y > -20 && y < 532)
+				{
+					cvSetImageROI(img, rect);
+					cvSet(img, cvScalar(255, 255, 255));
 					cvResetImageROI(img);
 				}
 			}
 		}
-
 	}
 	break;
-	case CV_EVENT_LBUTTONUP: {
-		if(SHAPE_LINE==g_style) {
-			drawing=false;
-			cvDrawLine(img,g_StartPoint,g_EndPoint,cvScalar(255,0,0));  //(255,0,0)´Ë´¦»­³öµÄÊÇÀ¶É«,¼´BGR
+	case CV_EVENT_LBUTTONUP:
+	{
+		if (SHAPE_LINE == g_style)
+		{
+			drawing = false;
+			cvDrawLine(img, g_StartPoint, g_EndPoint, cvScalar(255, 0, 0)); //(255,0,0)æ­¤å¤„ç”»å‡ºçš„æ˜¯è“è‰²,å³BGR
 		}
 
-		if(SHAPE_ERASER==g_style) {
-			erasering=false;
+		if (SHAPE_ERASER == g_style)
+		{
+			erasering = false;
 		}
 	}
 	}

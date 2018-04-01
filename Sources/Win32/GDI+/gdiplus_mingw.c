@@ -40,31 +40,31 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     LPTSTR    lpCmdLine,
     int       nCmdShow)
 {
-    //GDI+¿ªÆô
+    //GDI+å¼€å¯
     GdiplusStartupInput StartupInput = { 0 };
     StartupInput.GdiplusVersion = 1;
-    if (GdiplusStartup(&token, &StartupInput, NULL))MessageBox(0, TEXT("GdiPlus¿ªÆôÊ§°Ü"), TEXT("´íÎó"), MB_ICONERROR);
+    if (GdiplusStartup(&token, &StartupInput, NULL))MessageBox(0, TEXT("GdiPluså¼€å¯å¤±è´¥"), TEXT("é”™è¯¯"), MB_ICONERROR);
 
-    //ÕâÀïÊÇÔÚ¹¹½¨´°¿ÚÀà½á¹¹
+    //è¿™é‡Œæ˜¯åœ¨æ„å»ºçª—å£ç±»ç»“æ„
     wc.style = CS_HREDRAW | CS_VREDRAW;
-    wc.lpfnWndProc = WndProc;//´°¿Ú»Øµ÷º¯ÊıÖ¸Õë
+    wc.lpfnWndProc = WndProc;//çª—å£å›è°ƒå‡½æ•°æŒ‡é’ˆ
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
-    wc.hInstance = hInstance;//ÊµÀı¾ä±ú
+    wc.hInstance = hInstance;//å®ä¾‹å¥æŸ„
     wc.hIcon = LoadIcon(hInstance, TEXT("ICON_1"));
-    wc.hCursor = LoadCursor(NULL, IDC_ARROW);//Ä¬ÈÏÖ¸Õë
-    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW);//Ä¬ÈÏ±³¾°ÑÕÉ«
+    wc.hCursor = LoadCursor(NULL, IDC_ARROW);//é»˜è®¤æŒ‡é’ˆ
+    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW);//é»˜è®¤èƒŒæ™¯é¢œè‰²
     wc.lpszMenuName = NULL;
-    wc.lpszClassName = AppName;//´°¿ÚÀàÃû
+    wc.lpszClassName = AppName;//çª—å£ç±»å
 
-                               //×¢²á´°¿ÚÀà
+                               //æ³¨å†Œçª—å£ç±»
     if (!RegisterClass(&wc))
     {
-        MessageBox(NULL, TEXT("×¢²á´°¿ÚÀàÊ§°Ü!"), TEXT("´íÎó"), MB_ICONERROR);
+        MessageBox(NULL, TEXT("æ³¨å†Œçª—å£ç±»å¤±è´¥!"), TEXT("é”™è¯¯"), MB_ICONERROR);
         return 0;
     }
 
-    //´´½¨´°¿Ú
+    //åˆ›å»ºçª—å£
     int style = WS_OVERLAPPEDWINDOW;
     hwnd1 = CreateWindowEx(NULL, AppName, TEXT(""), style, 50, 50, 500, 500, 0, LoadMenu(hInstance, TEXT("MENU1")), hInstance, 0);
     if (hwnd1 == NULL)
@@ -72,14 +72,14 @@ int APIENTRY WinMain(HINSTANCE hInstance,
         MessageBox(NULL, TEXT("!"), TEXT(""), MB_ICONERROR);
         return 0;
     }
-    //ÎŞ±ß¿ò´°¿Ú
+    //æ— è¾¹æ¡†çª—å£
     /*SetWindowLong(hwnd1, GWL_STYLE, WS_OVERLAPPED | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS);*/
 
-    //ÏÔÊ¾¡¢¸üĞÂ´°¿Ú
+    //æ˜¾ç¤ºã€æ›´æ–°çª—å£
     ShowWindow(hwnd1, nCmdShow);
     UpdateWindow(hwnd1);
 
-    //ÏûÏ¢Ñ­»·
+    //æ¶ˆæ¯å¾ªç¯
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0))
     {
@@ -87,8 +87,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
         DispatchMessage(&msg);
     }
 
-    //GDI+¹Ø±Õ
-    GdiplusShutdown(token);//¿ÉÒÔ°ÑÕâ¸öĞ´ÔÚÏûÏ¢Ñ­»·ºóÃæ£¬³ÌĞòÍË³ö¾ÍÏú»Ù£¬»òÕßÔÚ²»ĞèÒªGDI+Ê±µ÷ÓÃ£¬±ÈÈçGDI+´°¿ÚµÄWM_DESTROYÏûÏ¢Àïµ÷ÓÃ
+    //GDI+å…³é—­
+    GdiplusShutdown(token);//å¯ä»¥æŠŠè¿™ä¸ªå†™åœ¨æ¶ˆæ¯å¾ªç¯åé¢ï¼Œç¨‹åºé€€å‡ºå°±é”€æ¯ï¼Œæˆ–è€…åœ¨ä¸éœ€è¦GDI+æ—¶è°ƒç”¨ï¼Œæ¯”å¦‚GDI+çª—å£çš„WM_DESTROYæ¶ˆæ¯é‡Œè°ƒç”¨
     return msg.wParam;
 }
 
@@ -127,14 +127,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                             //
             PostMessage(hwnd, WM_SYSCOMMAND, 61458, 0);
             break;
-            /*case WM_MOUSEMOVE://Êó±êÒÆ¶¯
+            /*case WM_MOUSEMOVE://é¼ æ ‡ç§»åŠ¨
             int xPos, yPos;
-            xPos = GET_X_LPARAM(lParam);//Êó±êÎ»ÖÃX×ø±ê
-            yPos = GET_Y_LPARAM(lParam);//Êó±êÎ»ÖÃY×ø±ê
-            //²»ÒªÓÃLOWORDºÍHIWORD»ñÈ¡×ø±ê£¬ÒòÎª×ø±êÓĞ¿ÉÄÜÊÇ¸ºµÄ
+            xPos = GET_X_LPARAM(lParam);//é¼ æ ‡ä½ç½®Xåæ ‡
+            yPos = GET_Y_LPARAM(lParam);//é¼ æ ‡ä½ç½®Yåæ ‡
+            //ä¸è¦ç”¨LOWORDå’ŒHIWORDè·å–åæ ‡ï¼Œå› ä¸ºåæ ‡æœ‰å¯èƒ½æ˜¯è´Ÿçš„
             break;*/
         default:
             break;
     }
-    return DefWindowProc(hwnd, uMsg, wParam, lParam);//ÆäËûÏûÏ¢½»¸øÏµÍ³´¦Àí
+    return DefWindowProc(hwnd, uMsg, wParam, lParam);//å…¶ä»–æ¶ˆæ¯äº¤ç»™ç³»ç»Ÿå¤„ç†
 }

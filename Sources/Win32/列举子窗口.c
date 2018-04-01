@@ -3,11 +3,11 @@
 // #include <iostream>
 #include <stdio.h>
 // using namespace std;
-DWORD nCount = 0;//¶¨ÒåÒ»¸öÈ«¾Ö±äÁ¿£¬À´¼ÆÊı£¬µ½µ×Ò»¹²ÓĞ¶àÉÙ´°¿Ú(º¬ËùÓĞ×Ó×ÓËïËï)
+DWORD nCount = 0; //å®šä¹‰ä¸€ä¸ªå…¨å±€å˜é‡ï¼Œæ¥è®¡æ•°ï¼Œåˆ°åº•ä¸€å…±æœ‰å¤šå°‘çª—å£(å«æ‰€æœ‰å­å­å­™å­™)
 
 BOOL CALLBACK EnumChildProc(
-    HWND hwnd,      // handle to child window
-    LPARAM lParam   // application-defined value
+	HWND hwnd,	// handle to child window
+	LPARAM lParam // application-defined value
 )
 {
 	++nCount;
@@ -15,15 +15,15 @@ BOOL CALLBACK EnumChildProc(
 	GetClassName(hwnd, szCh, 128);
 	//GetWindowText(hwnd, szCh, sizeof(szCh));
 	// cout << hwnd << endl;
-	if(IsWindowVisible(hwnd))printf("%s\n", szCh);
+	if (IsWindowVisible(hwnd))
+		printf("%s\n", szCh);
 	// cout << "============================================" << endl;
 	// cout << nCount << endl;
 	EnumChildWindows(hwnd, EnumChildProc, NULL);
 	return TRUE;
 }
 
-
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	HWND hwnd = FindWindow(L"Notepad++", 0);
 	EnumChildWindows(hwnd, EnumChildProc, NULL);
